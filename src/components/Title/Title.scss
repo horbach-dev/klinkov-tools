@@ -1,0 +1,10 @@
+@import "../../styles/Theme";
+
+.title {
+  position: relative;
+  z-index: 10;
+  pointer-events: none;
+  font: 16px/1 Montserrat-900;
+  text-transform: uppercase;
+  color: $color-gray;
+}

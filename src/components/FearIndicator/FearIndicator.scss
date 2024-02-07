@@ -1,0 +1,50 @@
+.feather-indicator {
+  height: 100%;
+
+  svg {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+  }
+
+  &__pie {
+    height: 100%;
+  }
+
+  &__speed {
+    display: flex;
+    align-items: flex-end;
+    justify-content: center;
+    height: 100%;
+
+    svg {
+      fill: none !important;
+    }
+  }
+
+  &__speed-score {
+    position: relative;
+    bottom: 16px;
+    color: #DBB466;
+    font: 24px/1 Montserrat-700;
+  }
+
+  &__speed-letter {
+    fill: #fff !important;
+
+    &_first,
+    &_third {
+      &.feather-indicator__speed-letter_active {
+        fill: #131312 !important;
+      }
+    }
+
+    &_second {
+      &.feather-indicator__speed-letter_active {
+        fill: #80FFD4 !important;
+      }
+    }
+  }
+}

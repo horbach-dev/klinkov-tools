@@ -1,0 +1,9 @@
+common:
+  default_locale: ru
+  available_locales:
+    - en
+    - pl
+    - de
+    - it
+    - es
+    - ru

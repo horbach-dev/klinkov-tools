@@ -1,0 +1,183 @@
+{
+  "root": true,
+  "extends": [
+    "plugin:react-hooks/recommended",
+    "plugin:jest-dom/recommended",
+    "plugin:testing-library/react",
+    "plugin:react/recommended",
+    "plugin:@typescript-eslint/recommended"
+  ],
+  "parser": "@typescript-eslint/parser",
+  "plugins": ["@typescript-eslint", "simple-import-sort", "jsx-a11y"],
+  "parserOptions": {
+    "ecmaVersion": 2020,
+    "sourceType": "module",
+    "ecmaFeatures": {
+      "jsx": true
+    },
+    "project": "./tsconfig.json"
+  },
+  "ignorePatterns": [
+    "webpack.config.js",
+    "config/webpack/*.js",
+    "jest.config.js",
+    "jest.setup.js",
+    "__mocks__/*",
+    "public/*"
+  ],
+  "env": {
+    "browser": true,
+    "es6": true,
+    "node": true,
+    "jest": true
+  },
+  "globals": {
+    "__DEV__": true,
+    "InjectedReactComponent": true,
+    "SyntheticInputEvent": true,
+    "SyntheticEvent": true,
+    "breakpoints": true,
+    "IntervalID": true
+  },
+  "rules": {
+    "@typescript-eslint/no-explicit-any": ["warn", {
+      "ignoreRestArgs": false
+    }],
+    "@typescript-eslint/array-type": ["warn", {
+      "default": "array"
+    }],
+    "@typescript-eslint/ban-types": "warn",
+    "react/display-name": "off",
+    "react/no-unescaped-entities": "off",
+    "no-use-before-define": "off",
+    "react-hooks/exhaustive-deps": "warn",
+    "lines-between-class-members": ["error", "always", { "exceptAfterSingleLine": true }],
+    "padding-line-between-statements": [
+      "warn",
+      {"blankLine": "always", "prev": "*", "next": ["class", "const", "let", "export"]},
+      {"blankLine": "always", "prev": ["class", "const", "let", "export"], "next": "*"},
+      {"blankLine": "any", "prev": ["const", "let", "export"], "next": ["const", "let", "export"]},
+      {"blankLine": "always", "prev": "*", "next": ["multiline-const", "multiline-block-like", "multiline-expression"]},
+      {"blankLine": "always", "prev": ["multiline-const", "multiline-block-like", "multiline-expression"], "next": "*"},
+      {"blankLine": "any", "prev": ["case", "default"], "next": ["case", "default"]},
+      {"blankLine": "always", "prev": "*", "next": "return"}
+    ],
+    "@typescript-eslint/no-unused-vars": ["error", { "argsIgnorePattern": "^_" }],
+    "@typescript-eslint/explicit-module-boundary-types": "off",
+    "dot-notation": "off",
+    "@typescript-eslint/dot-notation": ["warn"],
+    "@typescript-eslint/naming-convention": [
+      "warn",
+      {
+        "selector": "interface",
+        "format": ["PascalCase"],
+        "prefix": ["I"]
+      },
+      {
+        "selector": "typeAlias",
+        "format": ["PascalCase"],
+        "prefix": ["T"]
+      },
+      {
+        "selector": "variable",
+        "format": ["camelCase", "PascalCase", "UPPER_CASE"]
+      },
+      {
+        "selector": "variable",
+        "types": ["boolean"],
+        "format": ["PascalCase"],
+        "prefix": ["is", "should", "has", "can", "did", "will", "with", "in"]
+      }
+    ],
+    "semi": ["error", "never"],
+    "no-dupe-else-if": ["error"],
+    "default-param-last": ["warn"],
+    "max-params": ["warn", {
+      "max": 2
+    }],
+    "no-magic-numbers": ["warn", {
+      "ignore": [0, 1],
+      "ignoreArrayIndexes": true
+    }],
+    "no-nested-ternary": ["error"],
+    "react/boolean-prop-naming": ["warn", {
+      "validateNested": true
+    }],
+    "react/destructuring-assignment": ["warn", "always"],
+    "react/forbid-component-props": ["warn", {
+      "forbid": ["style"]
+    }],
+    "react/no-array-index-key": "warn",
+    "react/no-unused-class-component-methods": "warn",
+    "react/jsx-indent": [2, 2, {
+      "indentLogicalExpressions": true
+    }],
+    "react/jsx-wrap-multilines": [
+      "error", {
+        "declaration": "parens-new-line",
+        "assignment": "parens-new-line",
+        "return": "parens-new-line",
+        "arrow": "parens-new-line",
+        "condition": "parens-new-line",
+        "logical": "parens-new-line",
+        "prop": "parens-new-line"
+      }
+    ],
+    "react/jsx-first-prop-new-line": [2, "multiline"],
+    "react/jsx-max-props-per-line": [
+      2, {
+        "maximum": 1,
+        "when": "always"
+      }
+    ],
+    "react/jsx-one-expression-per-line": ["error"],
+    "react/jsx-no-target-blank": ["error"],
+    "react/jsx-curly-brace-presence": [
+      "error", {
+        "props": "never",
+        "children": "always"
+      }
+    ],
+    "object-curly-spacing": ["error", "always"],
+    "react/button-has-type": 1,
+    "quotes": ["error", "single"],
+    "jsx-quotes": ["error", "prefer-single"],
+    "no-param-reassign": 0,
+    "react/prefer-stateless-function": 0,
+    "no-throw-literal": 0,
+    "no-new": 0,
+    "brace-style": ["error", "1tbs", { "allowSingleLine": false }],
+    "prefer-promise-reject-errors": 0,
+    "react/jsx-closing-tag-location": 1,
+    "camelcase": [0, {"allow": ["^UNSAFE_"]}],
+    "sort-imports": "off",
+    "import/order": "off",
+    "max-len": ["error", { "code": 120 }],
+    "simple-import-sort/sort": [
+      "error",
+      {
+        "groups": [
+          ["^\\u0000"],
+          ["^react", "^@?\\w", "^\\$config", "^[^.]", "^\\."],
+          ["^@?\\w+.+\\.s?[ac]ss$", "^\\W.+\\.s?[ac]ss$"],
+          ["^\\$types"]
+        ]
+      }
+    ],
+    "jsx-a11y/alt-text": [ 2, {
+      "elements": [ "img", "object", "area", "input[type=\"image\"]" ],
+      "img": ["Image"]
+    }],
+    "no-restricted-imports": ["error", {
+      "paths": [{
+        "name": "lodash",
+        "message": "Use import [name] from 'lodash/[name]"
+      }]
+    }]
+  },
+  "settings": {
+    "react": {
+      "version": "detect"
+    }
+  }
+}

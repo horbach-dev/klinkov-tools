@@ -1,0 +1,25 @@
+header {
+    display: none !important;
+}
+
+.bubble-chart-header {
+    height: 50px;
+    width: 100%;
+    position: absolute;
+    top: 0;
+    left: 0;
+    display: none;
+    /*opacity: 0 !important;*/
+}
+
+.scroll-container {
+    /*display: none !important;*/
+}
+
+.center-container {
+    display: none !important;
+}
+
+footer {
+    display: none;
+}

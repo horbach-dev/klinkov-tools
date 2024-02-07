@@ -1,0 +1,72 @@
+@import 'Theme';
+
+@mixin max($size) {
+
+  @media (max-width: $size) {
+    @content;
+  }
+}
+
+@mixin maxh($size) {
+
+  @media (max-height: $size) {
+    @content;
+  }
+}
+
+@mixin min($size) {
+
+  @media (min-width: $size) {
+    @content;
+  }
+}
+
+@mixin custom-scroll {
+  overflow-y: auto;
+  scrollbar-width: thin;
+  scrollbar-color: $color-blue $color-pink;
+
+  &::-webkit-scrollbar {
+    width: 5px;
+  }
+
+  &::-webkit-scrollbar-track {
+    margin-bottom: 2px;
+    border-radius: 5px;
+    background-color: $color-blue;
+  }
+
+  &::-webkit-scrollbar-thumb {
+    border-radius: 5px;
+    background-color: $color-pink;
+  }
+}
+
+@mixin custom-horizontal-scroll {
+  overflow-x: auto;
+  scrollbar-width: thin;
+  scrollbar-color: $color-blue $color-pink;
+
+  &::-webkit-scrollbar {
+    height: 5px;
+  }
+
+  &::-webkit-scrollbar-track {
+    height: 5px;
+    border-radius: 5px;
+    background-color: $color-blue;
+  }
+
+  &::-webkit-scrollbar-thumb {
+    border-radius: 5px;
+    background-color: $color-yellow;
+  }
+}
+
+@mixin hide-scroll {
+  scrollbar-width: none;
+
+  &::-webkit-scrollbar {
+    display: none;
+  }
+}

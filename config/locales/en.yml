@@ -1,0 +1,8 @@
+en:
+  admin_page: This is ADMIN page
+  about_page: This is ABOUT page
+  main_page: This is MAIN page
+  header:
+    about: About
+    admin: Admin
+    main: Main page

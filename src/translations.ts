@@ -1,0 +1,1 @@
+export default __TRANSLATIONS_DEFAULT__

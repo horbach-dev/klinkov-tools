@@ -1,0 +1,54 @@
+.header {
+
+  &__content {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+}
+
+.first-section {
+  min-height: 750px;
+  overflow: hidden;
+
+  &__content {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    height: 100%;
+  }
+
+  &__offer {
+    width: 50%;
+  }
+
+  &__offer-title {
+    margin-bottom: 30px;
+    font-family: Montserrat-900;
+    font-size: 54px;
+    line-height: 58px;
+  }
+
+  &__offer-desc {
+    font-family: Montserrat-400;
+    max-width: 480px;
+  }
+
+  &__decor {
+    position: relative;
+    width: 50%;
+    aspect-ratio: 1;
+    height: 100%;
+
+    span {
+      position: absolute;
+      top: -50px;
+      right: -100px;
+      display: block;
+      width: 150%;
+      aspect-ratio: 1.1;
+      background-image: url("images/img.png");
+      background-size: cover;
+    }
+  }
+}
