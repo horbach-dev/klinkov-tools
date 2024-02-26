@@ -19,7 +19,7 @@
     background-repeat: no-repeat;
     background-size: 100%;
     background-position: center;
-    background-image: url("./images/play.svg");
+    background-image: url("images/play.svg");
     opacity: 0;
     visibility: hidden;
     transition: .35s;
@@ -96,7 +96,7 @@
   }
 
   &__play {
-    
+
   }
 }
 
@@ -122,7 +122,7 @@
   width: 20px;
   height: 20px;
   transform: rotate(180deg);
-  background-image: url("./images/arrow.svg");
+  background-image: url("images/arrow.svg");
   background-size: 100% 100%;
   background-position: center;
   background-repeat: no-repeat;
@@ -136,7 +136,7 @@
   right: 20px;
   width: 20px;
   height: 20px;
-  background-image: url("./images/arrow.svg");
+  background-image: url("images/arrow.svg");
   background-size: 100% 100%;
   background-position: center;
   background-repeat: no-repeat;

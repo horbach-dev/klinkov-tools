@@ -10,7 +10,7 @@ const PORT = process.env.PORT || 8083
 server.on("request", app)
 
 app.get("/", (req, res) => {
-  res.sendFile(path.join(__dirname, "hello"));
+  res.sendFile(path.join(__dirname, "./front/dist/index.html"));
 });
 
 async function start() {

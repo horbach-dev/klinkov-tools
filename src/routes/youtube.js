@@ -1,6 +1,5 @@
 const { Router } = require("express")
 const axios = require("axios");
-const cheerio = require('cheerio');
 const router = Router()
 
 router.get('/youtube', async (req, res) => {
