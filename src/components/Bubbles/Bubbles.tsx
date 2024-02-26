@@ -1,81 +1,103 @@
-import React, {useEffect, useRef, useState} from 'react'
-import { Select } from 'antd'
-import cookies from 'js-cookie'
-import Title from '$components/Title'
+import React, { useEffect, useRef, useState } from 'react'
+import axios from 'axios'
+import classnames from 'classnames'
+import Header from '$components/Bubbles/components/Header'
+import { performList } from '$components/Bubbles/utils'
 import useWindowSizeListener from '$hooks/useWindowSize'
-import ArrowDropdown from './components/ArrowDropdown'
+import CryptoList from './components/CryptoList'
 import useInitBubbles from './hooks/useInitBubbles'
 
 import './Bubbles.scss'
 
 const Bubbles = () => {
+  const [top, setTop] = useState(0)
+  const [listing, setListing] = useState<any[]>([])
+  const [isActiveBubbles, setActiveBubbles] = useState(true)
   const bubblesWrapRef = useRef<any>(null)
-  const [value, setValue] = useState(0)
+  const [inputValue, setInputValue] = useState('')
+  const [timeValue, setTimeValue] = useState(0)
   const { innerWidth, innerHeight } = useWindowSizeListener()
+
+  const getItems = (index: number) => {
+    switch (index) {
+      case 0:
+        return listing.slice(0, 100)
+      case 1:
+        return listing.slice(100, 200)
+      case 2:
+        return listing.slice(200, 300)
+      default:
+        return listing
+    }
+  }
 
   useInitBubbles(innerWidth, innerHeight, bubblesWrapRef)
 
-  const handleChangeTime = val => {
-    if (value === val) return
+  const handleChangeTop = (val) => {
+    if (top === val) return
 
-    setValue(val)
+    setTop(val)
+  }
+
+  const handleChangeTime = val => {
+    if (timeValue === val) return
+
+    setTimeValue(val)
     document.dispatchEvent(new CustomEvent('toggle-period', { detail: val }))
   }
 
-  // useEffect(() => {
-  //   const bubbleSetting = JSON.parse(localStorage.getItem('settings') || '{}')
-  //
-  //   const activeSelect = bubbleSetting?.configurations2?.find(i => i.id === bubbleSetting?.configurationId2)
-  //
-  //   const dd = {
-  //     hour: 0,
-  //     day: 1,
-  //     week: 2,
-  //     month: 3,
-  //     year: 4,
-  //   }
-  //
-  //   const active = activeSelect?.period ? dd[activeSelect?.period] : dd.day
-  //
-  //   setValue(active)
-  //
-  //   if (activeSelect.period === 'day' && activeSelect.size === 'marketcap') {
-  //     setValue(5)
-  //   }
-  //
-  // }, [])
+  useEffect(() => {
+    getListing()
+  }, [])
+
+  const getListing = async () => {
+    try {
+      const res = await axios.get('http://localhost:8083/get-listing')
+      const items = performList(res.data.data.cryptoCurrencyList)
+
+      setListing(items)
+    } catch(ex) {
+      console.log(ex)
+    }
+  }
+
+  function searchByName (nameToSearch) {
+    const lowercaseNameToSearch = nameToSearch.toLowerCase()
+
+    return listing.filter(i => i['0'].name.toLowerCase().includes(lowercaseNameToSearch))
+  }
 
   return (
     <div
       className='bubbles'
       ref={bubblesWrapRef}
     >
-      <div className='bubbles__header'>
-        <Title>
-          {'cryptocurrency'}
-        </Title>
-        <Select
-          defaultValue={0}
-          value={value}
-          className='bubbles__select'
-          suffixIcon={<ArrowDropdown />}
-          onChange={handleChangeTime}
-          options={[
-            { value: 0, label: 'Час' },
-            { value: 1, label: 'День' },
-            { value: 2, label: 'Неделя' },
-            { value: 3, label: 'Месяц' },
-            { value: 4, label: 'Год' },
-            { value: 5, label: 'Обьем' },
-          ]}
-        />
-      </div>
+      <Header
+        top={top}
+        isActiveBubbles={isActiveBubbles}
+        setActiveBubbles={setActiveBubbles}
+        setInputValue={setInputValue}
+        inputValue={inputValue}
+        handleChangeTime={handleChangeTime}
+        handleChangeTop={handleChangeTop}
+        timeValue={timeValue}
+      />
       <div
-        style={{ height: '100%', width: '100%' }}
+        style={{
+          height: isActiveBubbles ? '100%' : 0,
+        }}
         id='bubbles-app'
-        className='web'
-      >
-      </div>
+        className={
+          classnames(
+            'web',
+            'bubbles-container-hi',
+            isActiveBubbles && 'bubbles-container-hi_show'
+          )
+        }
+      />
+      {!isActiveBubbles && (
+        <CryptoList items={inputValue ? searchByName(inputValue) : getItems(top)} />
+      )}
     </div>
   )
 }

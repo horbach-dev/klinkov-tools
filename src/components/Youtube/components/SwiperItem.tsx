@@ -26,6 +26,7 @@ const SwiperItem = ({ videoId, src, title }: IProps) => {
         alt='video'
         src={src}
       />
+      <button className={classnames('youtube__play', 'youtube__play_show')} />
       {!isLoaded && (
         <Loader />
       )}

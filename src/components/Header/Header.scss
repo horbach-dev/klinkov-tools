@@ -1,7 +1,12 @@
-header {
+.header {
+  margin-bottom: 16px !important;
+  border-radius: 8px;
+  position: relative !important;
+  background-color: transparent !important;
+
   .logo {
-    width: 119px;
-    height: 48px;
+    width: 119px !important;
+    height: 48px !important;
 
     img {
       width: 100%;
@@ -17,8 +22,30 @@ header {
     width: 100%;
   }
 
-  &__list {
+  &__menu {
     display: flex;
     align-items: center;
+  }
+
+  &__menu-item {
+    margin-left: 24px;
+  }
+
+  &__menu-item-icon {
+    display: block;
+    width: 24px;
+    height: 24px;
+    background-size: 100%;
+    background-position: center;
+    background-repeat: no-repeat;
+
+
+    &_youtube {
+      background-image: url('../../images/youtube.svg');
+    }
+
+    &_telegram {
+      background-image: url('../../images/telegram.svg');
+    }
   }
 }

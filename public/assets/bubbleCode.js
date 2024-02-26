@@ -4251,7 +4251,7 @@ function Bi(e) {
     }
   })
 }
-var Ai = Q('<div class="currency-links flex-row gap-m">');
+var Ai = Q('<div class="currency-links flex-row gap-m" style="display: none !important;">');
 
 function Si(e) {
   return ae(t = Ai(), R(ki, {
@@ -4978,7 +4978,6 @@ function ka(e) {
           return e.value.period
         },
         onChange: e => {
-          console.log('t(), "period", e', t(), "period", e)
           Xt(t(), "period", e)
         },
         get options() {
@@ -5098,7 +5097,6 @@ function Ma(e) {
   })), (() => {
     var n = xa();
     n.$$click = () => {
-      console.log('wefwef', e.configuration)
       e.onClick(e.configuration)
     };
     return "function" == typeof t ? ie(t, n) : t = n, te(n, "draggable", !0), ae(n, (() => {
@@ -5107,8 +5105,6 @@ function Ma(e) {
     })), m((t => {
       var o = Dr("tab", r() && "selected"),
         i = Pi(Ca(e.configuration), It());
-
-      console.log('BUTTONS')
 
       return o !== t.e && re(n, t.e = o), i !== t.t && (null != (t.t = i) ? n.style.setProperty("border-color", i) : n.style.removeProperty("border-color")), t
     }), {
@@ -5155,7 +5151,6 @@ function La() {
   return a = za(), l = a.firstChild, "function" == typeof e ? ie(e, l) : e = l, ae(l, R(I, {
     each: $t,
     children: e => {
-      console.log('e', e)
       return R(Ma, {
         configuration: e,
         onClick: n,
@@ -5616,7 +5611,6 @@ const tl = window.matchMedia("(display-mode: standalone)").matches,
   rl = document.getElementById("bubbles-app"),
   nl = tl ? "pwa" : rl.className;
 
-console.log('pwa', rl)
 xr.create(nl), window.addEventListener("load", (() => {
   ! function(e, t, r, n = {}) {
     let o;

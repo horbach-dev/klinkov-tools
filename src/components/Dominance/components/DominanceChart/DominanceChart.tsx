@@ -54,8 +54,6 @@ const BitcoinDominanceChart = ({ bitcoinDominanceData }: IProps) => {
         chartInstance.current.destroy()
       }
 
-      console.log('234')
-
       const gradient = ctx.createLinearGradient(0, 0, 0, 140)
 
       gradient.addColorStop(0, 'rgba(219, 180, 102, 0.2)')

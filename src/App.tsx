@@ -6,6 +6,9 @@ import FearIndicator from '$components/FearIndicator'
 import GridItemWrap from '$components/GridItemWrap'
 import Header from '$components/Header'
 import Loader from '$components/Loader'
+import Popup from '$components/Popup/Popup'
+import Telegram from '$components/Telegram'
+import TopSellers from '$components/TopSellers'
 import Youtube from '$components/Youtube'
 import useInitApp from '$hooks/useInitApp'
 
@@ -16,46 +19,75 @@ const App = () => {
 
   return (
     <>
-      {/*{!isInitialized && <Loader isGlobal />}*/}
+      {!isInitialized && <Loader isGlobal />}
       <div className={classnames('app', isInitialized && 'app_inited')}>
-        <div className='decor decor_left' />
         <Header />
         <div className='app__top'>
-          <GridItemWrap>
+          <GridItemWrap isAnimate={isInitialized}>
             <Dominance />
           </GridItemWrap>
 
-          <GridItemWrap title='Fear & Greed Index'>
+          <GridItemWrap
+            title='Fear & Greed Index'
+            isAnimate={isInitialized}
+          >
             <Suspense fallback={<Loader />}>
               <FearIndicator />
             </Suspense>
           </GridItemWrap>
 
-          <GridItemWrap title='Канал YouTube'>
+          <GridItemWrap
+            title='Канал YouTube'
+            isAnimate={isInitialized}
+          >
             <Suspense fallback={<Loader />}>
               <Youtube />
             </Suspense>
           </GridItemWrap>
 
-          <GridItemWrap>
+          <GridItemWrap
+            id='bubbles-section'
+            isAnimate={isInitialized}
+            withPadding={false}
+          >
             <Suspense fallback={<Loader />}>
               <Bubbles />
             </Suspense>
           </GridItemWrap>
 
-          <GridItemWrap title='Telegram'>
-            <div/>
+          <GridItemWrap
+            id='telegram'
+            title='Telegram'
+            withPadding={false}
+            isAnimate={isInitialized}
+          >
+            <Telegram />
           </GridItemWrap>
 
-          <GridItemWrap title='ТОП Криптобирж'>
-            <div/>
+          <GridItemWrap
+            id='top-sellers'
+            title='ТОП Криптобирж'
+            isAnimate={isInitialized}
+          >
+            <TopSellers />
           </GridItemWrap>
 
-          <GridItemWrap shadow={false}>
-            <div/>
+          <GridItemWrap
+            isAnimate={isInitialized}
+            shadow={false}
+          >
+            <footer className='footer'>
+              <p className='footer__copyright'>
+                {'© 2023'}
+              </p>
+              <p className='footer__developer'>
+                {'made with 🤍 by easy agency'}
+              </p>
+            </footer>
           </GridItemWrap>
         </div>
       </div>
+      <Popup />
     </>
   )
 }

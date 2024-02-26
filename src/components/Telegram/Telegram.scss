@@ -1,0 +1,30 @@
+.telegram-block {
+  height: 100%;
+
+  &__list {
+    padding-top: 10px;
+  }
+
+  &__list-item {
+    display: flex;
+    align-items: center;
+    height: 47px;
+    padding: 0 16px;
+    border-bottom: 1px solid rgba(255,255,255, 0.05);
+    transition: background-color 0.25s ease-in-out;
+
+    &:hover {
+      background-color: rgba(217, 217, 217, 0.12);
+    }
+
+    &:last-child {
+      border-bottom: none;
+    }
+  }
+}
+
+#telegram {
+  .title {
+    padding: 16px 16px 0 16px;
+  }
+}

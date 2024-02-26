@@ -1,0 +1,129 @@
+.crypto-list {
+  width: 100%;
+
+  &__table {
+    width: 100%;
+  }
+
+  &__table-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 10px 16px;
+    width: 100%;
+    min-width: 869px;
+    background-color: #D9D9D90A;
+  }
+
+  &__table-row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 16px;
+    min-width: 869px;
+  }
+
+  &__table-col {
+    display: flex;
+    align-items: center;
+    height: 100%;
+    width: 100%;
+    padding-right: 14px;
+    font-size: 13px;
+
+    &_header {
+      font-size: 14px;
+    }
+
+    &_plus {
+      color: rgba(128, 255, 212, 1);
+    }
+
+    &_minus {
+      color: rgba(255, 103, 86, 1);
+    }
+
+    &_zero {
+      color: #ffffff;
+    }
+
+    &_arrow {
+      min-width: 20px;
+      width: 20px;
+      padding-right: 0;
+    }
+
+    &:first-child {
+      min-width: 150px;
+    }
+
+    &:nth-child(2) {
+      min-width: 80px;
+    }
+
+    &:nth-child(3) {
+      min-width: 100px;
+    }
+
+    &:nth-child(4) {
+      min-width: 100px;
+    }
+  }
+
+  &__table-col-arrow {
+    width: 16px;
+    height: 16px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-position: center;
+    background-size: 100%;
+    background-repeat: no-repeat;
+    background-image: url('../../../../images/arrow-right.svg');
+  }
+
+  &__logo {
+    width: 32px;
+    height: 32px;
+  }
+
+  &__info {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    font-size: 10px;
+    margin-left: 12px;
+  }
+
+  &__info-title {
+    text-transform: uppercase;
+    font-size: 13px;
+    margin: 0 0 4px !important;
+  }
+
+  &__info-description {
+    margin: 0 !important;
+    color: rgba(255, 255, 255, 0.5)
+  }
+
+  &__table-rows {
+    height: 378px;
+    overflow-x: scroll;
+  }
+
+  &__table-row {
+    height: 57px;
+    border-bottom: 1px solid rgba(227, 230, 233, 0.07);
+    transition: background-color 0.25s ease-in-out;
+
+    &:hover {
+      background-color: rgba(217, 217, 217, 0.12);
+    }
+  }
+}
+
+.full-screen {
+  .crypto-list__table-rows {
+    height: calc(100vh - 56px - 34px);
+  }
+}

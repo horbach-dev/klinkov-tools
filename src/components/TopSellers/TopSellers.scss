@@ -1,0 +1,56 @@
+.top-sellers {
+  height: 100%;
+
+  &__list {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 10px;
+  }
+
+  &__list-item {
+    margin-top: 15px;
+    display: flex;
+    flex-direction: column;
+    //align-items: center;
+    border-radius: 8px;
+    padding: 10px 15px;
+    background-color: rgba(217, 217, 217, 0.04);
+    border-bottom: 1px solid rgba(255,255,255, 0.05);
+    transition: background-color 0.25s ease-in-out;
+
+    &:hover {
+      background-color: rgba(217, 217, 217, 0.12);
+
+      a {
+        color: rgba(219, 180, 102, 1)
+      }
+    }
+
+    img {
+      object-position: left;
+      object-fit: contain;
+      height: 24px;
+      width: 100%;
+    }
+
+    a {
+      text-transform: uppercase;
+      font-family: 'Oswald';
+      color: rgba(255, 255, 255, 0.2);
+    }
+  }
+
+  &__list-item-title {
+    font-size: 16px;
+    line-height: 24px;
+
+    span {
+      margin-right: 3px;
+      color: rgba(219, 180, 102, 1);
+    }
+  }
+
+  &__list-item-link {
+    margin-top: 14px;
+  }
+}

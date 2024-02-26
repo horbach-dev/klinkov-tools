@@ -1,14 +1,13 @@
 import 'swiper/css'
 
 import React, { useEffect, useState } from 'react'
-import axios from 'axios'
 import { Navigation,Pagination } from 'swiper/modules'
 import { Swiper, SwiperSlide } from 'swiper/react'
+import Loader from '$components/Loader'
 import SwiperItem from '$components/Youtube/components'
 import { data as mockData } from './mock'
 
 import './Youtube.scss'
-import Loader from "$components/Loader";
 
 const Youtube = () => {
   const [data, setData] = useState([])
@@ -18,9 +17,10 @@ const Youtube = () => {
     try {
     setLoading(true)
 
-      const res = await axios.get('http://localhost:801/youtube')
+      // const res = await axios.get('http://localhost:8083/youtube')
 
-      setData(res.data.data.items)
+      // setData(res.data.data.items)
+      setData(mockData.items)
     } catch(ex) {
       // error
       console.log(ex)
@@ -32,8 +32,6 @@ const Youtube = () => {
   useEffect(() => {
     getYouTubeVideos()
   }, [])
-
-  console.log('mock', mockData)
 
   if (!data.length) return <Loader />
 

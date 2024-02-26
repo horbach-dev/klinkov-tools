@@ -15,10 +15,7 @@ router.get('/youtube', async (req, res) => {
   };
 
   try {
-    console.log('234234')
     const response = await axios.get('https://www.googleapis.com/youtube/v3/search', { params })
-
-    console.log('response', response)
 
     return res.status(200).json({ data: response.data })
   } catch (e) {

@@ -1,9 +1,14 @@
 import { useEffect } from 'react'
+import useWindowSize from "$hooks/useWindowSize";
 
 
 const defaultHeight = 350
 const paddingVertical = 32
 const headerHeight = 28
+
+const getBubbles = () => {
+  return document.querySelector('.bubble-chart')
+}
 
 const getBubbleChart = async () => {
   return new Promise(resolve => {
@@ -41,22 +46,32 @@ const useInitBubbles = (innerWidth, innerHeight, bubblesWrapRef) => {
   }, [])
 
   useEffect(() => {
+    const width = bubblesWrapRef?.current?.getBoundingClientRect?.()?.height || defaultHeight
+    const block1 = document.getElementById('bubbles-app')
+    // const block2 = document.getElementById('top-sellers')
+
+    // const bubbles= getBubbles()
+
+    if (block1 && block1.style) {
+      block1.style.height = `${width / 2.14}px`
+
+      setTimeout(() => {
+        block1.style.height = `${(width / 2.14) + 24}px`
+      }, 100)
+    }
+
+  }, [innerWidth, innerHeight, bubblesWrapRef])
+
+  useEffect(() => {
     (async () => {
         const height = bubblesWrapRef?.current?.getBoundingClientRect?.()?.height || defaultHeight
 
-        console.log('height', height)
-
         const currentBubbleHeight = height - (paddingVertical + headerHeight)
-
-      console.log('currentBubbleHeight', currentBubbleHeight)
-        // console.log('bubbleCart', bubbleCart)
 
       const bubbleChart = await getBubbleChart()
 
       if (bubbleChart) {
-        console.log('bubbleCart', bubbleChart)
-
-        const bubbles= document.querySelector('.bubble-chart')
+        const bubbles= getBubbles()
 
         if (bubbles && bubbles.style) {
           bubbles.style.height = `${currentBubbleHeight}px`

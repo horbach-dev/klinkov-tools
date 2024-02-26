@@ -28,7 +28,9 @@
     position: relative;
     bottom: 16px;
     color: #DBB466;
-    font: 24px/1 Montserrat-700;
+    font-size: 24px;
+    line-height: 1;
+    font-weight: 700;
   }
 
   &__speed-letter {

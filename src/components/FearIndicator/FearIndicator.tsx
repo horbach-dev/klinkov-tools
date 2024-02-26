@@ -14,7 +14,7 @@ const FearIndicator = () => {
 
     try {
       const res = await axios.get(
-        'http://localhost:801/fear-and-greed',
+        'http://localhost:8083/fear-and-greed',
         {
           params: {
             start: yesterdayMidnight / 1000,

@@ -4,8 +4,7 @@ import { TUserStore } from '$types/stores/userStore'
 
 const defaultState = {
   isGuest: false,
-  isAdmin: false,
-  inAdmin: false,
+  popup: null
 }
 
 const UserStore: TStoreType<TUserStore> = makeStore(defaultState, 'user')

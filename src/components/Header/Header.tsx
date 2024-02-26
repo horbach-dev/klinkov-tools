@@ -13,7 +13,36 @@ const Header = () => {
             alt='Klinkov tools logo'
           />
         </div>
-
+        <div className='header__menu'>
+          <a
+            href='/'
+            rel='noreferrer'
+            className='header__menu-item'
+          >
+            {'KlinkovCapital'}
+          </a>
+          <a
+            href='/'
+            rel='noreferrer'
+            className='header__menu-item'
+          >
+            {'Обучение'}
+          </a>
+          <a
+            href='/'
+            rel='noreferrer'
+            className='header__menu-item'
+          >
+            <span className='header__menu-item-icon header__menu-item-icon_youtube' />
+          </a>
+          <a
+            href='/'
+            rel='noreferrer'
+            className='header__menu-item'
+          >
+            <span className='header__menu-item-icon header__menu-item-icon_telegram' />
+          </a>
+        </div>
       </div>
     </header>
   )

@@ -14,7 +14,7 @@ export default function useInitApp () {
   useEffect(() => {
     setTimeout(() => {
       appInitializer()
-    }, 5000)
+    }, 1000)
   }, [])
 
   return isInitialized
