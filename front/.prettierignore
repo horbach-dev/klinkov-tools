@@ -1,0 +1,19 @@
+# production
+build
+buildDebug
+coverage
+
+# misc
+.DS_Store
+.idea/
+
+# logs
+*.log
+
+# local environment variables
+.env*
+
+# various IDE settings
+.vscode/
+.idea/
+*.iml

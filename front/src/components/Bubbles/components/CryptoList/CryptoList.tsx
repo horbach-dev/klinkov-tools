@@ -2,6 +2,8 @@ import React from 'react'
 import classnames from 'classnames'
 
 import './CryptoList.scss'
+import useStore from "$hooks/useStore";
+import UserStore from "$stores/UserStore";
 
 const head = [
   'Имя',
@@ -18,12 +20,14 @@ const head = [
 
 const CryptoList = ({ items = [] }: any) => {
 
+  const [popup,setUserState] = useStore(UserStore, store => store.popup)
+
   const handleScroll = (e) => {
     console.log('e', e)
   }
 
   const handleClickItem = item => {
-    console.log('item', item)
+    setUserState(prev => ({ ...prev, popup: { item,isOpen: true } }))
   }
 
   return (
