@@ -1,21 +1,29 @@
+import 'chartjs-adapter-moment'
+import 'moment/locale/ru'
+
 import React, { useEffect, useRef, useState } from 'react'
 import Chart from 'chart.js/auto'
 import classnames from 'classnames'
+import moment from 'moment'
 import { IDataItem } from '$components/Dominance/types'
 import { calculatePercentageOfTotalBitcoin } from './utils'
 
 import './DominanceChart.scss'
 
 interface IProps {
-  bitcoinDominanceData: IDataItem[];
+  bitcoinDominanceData: IDataItem[]
+  range?: string
+  onlyChart?: boolean
+  symbol?:string
 }
 
-const BitcoinDominanceChart = ({ bitcoinDominanceData }: IProps) => {
+const BitcoinDominanceChart = ({ bitcoinDominanceData, range, onlyChart,symbol= 'BTC' }: IProps) => {
   const chartRef = useRef<any>(null)
   const chartInstance = useRef<Chart | null>(null)
   const [data, setData] = useState([])
 
   useEffect(() => {
+    moment.locale('ru')
 
     window.addEventListener('resize', () => {
       chartInstance.current?.resize()
@@ -34,12 +42,20 @@ const BitcoinDominanceChart = ({ bitcoinDominanceData }: IProps) => {
         }
       }, 100)
 
+      const arrData = []
       const points: string[] = []
       const dates: string[] = []
 
-     bitcoinDominanceData.forEach(item => {
-        points.push(calculatePercentageOfTotalBitcoin(item.quote))
-        dates.push(new Date(item.timestamp).toLocaleDateString('ru-RU'))
+      bitcoinDominanceData.forEach((item) => {
+        const p = calculatePercentageOfTotalBitcoin(item.quote,symbol)
+
+        points.push(p)
+
+        // const t = formatDate(new Date(item.timestamp))
+        const t = moment(item.timestamp)
+
+        dates.push(String(t))
+        arrData.push({ x: t, y: parseFloat(p) })
       })
 
       if (points.length) {
@@ -51,7 +67,7 @@ const BitcoinDominanceChart = ({ bitcoinDominanceData }: IProps) => {
       const ctx = chartRef.current.getContext('2d')
 
       if (chartInstance.current) {
-        chartInstance.current.destroy()
+        chartInstance.current?.destroy()
       }
 
       const gradient = ctx.createLinearGradient(0, 0, 0, 140)
@@ -62,56 +78,70 @@ const BitcoinDominanceChart = ({ bitcoinDominanceData }: IProps) => {
       chartInstance.current = new Chart(ctx, {
         type: 'line',
         data: {
-          labels: dates,
-          datasets: [{
-            label: 'Dominance',
-            data: points,
-            borderColor: 'rgba(219, 180, 102, 1)',
-            borderWidth: 1,
-            pointRadius: 0,
-            fill: true,
-            backgroundColor: gradient
-          }]
+          datasets: [
+            {
+              label: 'Dominance',
+              data: arrData,
+              borderColor: 'rgba(219, 180, 102, 1)',
+              borderWidth: 1,
+              pointRadius: 0,
+              fill: true,
+              backgroundColor: gradient,
+            },
+          ],
         },
         options: {
+          aspectRatio: 3,
           scales: {
             x: {
-              display: false // скрываем ось X
+              type: 'time',
+              time: {
+                unit: range ? parseRange[range] : 'year',
+                tooltipFormat: 'DD.MM.YYYY HH:mm:ss',
+                displayFormats: {
+                  hour: 'HH:mm',
+                },
+              },
+              display: !onlyChart,
+              ticks: {
+                maxTicksLimit: 4,
+                padding: 0,
+                backdropPadding: 0,
+              },
+              offset: false,
             },
             y: {
               display: false,
               beginAtZero: false,
               min: -50,
               max: 100,
-            }
+            },
           },
           plugins: {
             legend: {
-              display: false
+              display: false,
             },
             tooltip: {
               mode: 'index',
-              intersect: false
-            }
+              intersect: false,
+            },
           },
-        }
+        },
       })
     }
-  }, [bitcoinDominanceData])
+  }, [bitcoinDominanceData, range])
 
   const [currentValue, lastValue] = data
 
-  const percent = (currentValue - lastValue) / lastValue * 100
+  const percent = ((currentValue - lastValue) / lastValue) * 100
   const isProfit = percent >= 0
 
-  return (
+  return onlyChart ? (
+    <canvas ref={chartRef} style={{ width: '100% !important' }} />
+  ) : (
     <div className='dominance-chart'>
       <div className='dominance-chart__label'>
-        {currentValue && (
-          <p className='dominance-chart__label-value'>
-            {currentValue + '%'}
-          </p>
-        )}
+        {currentValue && <p className='dominance-chart__label-value'>{currentValue + '%'}</p>}
         {currentValue && lastValue && (
           <p className={classnames('dominance-chart__label-diff', isProfit && 'dominance-chart__label-diff_profit')}>
             {isProfit && '+'}
@@ -119,12 +149,20 @@ const BitcoinDominanceChart = ({ bitcoinDominanceData }: IProps) => {
           </p>
         )}
       </div>
-      <canvas ref={chartRef} style={{ width: '100% !important' }} />
-      <div>
-        {'Range'}
+      <div className='dominance-chart__container'>
+        <canvas ref={chartRef} style={{ width: '100% !important' }} />
       </div>
     </div>
   )
 }
 
 export default BitcoinDominanceChart
+
+const parseRange = {
+  '1d': 'hour',
+  '7d': 'day',
+  '1m': 'day',
+  '3m': 'day',
+  '1y': 'month',
+  ALL: 'year',
+}

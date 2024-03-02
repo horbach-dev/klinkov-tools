@@ -117,7 +117,7 @@ const Speed = ({ score, speed }: IProps) => {
           </mask>
           <path
             d='M81.083 119.069C77.8628 116.044 72.7853 116.192 69.899 119.537C42.0955 151.761 25.9798 192.439 24.1708 234.961C23.983 239.376 27.5817 242.961 31.9999 242.962L84.0399 242.973C88.4582 242.974 92.0131 239.388 92.306 234.98C93.9805 209.768 103.514 185.704 119.56 166.186C122.366 162.773 122.231 157.726 119.011 154.701L81.083 119.069Z'
-            fill={isFirst ? 'rgba(127, 238, 200, 1)' : defaultFill}
+            fill={isFirst ? 'rgba(127, 238, 200, 0.7)' : defaultFill}
             stroke={isFirst ? 'rgba(128, 255, 212, 1)' : defaultStroke}
             strokeWidth='2'
             mask='path-7-inside-1_392_123'
@@ -131,12 +131,12 @@ const Speed = ({ score, speed }: IProps) => {
         </mask>
         <path
           d='M171.872 66.7347C170.868 62.432 166.56 59.7411 162.303 60.9262C132.781 69.1461 105.698 84.4236 83.3935 105.438C80.1777 108.468 80.2526 113.547 83.4158 116.632L120.673 152.964C123.836 156.049 128.884 155.963 132.171 153.011C145.315 141.205 160.887 132.421 177.789 127.278C182.016 125.992 184.701 121.716 183.697 117.413L171.872 66.7347Z'
-          fill={isSecond ? '#7FEEC8' : 'rgba(217,217,217,0.1)'}
-          stroke={isSecond ? '#80FFD4' : 'rgba(217,217,217,0.2)'}
+          fill={isSecond ? 'rgba(127, 238, 200, 0.7)' : defaultFill}
+          stroke={isSecond ? 'rgba(128, 255, 212, 1)' : defaultStroke}
           strokeWidth='2'
           mask='url(#path-8-inside-2_392_123)'
         />
-        <g opacity='0.5'>
+        <g>
           <mask
             id='path-9-inside-3_392_123'
             fill='white'>
@@ -145,15 +145,13 @@ const Speed = ({ score, speed }: IProps) => {
           </mask>
           <path
             d='M251.715 66.189C252.66 61.873 249.93 57.5904 245.578 56.8288C224.395 53.122 202.733 53.0577 181.528 56.6387C177.172 57.3744 174.416 61.6407 175.335 65.9622L186.164 116.863C187.084 121.185 191.33 123.915 195.703 123.283C207.413 121.591 219.308 121.627 231.007 123.388C235.376 124.046 239.639 121.341 240.584 117.025L251.715 66.189Z'
-            fill={isThird ? 'rgba(219, 180, 102, 1)' : '#D9D9D9'}
-            fillOpacity='1'
-            stroke='white'
-            strokeOpacity='0.3'
+            fill={isThird ? 'rgba(219, 180, 102, 0.7)' : defaultFill}
+            stroke={isThird ? 'rgba(219, 180, 102, 1)' : defaultStroke}
             strokeWidth='2'
             mask='url(#path-9-inside-3_392_123)'
           />
         </g>
-        <g opacity='0.5'>
+        <g>
           <mask
             id='path-10-inside-4_392_123'
             fill='white'
@@ -163,15 +161,13 @@ const Speed = ({ score, speed }: IProps) => {
           </mask>
           <path
             d='M394 243C398.418 243 402.018 239.416 401.831 235.001C400.031 192.479 383.924 151.797 356.127 119.567C353.241 116.221 348.164 116.072 344.943 119.097L307.008 154.721C303.787 157.745 303.651 162.793 306.456 166.206C322.498 185.728 332.026 209.793 333.696 235.005C333.988 239.414 337.542 243 341.96 243H394Z'
-            fill='#D9D9D9'
-            fillOpacity='0.2'
-            stroke='white'
-            strokeOpacity='0.3'
+            fill={isFiveth ? 'rgb(255,103,86,0.6)' : defaultFill}
+            stroke={isFiveth ? 'rgba(255,103,86,1)' : defaultStroke}
             strokeWidth='2'
             mask='url(#path-10-inside-4_392_123)'
           />
         </g>
-        <g opacity='0.5'>
+        <g>
           <mask
             id='path-11-inside-5_392_123'
             fill='white'>
@@ -180,10 +176,8 @@ const Speed = ({ score, speed }: IProps) => {
           </mask>
           <path
             d='M342.727 116.779C345.894 113.698 345.975 108.619 342.762 105.585C320.645 84.6996 293.81 69.4597 264.543 61.1639C260.292 59.959 255.971 62.6299 254.948 66.9279L242.887 117.551C241.863 121.849 244.528 126.137 248.749 127.443C265.489 132.622 280.907 141.378 293.931 153.102C297.214 156.059 302.262 156.15 305.429 153.069L342.727 116.779Z'
-            fill='#D9D9D9'
-            fillOpacity='0.2'
-            stroke='white'
-            strokeOpacity='0.3'
+            fill={isFourth ? 'rgb(255,103,86,0.6)' : defaultFill}
+            stroke={isFourth ? 'rgba(255,103,86,1)' : defaultStroke}
             strokeWidth='2'
             mask='url(#path-11-inside-5_392_123)'
           />
@@ -223,30 +217,37 @@ const Speed = ({ score, speed }: IProps) => {
           fill='white'
         />
         <path
+            className={classnames('feather-indicator__speed-letter feather-indicator__speed-letter_first', isFiveth && 'feather-indicator__speed-letter_active')}
           d='M366.223 147.44L369.369 152.479L368.432 153.063L365.935 149.063L364.581 149.908L366.831 153.512L365.904 154.09L363.655 150.486L362.189 151.402L364.782 155.555L363.835 156.146L360.594 150.954L366.223 147.44Z'
           fill='white'
         />
         <path
+            className={classnames('feather-indicator__speed-letter feather-indicator__speed-letter_first', isFiveth && 'feather-indicator__speed-letter_active')}
           d='M371.08 155.271L371.748 156.492L370.281 159.387L370.551 159.881L373.78 160.209L374.448 161.43L370.618 160.98L368.711 164.771L368.032 163.529L369.6 160.443L369.295 159.885L365.845 159.528L365.166 158.285L369.366 158.765L371.08 155.271Z'
           fill='white'
         />
         <path
+            className={classnames('feather-indicator__speed-letter feather-indicator__speed-letter_first', isFiveth && 'feather-indicator__speed-letter_active')}
           d='M375.873 164.131L378.812 170.333L377.815 170.806L376.607 168.258L371.608 170.627L371.084 169.521L376.083 167.152L374.875 164.603L375.873 164.131Z'
           fill='white'
         />
         <path
+            className={classnames('feather-indicator__speed-letter feather-indicator__speed-letter_first', isFiveth && 'feather-indicator__speed-letter_active')}
           d='M380.034 173.039L381.499 176.653C381.791 177.372 381.81 178.059 381.558 178.714C381.313 179.366 380.838 179.834 380.134 180.12C379.659 180.312 379.194 180.367 378.737 180.285C378.288 180.199 377.891 179.997 377.547 179.68L376.237 181.337L375.737 180.102L376.845 178.747L375.767 176.089L374.344 176.666L373.884 175.532L380.034 173.039ZM379.459 174.592L376.801 175.67L377.789 178.105C377.963 178.535 378.218 178.833 378.553 179C378.895 179.163 379.27 179.162 379.678 178.997C380.093 178.828 380.367 178.566 380.499 178.211C380.638 177.852 380.621 177.458 380.447 177.028L379.459 174.592Z'
           fill='white'
         />
         <path
+            className={classnames('feather-indicator__speed-letter feather-indicator__speed-letter_first', isFiveth && 'feather-indicator__speed-letter_active')}
           d='M383.37 181.366L385.305 186.982L384.262 187.342L382.725 182.883L381.216 183.403L382.6 187.419L381.568 187.775L380.184 183.759L378.55 184.322L380.145 188.951L379.09 189.314L377.096 183.528L383.37 181.366Z'
           fill='white'
         />
         <path
+            className={classnames('feather-indicator__speed-letter feather-indicator__speed-letter_first', isFiveth && 'feather-indicator__speed-letter_active')}
           d='M386.374 190.113L386.844 191.826L382.494 195.705L382.51 195.763L388.233 196.895L388.689 198.562L382.289 200.315L381.969 199.146L386.911 197.792L386.879 197.677L381.271 196.6L380.983 195.547L385.262 191.774L385.227 191.647L380.285 193.001L379.974 191.867L386.374 190.113Z'
           fill='white'
         />
         <path
+            className={classnames('feather-indicator__speed-letter feather-indicator__speed-letter_first', isFiveth && 'feather-indicator__speed-letter_active')}
           d='M389.495 201.907L390.695 207.724L389.614 207.947L388.661 203.328L387.098 203.651L387.957 207.811L386.887 208.032L386.028 203.872L384.336 204.221L385.326 209.016L384.233 209.242L382.996 203.248L389.495 201.907Z'
           fill='white'
         />
@@ -271,19 +272,19 @@ const Speed = ({ score, speed }: IProps) => {
           fill='white'
         />
         <path
-          className={classnames('feather-indicator__speed-letter feather-indicator__speed-letter_second', isSecond && 'feather-indicator__speed-letter_active')}
+            className={classnames('feather-indicator__speed-letter feather-indicator__speed-letter_first', isSecond && 'feather-indicator__speed-letter_active')}
           d='M110.728 100.214L106.939 94.7659L111.856 91.3475L112.486 92.2539L108.574 94.9736L109.581 96.4219L113.059 94.0036L113.683 94.9002L110.205 97.3184L111.733 99.5155L110.728 100.214Z'
         />
         <path
-          className={classnames('feather-indicator__speed-letter feather-indicator__speed-letter_second', isSecond && 'feather-indicator__speed-letter_active')}
+            className={classnames('feather-indicator__speed-letter feather-indicator__speed-letter_first', isSecond && 'feather-indicator__speed-letter_active')}
           d='M114.551 89.5249L119.604 86.402L120.184 87.3411L116.173 89.8205L117.012 91.1781L120.625 88.9448L121.199 89.8737L117.586 92.107L118.494 93.5769L122.659 91.0029L123.246 91.9522L118.04 95.1698L114.551 89.5249Z'
         />
         <path
-          className={classnames('feather-indicator__speed-letter feather-indicator__speed-letter_second', isSecond && 'feather-indicator__speed-letter_active')}
+            className={classnames('feather-indicator__speed-letter feather-indicator__speed-letter_first', isSecond && 'feather-indicator__speed-letter_active')}
           d='M126.096 83.945L126.453 87.6339L129.605 85.9445L126.762 83.5878L126.096 83.945ZM124.924 83.3341L126.955 82.2456L132.576 86.762L131.444 87.3686L130.549 86.6639L126.562 88.8012L126.653 89.9368L125.5 90.5548L124.924 83.3341Z'
         />
         <path
-          className={classnames('feather-indicator__speed-letter feather-indicator__speed-letter_second', isSecond && 'feather-indicator__speed-letter_active')}
+            className={classnames('feather-indicator__speed-letter feather-indicator__speed-letter_first', isSecond && 'feather-indicator__speed-letter_active')}
           d='M132.583 79.323L136.127 77.6943C136.832 77.3702 137.517 77.3194 138.183 77.5417C138.845 77.7568 139.335 78.2096 139.652 78.9001C139.866 79.3654 139.942 79.8278 139.88 80.2876C139.815 80.7401 139.632 81.1457 139.33 81.5045L141.046 82.7368L139.835 83.293L138.431 82.2481L135.825 83.4458L136.466 84.8415L135.354 85.3526L132.583 79.323ZM134.161 79.8258L135.359 82.4318L137.747 81.3343C138.168 81.1406 138.454 80.8725 138.605 80.5303C138.753 80.1807 138.735 79.8061 138.551 79.4063C138.364 78.9992 138.09 78.7378 137.728 78.6222C137.364 78.4992 136.971 78.5346 136.549 78.7284L134.161 79.8258Z'
         />
         <path
@@ -322,42 +323,52 @@ const Speed = ({ score, speed }: IProps) => {
           fill='white'
         />
         <path
+            className={classnames('feather-indicator__speed-letter feather-indicator__speed-letter_first', isFourth && 'feather-indicator__speed-letter_active')}
           d='M285.625 78.3L288.286 79.5209L286.715 82.9457L286.006 82.6205L286.098 81.9891C285.27 82.1816 284.416 82.076 283.536 81.6724C282.555 81.2221 281.879 80.5646 281.51 79.6999C281.149 78.8386 281.188 77.928 281.628 76.9682C282.068 76.0084 282.737 75.3864 283.633 75.1021C284.529 74.8179 285.464 74.8993 286.438 75.3463C287.747 75.9467 288.514 76.8839 288.74 78.1579L287.637 78.2593C287.533 77.8153 287.347 77.4439 287.079 77.1451C286.822 76.8423 286.442 76.5758 285.94 76.3456C285.264 76.0354 284.634 75.9796 284.05 76.1782C283.473 76.3801 283.033 76.8119 282.73 77.4736C282.433 78.1207 282.398 78.734 282.625 79.3135C282.859 79.8963 283.307 80.3395 283.969 80.643C284.849 81.0466 285.648 81.1272 286.367 80.8847L286.772 80.0012L285.209 79.2053L285.625 78.3Z'
           fill='white'
         />
         <path
+            className={classnames('feather-indicator__speed-letter feather-indicator__speed-letter_first', isFourth && 'feather-indicator__speed-letter_active')}
           d='M292.555 78.3924L296 80.2207C296.685 80.5845 297.142 81.0984 297.369 81.7624C297.6 82.4194 297.537 83.0835 297.181 83.7548C296.941 84.2071 296.619 84.5482 296.217 84.7782C295.818 85.0011 295.384 85.1015 294.916 85.0794L294.977 87.1906L293.8 86.5661L293.779 84.8156L291.245 83.4711L290.525 84.8278L289.444 84.254L292.555 78.3924ZM293.113 79.952L291.768 82.4853L294.09 83.7173C294.5 83.9348 294.886 83.9997 295.25 83.9119C295.617 83.817 295.904 83.5753 296.11 83.1866C296.32 82.7909 296.362 82.4143 296.234 82.057C296.111 81.6925 295.844 81.4015 295.434 81.184L293.113 79.952Z'
           fill='white'
         />
         <path
+            className={classnames('feather-indicator__speed-letter feather-indicator__speed-letter_first', isFourth && 'feather-indicator__speed-letter_active')}
           d='M300.601 82.708L305.691 85.771L305.121 86.7169L301.081 84.2851L300.258 85.6525L303.897 87.843L303.334 88.7786L299.695 86.5882L298.804 88.0687L302.999 90.5933L302.423 91.5495L297.179 88.3938L300.601 82.708Z'
           fill='white'
         />
         <path
+            className={classnames('feather-indicator__speed-letter feather-indicator__speed-letter_first', isFourth && 'feather-indicator__speed-letter_active')}
           d='M308.354 87.4212L313.272 90.7525L312.653 91.6665L308.749 89.0217L307.854 90.3431L311.371 92.7255L310.758 93.6296L307.241 91.2472L306.272 92.6779L310.326 95.4237L309.7 96.3476L304.633 92.9154L308.354 87.4212Z'
           fill='white'
         />
         <path
+            className={classnames('feather-indicator__speed-letter feather-indicator__speed-letter_first', isFourth && 'feather-indicator__speed-letter_active')}
           d='M316.3 92.8597L318.952 94.9027C319.725 95.4983 320.203 96.2549 320.385 97.1725C320.572 98.0837 320.365 98.9292 319.764 99.7087C319.164 100.488 318.394 100.905 317.454 100.958C316.52 101.017 315.67 100.751 314.903 100.16L312.25 98.117L316.3 92.8597ZM316.596 94.4812L313.901 97.9797L315.565 99.2612C316.129 99.6957 316.707 99.8831 317.298 99.8235C317.895 99.7687 318.394 99.4815 318.795 98.9618C319.195 98.4421 319.345 97.8864 319.246 97.2947C319.152 96.7078 318.824 96.1972 318.26 95.7627L316.596 94.4812Z'
           fill='white'
         />
         <path
+            className={classnames('feather-indicator__speed-letter feather-indicator__speed-letter_first', isFiveth && 'feather-indicator__speed-letter_active')}
           d='M358.158 167.235L359.538 169.818L356.214 171.592L355.846 170.904L356.301 170.457C355.526 170.109 354.911 169.509 354.455 168.655C353.946 167.702 353.806 166.77 354.036 165.858C354.269 164.954 354.852 164.253 355.783 163.755C356.715 163.258 357.623 163.167 358.509 163.483C359.394 163.8 360.089 164.431 360.594 165.376C361.272 166.647 361.316 167.857 360.724 169.007L359.785 168.42C359.97 168.004 360.047 167.596 360.015 167.196C359.993 166.799 359.853 166.357 359.593 165.87C359.242 165.214 358.775 164.788 358.19 164.593C357.608 164.404 356.997 164.481 356.354 164.824C355.726 165.16 355.327 165.627 355.157 166.225C354.991 166.831 355.079 167.455 355.422 168.097C355.878 168.951 356.465 169.499 357.184 169.741L358.042 169.283L357.28 167.704L358.158 167.235Z'
           fill='white'
         />
         <path
+            className={classnames('feather-indicator__speed-letter feather-indicator__speed-letter_first', isFiveth && 'feather-indicator__speed-letter_active')}
           d='M363.494 171.263L365.115 174.81C365.438 175.516 365.488 176.201 365.264 176.866C365.047 177.528 364.594 178.017 363.902 178.333C363.437 178.546 362.974 178.621 362.515 178.559C362.062 178.493 361.657 178.309 361.299 178.006L360.063 179.719L359.509 178.508L360.557 177.105L359.365 174.497L357.968 175.135L357.459 174.022L363.494 171.263ZM362.988 172.84L360.379 174.033L361.472 176.423C361.665 176.845 361.933 177.131 362.274 177.283C362.624 177.431 362.998 177.414 363.399 177.231C363.806 177.045 364.068 176.771 364.184 176.41C364.308 176.045 364.273 175.652 364.08 175.23L362.988 172.84Z'
           fill='white'
         />
         <path
+            className={classnames('feather-indicator__speed-letter feather-indicator__speed-letter_first', isFiveth && 'feather-indicator__speed-letter_active')}
           d='M367.372 179.878L369.505 185.422L368.475 185.818L366.781 181.417L365.292 181.99L366.817 185.955L365.798 186.347L364.273 182.382L362.66 183.003L364.418 187.572L363.377 187.973L361.179 182.261L367.372 179.878Z'
           fill='white'
         />
         <path
+            className={classnames('feather-indicator__speed-letter feather-indicator__speed-letter_first', isFiveth && 'feather-indicator__speed-letter_active')}
           d='M370.681 188.617L372.471 194.281L371.419 194.613L369.997 190.117L368.475 190.598L369.756 194.648L368.714 194.977L367.434 190.927L365.787 191.448L367.262 196.116L366.198 196.452L364.354 190.617L370.681 188.617Z'
           fill='white'
         />
         <path
+            className={classnames('feather-indicator__speed-letter feather-indicator__speed-letter_first', isFiveth && 'feather-indicator__speed-letter_active')}
           d='M373.34 197.116L374.153 200.364C374.39 201.31 374.296 202.2 373.869 203.033C373.45 203.863 372.764 204.398 371.809 204.637C370.855 204.876 369.992 204.725 369.222 204.184C368.453 203.651 367.951 202.914 367.716 201.975L366.903 198.728L373.34 197.116ZM372.567 198.571L368.283 199.644L368.793 201.681C368.966 202.372 369.303 202.877 369.803 203.197C370.306 203.525 370.875 203.609 371.512 203.45C372.148 203.29 372.611 202.948 372.9 202.422C373.191 201.904 373.25 201.299 373.077 200.609L372.567 198.571Z'
           fill='white'
         />

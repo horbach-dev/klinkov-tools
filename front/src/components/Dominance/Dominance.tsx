@@ -1,4 +1,4 @@
-import React, { Suspense,useEffect, useState } from 'react'
+import React, { Suspense, useEffect, useState } from 'react'
 import { Select } from 'antd'
 import axios from 'axios'
 import ArrowDropdown from '$components/Bubbles/components/ArrowDropdown'
@@ -15,15 +15,17 @@ const Dominance = () => {
   const [isLoading, setLoading] = useState(false)
   const [currentValue, setCurrentValue] = useState(defaultValue)
 
-  const getDominance = async range => {
+  const getDominance = async (range) => {
     try {
       setLoading(true)
 
-      const res = await axios.get('http://localhost:8083/btc-dominance', { params: { range } })
+      const res = await axios.get('http://localhost:8083/btc-dominance', {
+        params: { range },
+      })
 
       setCurrentValue(range)
       setData(res.data.data.quotes)
-    } catch(ex) {
+    } catch (ex) {
       // error
       console.log(ex)
     } finally {
@@ -38,9 +40,7 @@ const Dominance = () => {
   return (
     <div className='dominance'>
       <div className='dominance__header'>
-        <Title>
-          {'Btc dominance'}
-        </Title>
+        <Title>{'Btc dominance'}</Title>
         <Select
           disabled={!data.length || isLoading}
           defaultValue={defaultValue}
@@ -58,11 +58,11 @@ const Dominance = () => {
           ]}
         />
       </div>
-      {(!data.length || isLoading) ? (
+      {!data.length || isLoading ? (
         <Loader />
       ) : (
         <Suspense fallback={<Loader />}>
-          <DominanceChart bitcoinDominanceData={data} />
+          <DominanceChart bitcoinDominanceData={data} range={currentValue} />
         </Suspense>
       )}
     </div>

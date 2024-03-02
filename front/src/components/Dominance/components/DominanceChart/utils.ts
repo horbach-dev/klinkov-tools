@@ -1,4 +1,4 @@
-export const calculatePercentageOfTotalBitcoin = data => {
+export const calculatePercentageOfTotalBitcoin = (data,symbol='BTC') => {
   // Находим общую сумму всех marketCap
   const totalMarketCap = data.reduce((acc, curr) => {
     if (curr.marketCap) {
@@ -9,7 +9,7 @@ export const calculatePercentageOfTotalBitcoin = data => {
   }, 0)
 
   // Находим marketCap Bitcoin
-  const bitcoinMarketCap = data.find(item => item.symbol === 'BTC').marketCap
+  const bitcoinMarketCap = data.find(item => item.symbol === symbol).marketCap
 
   // Вычисляем процент Bitcoin от общей суммы
   const bitcoinPercentage = (bitcoinMarketCap / totalMarketCap) * 200
