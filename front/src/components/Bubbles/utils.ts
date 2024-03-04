@@ -35,6 +35,7 @@ export const performList = (list: any) => {
         logo: `https://s2.coinmarketcap.com/static/img/coins/64x64/${i.id}.png`,
         name: i.name,
         description: `${i.symbol}/USD`,
+        id:i.id
       },
       '1': {
         price: formatPrice(i.quotes[2].price),

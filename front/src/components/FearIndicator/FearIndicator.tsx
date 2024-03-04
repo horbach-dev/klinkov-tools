@@ -22,7 +22,6 @@ const FearIndicator = () => {
           }
         },
       )
-
       setData(res.data?.data?.dataList || [])
     } catch(ex) {
       // error

@@ -2,15 +2,15 @@ import React, { Suspense, useEffect, useState } from 'react'
 import { Avatar, Flex, Modal } from 'antd'
 import axios from 'axios'
 import classnames from 'classnames'
-import DominanceChart from '$components/Dominance/components/DominanceChart'
 import Loader from '$components/Loader'
 import { CloseIcon } from '$components/Popup/CloseIcon'
 import useStore from '$hooks/useStore'
 import UserStore from '$stores/UserStore'
 
 import './Popup.scss'
+import CoinChart from '$components/Chart/CoinChart'
 
-const defaultValue = 'ALL'
+const defaultValue = '1M'
 
 const Popup = () => {
   const [popup, setUserState] = useStore(UserStore, (store) => store.popup)
@@ -21,12 +21,12 @@ const Popup = () => {
 
   const getDominance = async (range) => {
     try {
+      console.log(popup)
       setLoading(true)
+      const res = await axios.get(`http://localhost:8083/get-coin?range=${range}&id=${popup.item["0"].id}`)
 
-      const res = await axios.get('http://localhost:8083/btc-dominance', { params: { range } })
-
-      setCurrentValue(range)
-      setData(res.data.data.quotes)
+      //setCurrentValue(range)
+      setData(res.data)
     } catch (ex) {
       // error
       console.log(ex)
@@ -36,11 +36,24 @@ const Popup = () => {
   }
 
   useEffect(() => {
+    if(popup.item === undefined) return
     getDominance(defaultValue)
   }, [])
 
+  useEffect(()=>{
+    if(popup.item === undefined) return
+    getDominance(currentValue)
+  },[currentValue,popup])
+
   const handleCancel = () => {
     setUserState((prevState) => ({ ...prevState, popup: { isOpen: false } }))
+    const event = new KeyboardEvent('keydown', {
+      key: 'Escape',
+      keyCode: 27,
+    });
+    // @ts-ignore
+    window.onCryptoBubblesBack();
+    document.dispatchEvent(event);
   }
 
   return (
@@ -53,8 +66,10 @@ const Popup = () => {
       closeIcon={<CloseIcon />}
       styles={{ content: { background: '#060604' } }}
     >
-      {!data.length || isLoading || !popup.item ? (
-        <Loader />
+      {!data|| isLoading || !popup.item ? (
+          <div style={{height:'430px'}}>
+            <Loader />
+          </div>
       ) : (
         <Suspense fallback={<Loader />}>
           <Flex gap='middle' style={{ position: 'relative' }} vertical>
@@ -84,10 +99,11 @@ const Popup = () => {
               </p>
             </Flex>
             <Flex>
-              <DominanceChart bitcoinDominanceData={data} range={currentValue} onlyChart />
+              <CoinChart timeUnit={currentValue} label={popup.item[0].name} data={data.data}/>
+              {/*<DominanceChart bitcoinDominanceData={data} range={currentValue} onlyChart />*/}
             </Flex>
-            <Flex style={{ position: 'absolute', bottom: 0, width: '100%' }} gap={32} justify={'center'}>
-              <Flex align={'center'} gap={8} vertical>
+            <Flex style={{  bottom: 0, width: '100%' }} gap={32} justify={'center'}>
+              <Flex onClick={()=>setCurrentValue(`1H`)} align={'center'} gap={8} vertical>
                 <div
                   className={classnames(
                     'popup__percentBlock',
@@ -96,9 +112,9 @@ const Popup = () => {
                 >
                   {Math.abs(popup.item[4].percent)} %
                 </div>
-                <div className={'popup__percent-text'}>Час</div>
+                <div style={{ fontWeight:currentValue === '1H'?'bold !important':'normal !important' }} className={'popup__percent-text'}>Час</div>
               </Flex>
-              <Flex align={'center'} gap={8} vertical>
+              <Flex onClick={()=>setCurrentValue(`24H`)} align={'center'} gap={8} vertical>
                 <div
                   className={classnames(
                     'popup__percentBlock',
@@ -107,9 +123,9 @@ const Popup = () => {
                 >
                   {Math.abs(popup.item[5].percent)} %
                 </div>
-                <div className={'popup__percent-text'}>День</div>
+                <div style={{ fontWeight:currentValue === '24H'?'bold':'normal' }} className={'popup__percent-text'}>День</div>
               </Flex>
-              <Flex align={'center'} gap={8} vertical>
+              <Flex onClick={()=>setCurrentValue(`7D`)} align={'center'} gap={8} vertical>
                 <div
                   className={classnames(
                     'popup__percentBlock',
@@ -118,9 +134,9 @@ const Popup = () => {
                 >
                   {Math.abs(popup.item[6].percent)} %
                 </div>
-                <div className={'popup__percent-text'}>Неделя</div>
+                <div style={{ fontWeight:currentValue === '7D'?'bold':'normal' }} className={'popup__percent-text'}>Неделя</div>
               </Flex>
-              <Flex align={'center'} gap={8} vertical>
+              <Flex onClick={()=>setCurrentValue(`30D`)} align={'center'} gap={8} vertical>
                 <div
                   className={classnames(
                     'popup__percentBlock',
@@ -129,9 +145,9 @@ const Popup = () => {
                 >
                   {Math.abs(popup.item[7].percent)} %
                 </div>
-                <div className={'popup__percent-text'}>Месяц</div>
+                <div style={{ fontWeight:currentValue === '30D'?'bold':'normal' }} className={'popup__percent-text'}>Месяц</div>
               </Flex>
-              <Flex align={'center'} gap={8} vertical>
+              <Flex onClick={()=>setCurrentValue(`1Y`)} align={'center'} gap={8} vertical>
                 <div
                   className={classnames(
                     'popup__percentBlock',
@@ -140,7 +156,7 @@ const Popup = () => {
                 >
                   {Math.abs(popup.item[8].percent)} %
                 </div>
-                <div className={'popup__percent-text'}>Год</div>
+                <div style={{ fontWeight:currentValue === '1Y'?'bold':'normal' }} className={'popup__percent-text'}>Год</div>
               </Flex>
             </Flex>
           </Flex>

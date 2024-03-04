@@ -8,6 +8,8 @@ import CryptoList from './components/CryptoList'
 import useInitBubbles from './hooks/useInitBubbles'
 
 import './Bubbles.scss'
+import useStore from "$hooks/useStore";
+import UserStore from "$stores/UserStore";
 
 const Bubbles = () => {
   const [top, setTop] = useState(0)
@@ -17,6 +19,7 @@ const Bubbles = () => {
   const [inputValue, setInputValue] = useState('')
   const [timeValue, setTimeValue] = useState(0)
   const { innerWidth, innerHeight } = useWindowSizeListener()
+  const [popup,setUserState] = useStore(UserStore, store => store.popup)
 
   const getItems = (index: number) => {
     switch (index) {
@@ -33,9 +36,50 @@ const Bubbles = () => {
 
   useInitBubbles(innerWidth, innerHeight, bubblesWrapRef)
 
+  const onFindModal = (id:number) => {
+    const searched = getItems(top)[id-1]
+
+    if(searched){
+      setUserState(prev => ({ ...prev, popup: { item:searched,isOpen: true } }))
+    }
+  }
+
+  const initModalObserver = () => {
+    const mutationObserver = new MutationObserver((mutationsList) => {
+      for (const mutation of mutationsList) {
+        if (mutation.type === 'childList' && mutation.addedNodes.length > 0) {
+          mutation.addedNodes.forEach(addedNode => {
+            if (addedNode instanceof Element) {
+              const elementsWithClass = addedNode.querySelectorAll('.window-content');
+              if (elementsWithClass.length > 0) {
+                const rank = elementsWithClass[0].querySelectorAll('.currency-rank');
+                if(rank.length){
+                  const number = rank[0].querySelectorAll(`.number`)
+                  console.log(number[0])
+                  onFindModal(Number(number[0].innerHTML))
+                }
+                console.log('Element with class "window-content" appeared on the page');
+              }
+            }
+          });
+        }
+      }
+    });
+
+    mutationObserver.observe(document.body, {
+      childList: true,
+      subtree: true
+    });
+  };
+
+  initModalObserver();
+
   const handleChangeTop = (val) => {
     if (top === val) return
 
+    // eslint-disable-next-line no-magic-numbers
+    const ev = new CustomEvent('updateData',{ detail:(val + 1) * 100 })
+    document.dispatchEvent(ev)
     setTop(val)
   }
 
