@@ -137,7 +137,7 @@ const BitcoinDominanceChart = ({ bitcoinDominanceData, range, onlyChart,symbol= 
   const isProfit = percent >= 0
 
   return onlyChart ? (
-    <canvas ref={chartRef} style={{ width: '100% !important' }} />
+    <canvas ref={chartRef} style={{ width: '100%' }} />
   ) : (
     <div className='dominance-chart'>
       <div className='dominance-chart__label'>
@@ -150,7 +150,7 @@ const BitcoinDominanceChart = ({ bitcoinDominanceData, range, onlyChart,symbol= 
         )}
       </div>
       <div className='dominance-chart__container'>
-        <canvas ref={chartRef} style={{ width: '100% !important' }} />
+        <canvas ref={chartRef} style={{ width: '100%' }} />
       </div>
     </div>
   )

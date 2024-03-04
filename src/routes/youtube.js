@@ -13,10 +13,23 @@ router.get('/youtube', async (req, res) => {
     type: 'video'
   };
 
-  try {
-    const response = await axios.get('https://www.googleapis.com/youtube/v3/search', { params })
+  const VIDEOS_COUNT = 5;
 
-    return res.status(200).json({ data: response.data })
+  try {
+    //Чтобы не сыпать запросами, или не городить велосипеды с duration video сделал такое решение
+    const all_videos = await axios.get('https://www.googleapis.com/youtube/v3/search', { params:{...params,maxResults: 50}})
+    const shorts = (await axios.get('https://www.googleapis.com/youtube/v3/search', {
+      params: {
+        ...params,
+        videoDuration: 'short',
+        maxResults: 20
+      }
+    })).data.items.map(item=>item.id.videoId);
+
+    const videos = all_videos.data.items.filter(video=>!shorts.includes(video.id.videoId));
+    const response = videos.slice(0,VIDEOS_COUNT);
+
+    return res.status(200).json({ data: response })
   } catch (e) {
 
     console.log(e.message)

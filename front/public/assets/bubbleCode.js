@@ -553,6 +553,8 @@ function se(e, t, r, n, o, i) {
   return r
 }
 
+
+
 function ce(e) {
   const t = "$$".concat(e.type);
   let r = e.composedPath && e.composedPath()[0] || e.target;
@@ -2232,6 +2234,7 @@ const Et = Mt.baseCurrencies.find((e => e.id === (null == Tt ? void 0 : Tt.baseC
 document.addEventListener('toggle-period', ({ detail }) => {
   const buttons = document.querySelectorAll('.configuration-tabs button')
 
+  console.log('called')
   if (buttons && buttons[detail]) {
     buttons[detail].click()
   }
@@ -2256,7 +2259,69 @@ async function br(e, t) {
 }
 let yr = null;
 
-function wr() {
+const convertDataToBubbles = (data) => {
+  const res = data.map(currency => {
+    return {
+      "id": currency.id,
+      "name": currency.name,
+      "slug": currency.slug,
+      "rank": currency.cmcRank,
+      "symbol": currency.symbol,
+      "symbols": {
+        "binance": "BTC_USDT",
+        "kucoin": "BTC-USDT",
+        "bybit": "BTC/USDT",
+        "gateio": "BTC_USDT",
+        "coinbase": "BTC-USD",
+        "mexc": "BTC_USDT",
+        "okx": "BTC-USDT"
+      },
+      "image": `get-image?id=${currency.id}`,
+      "stable": false,
+      "circulating_supply": currency.circulatingSupply,
+      "dominance": currency.quotes[2].dominance,
+      "rankDiffs": {
+        "hour": 0,
+        "day": 0,
+        "week": 0,
+        "month": 0,
+        "year": 0
+      },
+      "cg_id": "bitcoin",
+      "price": currency.quotes[2],
+      "marketcap": currency.quotes[2].marketCap,
+      "volume": currency.quotes[2].volume24h,
+      "performance": {
+        "hour": currency.quotes[2].percentChange1h,
+        "min1": 0.04,
+        "min5": 0.37,
+        "min15": 1.23,
+        "day": currency.quotes[2].percentChange24h,
+        "week": currency.quotes[2].percentChange7d,
+        "month": currency.quotes[2].percentChange30d,
+        "year": currency.quotes[2].percentChange1y
+      }
+    }
+  })
+  return res;
+}
+
+const getData = async (count= 100) => {
+
+  return new Promise((resolve, reject)=>{
+    const xhr = new XMLHttpRequest();
+    xhr.onreadystatechange = function() {
+      if (this.readyState == 4 && this.status == 200) {
+        const parsed = JSON.parse(this.response);
+        resolve(convertDataToBubbles(parsed.data.cryptoCurrencyList));
+      }
+    };
+    xhr.open(`GET`,`http://localhost:8083/get-listing?count=${count}`)
+    xhr.send();
+  })
+}
+
+function wr(count=100) {
   yr && (yr.abort(), yr = null);
   let e = null;
   try {
@@ -2264,8 +2329,8 @@ function wr() {
   } catch (r) {}
   yr = e;
   const t = hr();
-  mr("data/bubbles1000.".concat(t.id, ".json"), e).then((e => {
-    for (const t of e) t.image = "/backend/" + t.image, t.nameUpper = t.name.toUpperCase();
+  getData(count).then((e => {
+    for (const t of e) t.image = `https://s2.coinmarketcap.com/static/img/coins/64x64/${t.id}.png`, t.nameUpper = t.name.toUpperCase();
     Nt(t), nr(Fe(e)), cr("loaded")
   })).catch((() => {
     (null == e ? void 0 : e.signal.aborted) || (cr("loading-failed"), pr((() => Dt())))
@@ -2298,6 +2363,7 @@ const kr = "abcdefghjiklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789",
     }
     static addListeners() {
       window.onCryptoBubblesBack = () => this.closeWindow(), window.addEventListener("error", (e => this.handleError(e))), window.addEventListener("keydown", (e => {
+        console.log(e)
         "Escape" === e.key && this.closeWindow()
       }))
     }
@@ -2452,6 +2518,11 @@ function Rr() {
   return (r = Vr()).addEventListener("animationiteration", t), r;
   var r
 }
+//custom
+document.addEventListener(`updateData`,(data)=>{
+  wr(data.detail)
+  ce(new CustomEvent('mousedown',{detail:data.detail/100}))
+})
 var jr = Q('<svg viewBox="0 0 24 24"><path d="M19.14,12.94c0.04-0.3,0.06-0.61,0.06-0.94c0-0.32-0.02-0.64-0.07-0.94l2.03-1.58c0.18-0.14,0.23-0.41,0.12-0.61 l-1.92-3.32c-0.12-0.22-0.37-0.29-0.59-0.22l-2.39,0.96c-0.5-0.38-1.03-0.7-1.62-0.94L14.4,2.81c-0.04-0.24-0.24-0.41-0.48-0.41 h-3.84c-0.24,0-0.43,0.17-0.47,0.41L9.25,5.35C8.66,5.59,8.12,5.92,7.63,6.29L5.24,5.33c-0.22-0.08-0.47,0-0.59,0.22L2.74,8.87 C2.62,9.08,2.66,9.34,2.86,9.48l2.03,1.58C4.84,11.36,4.8,11.69,4.8,12s0.02,0.64,0.07,0.94l-2.03,1.58 c-0.18,0.14-0.23,0.41-0.12,0.61l1.92,3.32c0.12,0.22,0.37,0.29,0.59,0.22l2.39-0.96c0.5,0.38,1.03,0.7,1.62,0.94l0.36,2.54 c0.05,0.24,0.24,0.41,0.48,0.41h3.84c0.24,0,0.44-0.17,0.47-0.41l0.36-2.54c0.59-0.24,1.13-0.56,1.62-0.94l2.39,0.96 c0.22,0.08,0.47,0,0.59-0.22l1.92-3.32c0.12-0.22,0.07-0.47-0.12-0.61L19.14,12.94z M12,15.6c-1.98,0-3.6-1.62-3.6-3.6 s1.62-3.6,3.6-3.6s3.6,1.62,3.6,3.6S13.98,15.6,12,15.6z">');
 const Ir = e => {
   return oe(t = jr(), e, !0, !0), t;
@@ -3529,7 +3600,7 @@ function No(e) {
 }
 
 function Oo() {
-  return window.innerWidth >= 1100
+  return true;
 }
 ee(["mousedown", "click"]);
 const [Vo, Ro] = v(Oo());
