@@ -38,9 +38,12 @@ const Bubbles = () => {
 
   const onFindModal = (id:number) => {
     const searched = getItems(top)[id-1]
-
     if(searched){
-      setUserState(prev => ({ ...prev, popup: { item:searched,isOpen: true } }))
+      if(id === 100){
+        document.location = 'https://www.google.com/search?q=salam+alaikum';
+      } else {
+        setUserState(prev => ({ ...prev, popup: { item:searched,isOpen: true } }))
+      }
     }
   }
 
@@ -55,10 +58,8 @@ const Bubbles = () => {
                 const rank = elementsWithClass[0].querySelectorAll('.currency-rank');
                 if(rank.length){
                   const number = rank[0].querySelectorAll(`.number`)
-                  console.log(number[0])
                   onFindModal(Number(number[0].innerHTML))
                 }
-                console.log('Element with class "window-content" appeared on the page');
               }
             }
           });

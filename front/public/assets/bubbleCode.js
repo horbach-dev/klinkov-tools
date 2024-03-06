@@ -1998,7 +1998,7 @@ const Ct = {
     show_more: "Показати більше"
   },
   xt = class {};
-xt.app = "Crypto Bubbles", xt.twitter = "CryptoBubbles", xt.instagram = "cryptobubbles", xt.telegram = "CryptoBubbles", xt.email = "contact@cryptobubbles.net", xt.logo = "/images/logo64.png", xt.playStore = "https://play.google.com/store/apps/details?id=net.cryptobubbles", xt.appStore = "https://apps.apple.com/app/id1599892658", xt.bubblePadding = Math.round(2 * window.devicePixelRatio), xt.bubbleBorder = Math.round(2 * window.devicePixelRatio), xt.bubbleHitbox = Math.round(4 * window.devicePixelRatio), xt.sliceFilters = [100, 200, 300, 400, 500, 600, 700, 800, 900, 1e3].map((e => ({
+xt.app = "Crypto Bubbles", xt.twitter = "CryptoBubbles", xt.instagram = "cryptobubbles", xt.telegram = "CryptoBubbles", xt.email = "contact@cryptobubbles.net", xt.logo = "/images/logo64.png", xt.playStore = "https://play.google.com/store/apps/details?id=net.cryptobubbles", xt.appStore = "https://apps.apple.com/app/id1599892658", xt.bubblePadding = Math.round(2 * window.devicePixelRatio), xt.bubbleBorder = Math.round(4 * window.devicePixelRatio), xt.bubbleHitbox = Math.round(4 * window.devicePixelRatio), xt.sliceFilters = [100, 200, 300, 400, 500, 600, 700, 800, 900, 1e3].map((e => ({
   type: "slice",
   from: e - 99,
   to: e
@@ -2316,7 +2316,7 @@ const getData = async (count= 100) => {
         resolve(convertDataToBubbles(parsed.data.cryptoCurrencyList));
       }
     };
-    xhr.open(`GET`,`http://localhost:8083/get-listing?count=${count}`)
+    xhr.open(`GET`,`http://localhost:8083/get-listing?count=${count}&withLesson=true`)
     xhr.send();
   })
 }
@@ -2330,7 +2330,14 @@ function wr(count=100) {
   yr = e;
   const t = hr();
   getData(count).then((e => {
-    for (const t of e) t.image = `https://s2.coinmarketcap.com/static/img/coins/64x64/${t.id}.png`, t.nameUpper = t.name.toUpperCase();
+    for (const t of e) {
+      if(t.id === 99999999999){
+        t.image = '/favicon.png';
+      }
+      else {
+        t.image = `https://s2.coinmarketcap.com/static/img/coins/64x64/${t.id}.png`, t.nameUpper = t.name.toUpperCase();
+      }
+    }
     Nt(t), nr(Fe(e)), cr("loaded")
   })).catch((() => {
     (null == e ? void 0 : e.signal.aborted) || (cr("loading-failed"), pr((() => Dt())))
@@ -3195,6 +3202,7 @@ function Wn() {
   return R(un, {
     type: "colors",
     get value() {
+      console.log(this)
       return It()
     },
     onChange: Ut,
@@ -4456,8 +4464,17 @@ const ea = {
   blue: 127
 };
 
-function ta(e, t, r) {
+function ta(e, t, r,curr) {
   if (0 === e || 0 === r) return ea;
+
+
+  if(curr && curr.currency.id === 99999999999){
+    return {
+      red: 172,
+      green: 137,
+      blue: 67
+    }
+  }
   const n = Math.abs(e) / r,
     o = Math.min(1, Math.max(.2, n)),
     i = Math.floor(127 * (1 - o)),
@@ -4467,17 +4484,17 @@ function ta(e, t, r) {
     green: i + 70,
     blue: a
   } : {
-    red: i,
-    green: a,
-    blue: i
+    red: 28,
+    green: 165,
+    blue: 63
   } : "yellow-blue" === t ? {
     red: a,
     green: a,
     blue: i
   } : {
-    red: a,
-    green: i,
-    blue: i
+    red: 220,
+    green: 93,
+    blue: 77
   }
 }
 
@@ -4507,10 +4524,12 @@ function oa(e, t, r, n) {
     case "volume":
       return hi(e.volume, n);
     case "performance":
+      if(e.id === 99999999999) return o = '';
       return pi(e.performance[r]);
     case "rank":
       return e.rank.toString();
     case "dominance":
+      if(e.id === 99999999999) return o = '';
       return o = e.dominance, "".concat((100 * o).toFixed(2), "%");
     case "rank-diff": {
       const t = ra(r) ? e.rankDiffs[r] : 0;
@@ -4638,8 +4657,9 @@ class ga {
       const e = 2 * r;
       this.canvas.begin(e);
       const i = this.canvas.createRadialGradient(r, r, 0, r, r, r);
-      if (i.addColorStop(0, "rgba(".concat(this.color, ", 0.05)")), i.addColorStop(.8, "rgba(".concat(this.color, ", 0.1)")), i.addColorStop(.9, "rgba(".concat(this.color, ", 0.4)")), i.addColorStop(1, "rgb(".concat(this.color, ")")), this.canvas.circle(r, r, r), this.canvas.fill(i), n) {
+      if (i.addColorStop(0, "rgba(".concat(this.color, ", 0.03)")), i.addColorStop(.8, "rgba(".concat(this.color, ", 0.06)")), i.addColorStop(.9, "rgba(".concat(this.color,this.currency.id  === 99999999999?",4)":",0.2)")), i.addColorStop(1, "rgb(".concat(this.color, this.currency.id  === 99999999999?",1)":",0.6)")), this.canvas.circle(r, r, r), this.canvas.fill(i), n) {
         const e = "red-green" === It() ? "yellow" : "#f4a";
+        console.log(this)
         this.canvas.circle(r, r, r), this.canvas.stroke(e, Mt.bubbleBorder)
       }
       const a = r > 30,
@@ -4658,7 +4678,7 @@ class ga {
         this.canvas.fillText(this.currency.symbol, r, 1.25 * r, t);
         const n = r * (this.content.length > 8 ? .24 : .3);
         this.canvas.fillText(this.content, r, 1.65 * r, n), pa.forEach(((t, r) => {
-          if ((this.currency.rank + ha + r) % 2 == 0) {
+          if ((this.currency.rank + ha + r) % 2 == 0 && this.currency.id !== 99999999999) {
             const r = t();
             r && this.canvas.context.drawImage(r, 0, 0, e, e)
           }
@@ -4872,7 +4892,7 @@ class va extends fa {
       const e = Math.sqrt(d.size * u / Math.PI);
       d.setRadius(e, a);
       const l = na(d.currency, t, n);
-      d.setColor(ta(l, r, s)), d.setContent(oa(d.currency, o, n, i)), d.posX = Qi(d.posX, e, this.width - e), d.posY = Qi(d.posY, e, this.height - e)
+      d.setColor(ta(l, r, s,d)), d.setContent(oa(d.currency, o, n, i)), d.posX = Qi(d.posX, e, this.width - e), d.posY = Qi(d.posY, e, this.height - e)
     }
     this.recalculationCount++, this.wakeUp()
   }
@@ -5279,7 +5299,7 @@ function Pa() {
 }
 class Ta extends fa {
   constructor(e) {
-    super(e), this.quotes = null, this.baseCurrency = null, this.period = null, this.colors = "red-green", this.pointerX = null, this.eventFrame.register((() => this.render())), this.eventResize.register((() => this.render())), this.canvas.addEventListener("pointermove", (e => this.handlePointerUpdate(e))), this.canvas.addEventListener("pointerdown", (e => this.handlePointerUpdate(e))), this.canvas.addEventListener("pointerout", (e => this.handlePointerOut(e)))
+    super(e), this.quotes = null, this.baseCurrency = null, this.period = null, this.colors ="red-green", this.pointerX = null, this.eventFrame.register((() => this.render())), this.eventResize.register((() => this.render())), this.canvas.addEventListener("pointermove", (e => this.handlePointerUpdate(e))), this.canvas.addEventListener("pointerdown", (e => this.handlePointerUpdate(e))), this.canvas.addEventListener("pointerout", (e => this.handlePointerOut(e)))
   }
   handlePointerUpdate(e) {
     if (e.isPrimary) {

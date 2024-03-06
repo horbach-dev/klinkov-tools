@@ -18,7 +18,7 @@ const Popup = () => {
   const [data, setData] = useState([])
   const [isLoading, setLoading] = useState(false)
   const [currentValue, setCurrentValue] = useState(defaultValue)
-
+  const isMobile = window.innerWidth <= 768;
   const getDominance = async (range) => {
     try {
       console.log(popup)
@@ -56,11 +56,122 @@ const Popup = () => {
     document.dispatchEvent(event);
   }
 
+  if (isMobile && popup.isOpen) {
+    return (
+        <div style={{ position: 'fixed', top: 0, left: 0, right: 0, bottom: 0, backgroundColor: '#060604', zIndex: 999 }}>
+          <div style={{ padding: '5px', height: '100vh', overflowY: 'auto' }} className="popup-content">
+            {!data || isLoading || !popup.item ? (
+                <Loader />
+            ) : (
+                <Suspense fallback={<Loader />}>
+                  <div style={{width:'100%',height:'100%', display: 'flex', flexDirection: 'column', alignItems: 'flex-start', justifyContent: 'flex-start' }}>
+                    <div style={{width:'100%',display:'flex',justifyContent:'flex-end'}}>
+                      <div style={{cursor:'pointer'}} onClick={()=>handleCancel()}>
+                        <CloseIcon />
+                      </div>
+                    </div>
+                    <div style={{ display: 'flex', flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between', width: '100%' }}>
+                      <div style={{ display: 'flex', flexDirection: 'row', alignItems: 'center', justifyContent: 'flex-start' }}>
+                        <Avatar size={40} alt={popup.item[0].name} src={popup.item[0].logo} />
+                        <div style={{ marginLeft: '10px' }}>
+                          <p className='popup__info-title'>{popup.item[0].name}</p>
+                          <p className='popup__info-description'>{popup.item[0].description}</p>
+                        </div>
+                      </div>
+                      <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'flex-end', justifyContent: 'flex-start' }}>
+                        <p className='popup__info-title'>{popup.item[1].price}</p>
+                        <p className='popup__info-description'>1 {popup.item[0].name}</p>
+                      </div>
+                    </div>
+                    <Flex style={{width:'100%'}} gap={8} justify={'space-between'}>
+                      <p className='popup__info-rating' style={{display:'flex',flexDirection:'column',margin:'10px 0'}}>
+                        Рейтинг <div>
+                        <span className='popup__info-value'>31</span>
+                        <span className='popup__info-green'>+128</span>
+                      </div>
+                      </p>
+                      <p className='popup__info-rating' style={{display:'flex',flexDirection:'column'}}>
+                        Объем рынка <span className='popup__info-value'>{popup.item[2].volume}</span>
+                      </p>
+                      <p className={'popup__info-rating'} style={{display:'flex',flexDirection:'column'}}>
+                        24ч. Объем <span className='popup__info-value'>{popup.item[3].volume}</span>
+                      </p>
+                    </Flex>
+                    <div style={{ display: 'flex', flexDirection: 'row', alignItems: 'center', justifyContent: 'center',height:'100%',overflowX:'auto'}}>
+                      <div style={{minWidth:'700px'}}>
+                        <CoinChart isMobile={isMobile} timeUnit={currentValue} label={popup.item[0].name} data={data.data} />
+                      </div>
+                    </div>
+                    <div style={{ display: 'flex', flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between', width: '100%' }}>
+                      <Flex onClick={()=>setCurrentValue(`1H`)} align={'center'} gap={12} vertical>
+                        <div
+                            className={classnames(
+                                'popup__percentBlock',
+                                popup.item[4].percent > 0 ? 'popup__percentBlock_green' : 'popup__percentBlock_red'
+                            )}
+                        >
+                          {Math.abs(popup.item[4].percent)} %
+                        </div>
+                        <div style={{ fontWeight:currentValue === '1H'?'bold !important':'normal !important' }} className={'popup__percent-text'}>Час</div>
+                      </Flex>
+                      <Flex onClick={()=>setCurrentValue(`24H`)} align={'center'} gap={12} vertical>
+                        <div
+                            className={classnames(
+                                'popup__percentBlock',
+                                popup.item[5].percent > 0 ? 'popup__percentBlock_green' : 'popup__percentBlock_red'
+                            )}
+                        >
+                          {Math.abs(popup.item[5].percent)} %
+                        </div>
+                        <div style={{ fontWeight:currentValue === '24H'?'bold':'normal' }} className={'popup__percent-text'}>День</div>
+                      </Flex>
+                      <Flex onClick={()=>setCurrentValue(`7D`)} align={'center'} gap={12} vertical>
+                        <div
+                            className={classnames(
+                                'popup__percentBlock',
+                                popup.item[6].percent > 0 ? 'popup__percentBlock_green' : 'popup__percentBlock_red'
+                            )}
+                        >
+                          {Math.abs(popup.item[6].percent)} %
+                        </div>
+                        <div style={{ fontWeight:currentValue === '7D'?'bold':'normal' }} className={'popup__percent-text'}>Неделя</div>
+                      </Flex>
+                      <Flex onClick={()=>setCurrentValue(`30D`)} align={'center'} gap={12} vertical>
+                        <div
+                            className={classnames(
+                                'popup__percentBlock',
+                                popup.item[7].percent > 0 ? 'popup__percentBlock_green' : 'popup__percentBlock_red'
+                            )}
+                        >
+                          {Math.abs(popup.item[7].percent)} %
+                        </div>
+                        <div style={{ fontWeight:currentValue === '30D'?'bold':'normal' }} className={'popup__percent-text'}>Месяц</div>
+                      </Flex>
+                      <Flex onClick={()=>setCurrentValue(`1Y`)} align={'center'} gap={12} vertical>
+                        <div
+                            className={classnames(
+                                'popup__percentBlock',
+                                popup.item[8].percent > 0 ? 'popup__percentBlock_green' : 'popup__percentBlock_red'
+                            )}
+                        >
+                          {Math.abs(popup.item[8].percent)} %
+                        </div>
+                        <div style={{ fontWeight:currentValue === '1Y'?'bold':'normal' }} className={'popup__percent-text'}>Год</div>
+                      </Flex>
+                    </div>
+                  </div>
+                </Suspense>
+            )}
+          </div>
+        </div>    );
+  }
+
+
   return (
     <Modal
       open={popup.isOpen}
       onCancel={handleCancel}
-      width='759px'
+      width="759px"
       centered
       footer=''
       closeIcon={<CloseIcon />}
@@ -99,7 +210,7 @@ const Popup = () => {
               </p>
             </Flex>
             <Flex>
-              <CoinChart timeUnit={currentValue} label={popup.item[0].name} data={data.data}/>
+              <CoinChart  isMobile={false} timeUnit={currentValue} label={popup.item[0].name} data={data.data}/>
               {/*<DominanceChart bitcoinDominanceData={data} range={currentValue} onlyChart />*/}
             </Flex>
             <Flex style={{  bottom: 0, width: '100%' }} gap={32} justify={'center'}>

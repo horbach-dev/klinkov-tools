@@ -28,7 +28,7 @@
   }
 
   &__menu-item {
-    margin-left: 24px;
+    margin-left: 3px;
   }
 
   &__menu-item-icon {
@@ -47,5 +47,54 @@
     &_telegram {
       background-image: url('../../images/telegram.svg');
     }
+  }
+}
+
+
+
+
+.header__menu {
+  display: flex;
+  align-items: center;
+}
+
+.header__menu-item {
+  margin-right: 5px;
+  margin-left: 5px;
+  color: #eeebeb;
+  text-decoration: none;
+}
+
+.header__burger {
+  display: none; /* Скрываем бургер на десктопе */
+  cursor: pointer;
+}
+
+.header__burger-line {
+  width: 20px;
+  height: 2px;
+  background-color: #dbb566;
+  margin-bottom: 4px;
+}
+
+/* Медиазапрос для показа бургера на мобильных устройствах */
+@media (max-width: 768px) {
+  .header__burger {
+    display: block; /* Показываем бургер на мобильных устройствах */
+  }
+
+  .header__drawer {
+    display: block !important; /* Показываем drawer на мобильных устройствах */
+  }
+
+  .header_links {
+    display: none !important;
+  }
+
+  .header__drawer-item {
+    display: block;
+    margin-bottom: 20px;
+    color: #fff;
+    text-decoration: none;
   }
 }

@@ -4,6 +4,7 @@ const app = express();
 
 const marketcap = require("./routes/marketcap");
 const youtube = require("./routes/youtube");
+const telegram = require("./routes/telegram");
 const {bootTGBot} = require("./bootTGBot");
 
 app.use(function (req, res, next) {
@@ -27,5 +28,6 @@ app.use(bodyParser.json());
 
 app.use(marketcap);
 app.use(youtube);
+app.use(telegram);
 
 module.exports = app;
