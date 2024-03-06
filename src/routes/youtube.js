@@ -1,8 +1,22 @@
 const { Router } = require("express")
 const axios = require("axios");
+const moment = require("moment");
 const router = Router()
 
+const memory = {
+  data: null,
+  time: null
+}
+
+const canUpdate = () => {
+  return moment().diff(memory.time, 'minutes') >= 30
+}
+
 router.get('/youtube', async (req, res) => {
+  if (memory.data && memory.time && !canUpdate()) {
+    return res.status(200).json({ data: memory.data })
+  }
+
 // Параметры запроса
   const params = {
     key: 'AIzaSyCjL1FGQZQ7EAH2wIcz_qfcRJQJcI7EZnQ',
@@ -28,6 +42,9 @@ router.get('/youtube', async (req, res) => {
 
     const videos = all_videos.data.items.filter(video=>!shorts.includes(video.id.videoId));
     const response = videos.slice(0,VIDEOS_COUNT);
+
+    memory.data = response
+    memory.time = moment()
 
     return res.status(200).json({ data: response })
   } catch (e) {
