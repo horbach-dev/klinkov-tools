@@ -1,7 +1,8 @@
 import React, {useEffect, useState} from 'react'
 
 import './Telegram.scss'
-import axios, {AxiosResponse} from "axios";
+import {AxiosResponse} from "axios";
+import { client } from "$api/index";
 
 interface Message {
   title:string;
@@ -16,7 +17,7 @@ const Telegram = () => {
   const [messages,setMessages] = useState<Message[]>();
 
   const getLatestMessages = () => {
-    axios.get('http://localhost:8083/get-last-messages')
+    client.get('/get-last-messages')
         .then((res:AxiosResponse<ResponseType>)=>{
             setMessages(res.data.data)
         })

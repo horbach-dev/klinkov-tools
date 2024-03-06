@@ -1,6 +1,5 @@
 const { Telegraf } = require("telegraf");
 
-
 const bot = new Telegraf(process.env.BOT_TOKEN);
 
 bot.start((ctx) => ctx.reply('Привет! Я готов получить 5 последних сообщений из канала.'));
