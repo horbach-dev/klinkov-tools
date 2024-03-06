@@ -21,7 +21,7 @@ app.use(function (req, res, next) {
   next();
 });
 
-bootTGBot()
+// bootTGBot()
 
 app.use(express.urlencoded({ extended: true }));
 app.use(bodyParser.json());

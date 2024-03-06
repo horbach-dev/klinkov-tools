@@ -14,8 +14,18 @@ const CoinChart = ({ data, label, timeUnit, isMobile }) => {
             chartInstance.current.destroy(); // Уничтожаем предыдущий экземпляр графика
         }
 
+        const ctx = chartRef.current.getContext('2d')
+
+        if (chartInstance.current) {
+            chartInstance.current?.destroy()
+        }
+
+        const gradient = ctx.createLinearGradient(0, 0, 0, 140)
+
+        gradient.addColorStop(0, 'rgba(219, 180, 102, 0.5)')
+        gradient.addColorStop(1, 'rgba(255, 255, 255, 0)')
+
         if (chartRef.current) {
-            const ctx = chartRef.current.getContext('2d');
             const aspectRatio = isMobile ? window.innerHeight / window.innerWidth : 3;
             const gradient = ctx.createLinearGradient(0, 0, 0, isMobile ? window.innerHeight : 240)
 
@@ -31,7 +41,7 @@ const CoinChart = ({ data, label, timeUnit, isMobile }) => {
                         borderWidth: 1,
                         fill: true,
                         pointRadius: 0,
-                        backgroundColor: gradient
+                        backgroundColor: gradient,
                     }]
                 },
                 options: {

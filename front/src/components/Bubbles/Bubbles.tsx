@@ -10,6 +10,7 @@ import useInitBubbles from './hooks/useInitBubbles'
 import './Bubbles.scss'
 import useStore from "$hooks/useStore";
 import UserStore from "$stores/UserStore";
+import { client } from "$api/index";
 
 const Bubbles = () => {
   const [top, setTop] = useState(0)
@@ -97,7 +98,7 @@ const Bubbles = () => {
 
   const getListing = async () => {
     try {
-      const res = await axios.get('http://localhost:8083/get-listing')
+      const res = await client.get('/get-listing')
       const items = performList(res.data.data.cryptoCurrencyList)
 
       setListing(items)
