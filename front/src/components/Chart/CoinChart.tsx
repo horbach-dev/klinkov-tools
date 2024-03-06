@@ -20,11 +20,6 @@ const CoinChart = ({ data, label, timeUnit, isMobile }) => {
             chartInstance.current?.destroy()
         }
 
-        const gradient = ctx.createLinearGradient(0, 0, 0, 140)
-
-        gradient.addColorStop(0, 'rgba(219, 180, 102, 0.5)')
-        gradient.addColorStop(1, 'rgba(255, 255, 255, 0)')
-
         if (chartRef.current) {
             const aspectRatio = isMobile ? window.innerHeight / window.innerWidth : 3;
             const gradient = ctx.createLinearGradient(0, 0, 0, isMobile ? window.innerHeight : 240)
