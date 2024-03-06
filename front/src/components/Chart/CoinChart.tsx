@@ -1,7 +1,7 @@
-import React, {useEffect, useRef} from 'react';
+import React, { useEffect, useRef } from 'react';
 import Chart from 'chart.js/auto';
 
-const CoinChart = ({ data, label, timeUnit }) => {
+const CoinChart = ({ data, label, timeUnit, isMobile }) => {
     const chartRef = useRef();
     const chartInstance = useRef(null);
 
@@ -16,7 +16,8 @@ const CoinChart = ({ data, label, timeUnit }) => {
 
         if (chartRef.current) {
             const ctx = chartRef.current.getContext('2d');
-            const gradient = ctx.createLinearGradient(0, 0, 0, 240)
+            const aspectRatio = isMobile ? window.innerHeight / window.innerWidth : 3;
+            const gradient = ctx.createLinearGradient(0, 0, 0, isMobile ? window.innerHeight : 240)
 
             gradient.addColorStop(0, 'rgba(219, 180, 102, 0.5)')
             gradient.addColorStop(1, 'rgba(255, 255, 255, 0)')
@@ -30,11 +31,12 @@ const CoinChart = ({ data, label, timeUnit }) => {
                         borderWidth: 1,
                         fill: true,
                         pointRadius: 0,
-                        backgroundColor:gradient
+                        backgroundColor: gradient
                     }]
                 },
                 options: {
-                    aspectRatio: 3,
+                    aspectRatio: aspectRatio,
+                    maintainAspectRatio: false,
                     legend: {
                         display: false
                     },
@@ -45,18 +47,22 @@ const CoinChart = ({ data, label, timeUnit }) => {
                                 unit: parseRange[timeUnit]
                             },
                             ticks: {
-                                display: false // Убираем отображение дат снизу графика
+                                display: false,
                             }
                         },
                         y: {
                             display: true,
                             beginAtZero: false,
                             grid: {
-                                color: 'rgba(200, 200, 200, 0.1)', // серый цвет для линий сетки
-                                borderWidth: 1, // ширина линии
-                                drawTicks: false, // не отображать деления
-                                drawBorder: false, // не отображать границы
-                                drawOnChartArea: true, // рисовать на области графика
+                                color: 'rgba(200, 200, 200, 0.1)',
+                                borderWidth: 1,
+                                drawTicks: false,
+                                drawBorder: false,
+                                drawOnChartArea: true,
+                                offsetGridLines: true,
+                                offsetTicks: true,
+                                zeroLineWidth: 2,
+                                zeroLineColor: 'rgba(200, 200, 200, 0.1)',
                             },
                             ticks: {
                                 callback: (value) => {
@@ -66,14 +72,15 @@ const CoinChart = ({ data, label, timeUnit }) => {
                                         return value.toFixed(6);
                                     }
                                 },
-                                stepSize: 1, // шаг деления
+                                stepSize: 1,
+                                padding: 10
                             },
 
                         },
                     },
                     plugins: {
                         legend: {
-                            display: false // Скрываем легенду
+                            display: false
                         },
                         tooltip: {
                             callbacks: {
@@ -97,11 +104,17 @@ const CoinChart = ({ data, label, timeUnit }) => {
                 }
             });
         }
-    }, [data, timeUnit]);
+    }, [data, timeUnit, isMobile]);
 
-    return (
+    if(isMobile){
+        return (
+            <canvas ref={chartRef} style={{ width: '100%', height: '100vh' }}></canvas>
+        );
+    }
+    else {
         <canvas ref={chartRef}></canvas>
-    );
+    }
+
 };
 
 const parseRange = {
