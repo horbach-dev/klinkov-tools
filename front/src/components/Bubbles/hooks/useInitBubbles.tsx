@@ -1,4 +1,4 @@
-import { useEffect } from 'react'
+import {useEffect, useState} from 'react'
 import useWindowSize from "$hooks/useWindowSize";
 
 
@@ -15,6 +15,7 @@ const getBubbleChart = async () => {
         const intervalId = setInterval(() => {
             const bubbleChart= document.querySelector('.bubble-chart')
             if (bubbleChart) {
+                console.log(bubbleChart)
                 resolve(bubbleChart)
                 clearInterval(intervalId)
             }
@@ -24,13 +25,18 @@ const getBubbleChart = async () => {
 
 const useInitBubbles = (innerWidth, innerHeight, bubblesWrapRef) => {
 
+    const [loaded,setLoaded] = useState(false);
+
     useEffect(() => {
         const scriptTag = document.createElement('script')
 
         scriptTag.src = 'assets/bubbleCode.js'
         scriptTag.id = `bubbles`
         document.head.appendChild(scriptTag)
-
+        scriptTag.onload = () => {
+            setLoaded(true);
+            window.dispatchEvent(new Event('load'));
+        }
         const cssLink1 = document.createElement('link')
 
         cssLink1.rel = 'stylesheet'
@@ -46,6 +52,7 @@ const useInitBubbles = (innerWidth, innerHeight, bubblesWrapRef) => {
     }, [])
 
     useEffect(() => {
+        if(!loaded) return;
         const width = bubblesWrapRef?.current?.getBoundingClientRect?.()?.height || defaultHeight
         const block1 = document.getElementById('bubbles-app')
         // const block2 = document.getElementById('top-sellers')
@@ -60,9 +67,10 @@ const useInitBubbles = (innerWidth, innerHeight, bubblesWrapRef) => {
             }, 100)
         }
 
-    }, [innerWidth, innerHeight, bubblesWrapRef])
+    }, [loaded,innerWidth, innerHeight, bubblesWrapRef])
 
     useEffect(() => {
+        if(!loaded) return;
         (async () => {
             const height = bubblesWrapRef?.current?.getBoundingClientRect?.()?.height || defaultHeight
 
@@ -81,7 +89,7 @@ const useInitBubbles = (innerWidth, innerHeight, bubblesWrapRef) => {
 
             // bubbleCart?.style?.height = `${currentBubbleHeight}px`
         })()
-    }, [innerWidth, innerHeight, bubblesWrapRef])
+    }, [loaded,innerWidth, innerHeight, bubblesWrapRef])
 }
 
 export default useInitBubbles

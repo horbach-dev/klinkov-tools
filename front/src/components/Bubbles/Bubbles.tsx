@@ -8,7 +8,7 @@ import CryptoList from './components/CryptoList'
 import useInitBubbles from './hooks/useInitBubbles'
 
 import './Bubbles.scss'
-import useStore from "$hooks/useStore";
+import useStore from '$hooks/useStore';
 import UserStore from "$stores/UserStore";
 import { client } from "$api/index";
 
@@ -128,6 +128,7 @@ const Bubbles = () => {
         handleChangeTop={handleChangeTop}
         timeValue={timeValue}
       />
+      <main></main>
       <div
         style={{
           height: isActiveBubbles ? '100%' : 0,

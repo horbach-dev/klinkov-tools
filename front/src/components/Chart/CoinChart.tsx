@@ -113,7 +113,9 @@ const CoinChart = ({ data, label, timeUnit, isMobile }) => {
         );
     }
     else {
-        <canvas ref={chartRef}></canvas>
+        return (
+        <canvas style={{minHeight:'300px'}} ref={chartRef}></canvas>
+        );
     }
 
 };

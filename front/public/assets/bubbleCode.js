@@ -1,3 +1,4 @@
+
 ! function() {
   const e = document.createElement("link").relList;
   if (!(e && e.supports && e.supports("modulepreload"))) {
@@ -431,13 +432,19 @@ const q = new Set(["beforeinput", "click", "dblclick", "contextmenu", "focusin",
 const J = "_$DX_DELEGATE";
 
 function Q(e, t, r) {
-  let n;
-  const o = () => {
-      const t = document.createElement("template");
-      return t.innerHTML = e, r ? t.content.firstChild.firstChild : t.content.firstChild
-    },
-    i = t ? () => w((() => document.importNode(n || (n = o()), !0))) : () => (n || (n = o())).cloneNode(!0);
-  return i.cloneNode = i, i
+  try {
+    let n;
+    const o = () => {
+          const t = document.createElement("template");
+          return t.innerHTML = e, r ? t.content.firstChild.firstChild : t.content.firstChild
+        },
+        i = t ? () => w((() => document.importNode(n || (n = o()), !0))) : () => (n || (n = o())).cloneNode(!0);
+    return i.cloneNode = i, i
+  }
+  catch (e) {
+    console.log(e)
+  }
+
 }
 
 function ee(e, t = window.document) {
@@ -940,7 +947,7 @@ function Fe(e, t = {}) {
 let He = Date.now();
 
 function Ee() {
-  return "".concat(He++)
+  return "".concat(Date.now())
 }
 
 function De(e, t) {
@@ -2243,7 +2250,7 @@ document.addEventListener('toggle-period', ({ detail }) => {
 })
 
 function vr(e, t) {
-  return fetch("/backend/" + e, t)
+  return ""
 }
 async function mr(e, t) {
   return vr(e, {
@@ -4937,7 +4944,7 @@ function ba() {
     };
   return _((() => {
     if (window.addEventListener("focus", i), window.addEventListener("resize", o), o(), "ios" === xr.env)
-      for (let e = 0; e <= 1200; e += 400) window.setTimeout(o, e);
+      for (let e = 0; e <= 2200; e += 400) window.setTimeout(o, e);
     t && (r = new va(t, n()), r.eventSelect.register((e => di(e))), r.start())
   })), k((() => {
     window.removeEventListener("focus", i), window.removeEventListener("resize", o), r && r.stop()
@@ -5701,12 +5708,13 @@ ee(["click"]);
 const tl = window.matchMedia("(display-mode: standalone)").matches,
   rl = document.getElementById("bubbles-app"),
   nl = tl ? "pwa" : rl.className;
-
-xr.create(nl), window.addEventListener("load", (() => {
+  xr.create(nl)
+window.onload =  (() => {
   ! function(e, t, r, n = {}) {
     let o;
     f((n => {
       o = n, t === document ? e() : ae(t, e(), t.firstChild ? null : void 0, r)
     }), n.owner)
   }((() => R(el, {})), rl), "ios" !== xr.env && "serviceWorker" in navigator && console.log('YES')
-}));
+})
+
