@@ -1,4 +1,5 @@
 const {Router} = require("express");
+const {getMessages} = require("../bootTGBot");
 const router = Router()
 
 
@@ -17,8 +18,22 @@ const mockData = [
     },
 ]
 
-router.get('/get-last-messages',(req,res)=>{
-    return res.status(200).json({ data: mockData})
+function truncateString(str, maxLength = 50) {
+    if (str.length <= maxLength) {
+        return str;
+    } else {
+        return str.substring(0, maxLength - 3) + '...';
+    }
+}
+
+router.get('/get-last-messages',async (req,res)=>{
+    const messages = await getMessages().then(res => res.map(message => ({
+        link: `https://t.me/ProfessorKlinkov/${message.id}`,
+        message: truncateString(message.message)
+    })))
+
+    console.log(messages)
+    return res.status(200).json({ data: messages})
 })
 
 module.exports = router;

@@ -1,38 +1,49 @@
-const { Telegraf } = require("telegraf");
+const {TelegramClient, sessions} = require("telegram");
+const {InputMessagesFilterEmpty, InputMessagesFilterVideo} = require("telegram/tl/api");
 
-const bot = new Telegraf(process.env.BOT_TOKEN);
+const getEnv = (envName)=> {
+  return process.env[envName]
+}
 
-bot.start((ctx) => ctx.reply('Привет! Я готов получить 5 последних сообщений из канала.'));
+const apiId = Number(getEnv('API_ID'));
+const apiHash = getEnv('API_HASH');
+const phoneNumber = getEnv('PHONE');
+const stringSession = new sessions.StringSession(getEnv('STRING_SESSION'));
 
-bot.on('text', (ctx) => {
-  console.log(`Новое сообщение в канале от ${ctx.message.from.username}: ${ctx.message.text}`);
+const client = new TelegramClient(stringSession, apiId, apiHash, {
+  connectionRetries: 5,
 });
-
-const getChannelMessages = async () => {
+const bootTGBot = async () => {
+  // bot.launch()
+  //   .then(() => {
+  //     bot.telegram.sendContact()
+  //   })
   try {
-    const chatId = '@test123321qqq'; // Замените на имя вашего канала
+    console.log("Loading interactive example...");
 
-    // Получение последних 5 сообщений из канала
-    const messages = await bot.telegram(chatId, {
-      limit: 5,
-    });
+    await client.connect()
 
-    console.log(messages)
+    client.session.save()
 
-    // Отправка сообщений пользователю
-    // messages.forEach((message) => {
-    //   ctx.reply(`Сообщение от ${message.from.username}: ${message.text}`);
-    // });
-  } catch (error) {
-    console.error(error);
+    // client.addEventHandler(mainHandler, new NewMessage({}))
+  } catch (e) {
+    console.log('e.message', e.message)
   }
 }
 
-const bootTGBot = () => {
-  bot.launch();
+const getMessages = (limit = 3) => {
+  return  client.getMessages('@ProfessorKlinkov', {
+    filter: InputMessagesFilterVideo,
+    limit: 20
+  })
+    .then(q => q.filter(message => message.message).slice(0, 3))
+    .then(q => q.map(message => ({
+      message: message.message,
+      id: message.id
+    })))
 }
 
 module.exports = {
   bootTGBot,
-  getChannelMessages
+  getMessages
 }
