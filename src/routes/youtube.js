@@ -19,7 +19,7 @@ router.get('/youtube', async (req, res) => {
 
 // Параметры запроса
   const params = {
-    key: 'AIzaSyCjL1FGQZQ7EAH2wIcz_qfcRJQJcI7EZnQ',
+    key: process.env.YOUTUBE_API_KEY,
     part: 'snippet',
     channelId: 'UCgdsZEp1RGXJRK4I7nULrkw', // Замените на идентификатор канала, с которого хотите получить видео
     order: 'date', // Порядок сортировки по дате
