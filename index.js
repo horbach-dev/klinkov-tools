@@ -3,15 +3,14 @@ require('dotenv/config')
 let server = require("http").createServer()
 let app = require("./src/server")
 const path = require('path')
-const fs = require("fs");
+const express = require("express");
+const {getChannelMessages} = require("./src/bootTGBot");
 
 const PORT = process.env.PORT || 8083
 
 server.on("request", app)
 
-app.get("/", (req, res) => {
-  res.sendFile(path.join(__dirname, "./front/dist/index.html"));
-});
+app.use(express.static(path.join(__dirname, "./front/dist")))
 
 async function start() {
   try {
@@ -24,4 +23,3 @@ async function start() {
 }
 
 start();
-
