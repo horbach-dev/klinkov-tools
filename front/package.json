@@ -2,7 +2,7 @@
   "name": "client",
   "license": "UNLICENSED",
   "scripts": {
-    "build": "webpack",
+    "build": "NODE_ENV=production webpack",
     "bundle-analizer": "rimraf dist; NODE_ENV=production BUNDLE_ANALYZER=true webpack",
     "check-types": "tsc",
     "lint": "yarn lint:js && yarn lint:styles",
