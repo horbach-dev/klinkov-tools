@@ -13,6 +13,17 @@ const stringSession = new sessions.StringSession(getEnv('STRING_SESSION'));
 const client = new TelegramClient(stringSession, apiId, apiHash, {
   connectionRetries: 5,
 });
+
+const clientConfigure = {
+  phoneNumber,
+  password: async () =>
+    await input.text("Please enter your password: "),
+  phoneCode: async () =>
+    await input.text("Please enter the code you received: "),
+  onError: (err) => console.log('err', err),
+}
+
+
 const bootTGBot = async () => {
   // bot.launch()
   //   .then(() => {
