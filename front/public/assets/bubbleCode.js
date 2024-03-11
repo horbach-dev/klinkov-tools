@@ -2241,9 +2241,14 @@ const Et = Mt.baseCurrencies.find((e => e.id === (null == Tt ? void 0 : Tt.baseC
 document.addEventListener('toggle-period', ({ detail }) => {
   const buttons = document.querySelectorAll('.configuration-tabs button')
 
-  console.log('called')
-  if (buttons && buttons[detail]) {
-    buttons[detail].click()
+  if (!!buttons && !!buttons[detail]) {
+
+    const clickEvent = new MouseEvent('click', {
+      view: window,
+      bubbles: true,
+      cancelable: true
+    });
+    buttons[detail].dispatchEvent(clickEvent);
   }
 
   // Xt($t.length, "period", detail)
@@ -2534,6 +2539,7 @@ function Rr() {
 }
 //custom
 document.addEventListener(`updateData`,(data)=>{
+  console.log('Added')
   wr(data.detail)
   ce(new CustomEvent('mousedown',{detail:data.detail/100}))
 })
@@ -5201,7 +5207,7 @@ function Ma(e) {
       return t = e.configuration, r = Rt(), t.name && t.name.trim().length > 0 ? t.name : _a(t, r);
       var t, r
     })), m((t => {
-      var o = Dr("tab", r() && "selected"),
+      var o = false,
         i = Pi(Ca(e.configuration), It());
 
       return o !== t.e && re(n, t.e = o), i !== t.t && (null != (t.t = i) ? n.style.setProperty("border-color", i) : n.style.removeProperty("border-color")), t
