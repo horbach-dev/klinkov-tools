@@ -59,21 +59,18 @@ const CoinChart = ({ data, label, timeUnit, isMobile }) => {
                                 drawTicks: false,
                                 drawBorder: false,
                                 drawOnChartArea: true,
-                                offsetGridLines: true,
-                                offsetTicks: true,
                                 zeroLineWidth: 2,
                                 zeroLineColor: 'rgba(200, 200, 200, 0.1)',
                             },
                             ticks: {
+                                padding:10,
                                 callback: (value) => {
                                     if (value >= 1) {
                                         return value.toFixed(0);
                                     } else {
                                         return value.toFixed(6);
                                     }
-                                },
-                                stepSize: 1,
-                                padding: 10
+                                }
                             },
 
                         },
@@ -106,14 +103,13 @@ const CoinChart = ({ data, label, timeUnit, isMobile }) => {
         }
     }, [data, timeUnit, isMobile]);
 
-    if(isMobile){
+    if (isMobile) {
         return (
-            <canvas ref={chartRef} style={{ width: '100%', height: '100vh' }}></canvas>
+            <canvas ref={chartRef} style={{ width: '100%', height: '100%' }}></canvas>
         );
-    }
-    else {
+    } else {
         return (
-        <canvas style={{minHeight:'300px'}} ref={chartRef}></canvas>
+            <canvas style={{ minHeight: '300px' }} ref={chartRef}></canvas>
         );
     }
 

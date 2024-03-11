@@ -29,6 +29,7 @@ const Header = ({
   top,
   }: IProps) => {
   const [isFull, setFull] = useState(false)
+  const isMobile = window.innerWidth <= 490
 
   const handleFull = () => {
     // setWasToggle(true)
@@ -61,107 +62,114 @@ const Header = ({
       <Title>
         {'cryptocurrency'}
       </Title>
-      <div className='bubbles-header__right'>
-
-        {isActiveBubbles ? (
-          <Select
+      <div style={{display:'flex',flexDirection:isMobile?'column':'row',width:'100%'}} className='bubbles-header__right'>
+        <Select
             // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-            // @ts-expect-error
-            value={timeValue}
+            value={top}
+            style={{width:isMobile?'100%':'unset'}}
             className='bubbles-header__select'
             suffixIcon={<ArrowDropdown />}
-            onChange={handleChangeTime}
+            onChange={handleChangeTop}
             options={[
-              { value: 0, label: 'Час' },
-              { value: 1, label: 'День' },
-              { value: 2, label: 'Неделя' },
-              { value: 3, label: 'Месяц' },
-              { value: 4, label: 'Год' },
-              { value: 5, label: 'Обьем' },
+              { value: 0, label: 'топ 100' },
+              { value: 1, label: 'топ 200' },
+              { value: 2, label: 'топ 300' },
             ]}
-          />
-        ) : (
-          <Input
-            setValue={setInputValue}
-            value={inputValue}
-            placeholder='Искать криповалюту'
-          />
-        )}
-
-        <Select
-          // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-          value={top}
-          className='bubbles-header__select'
-          suffixIcon={<ArrowDropdown />}
-          onChange={handleChangeTop}
-          options={[
-            { value: 0, label: 'топ 100' },
-            { value: 1, label: 'топ 200' },
-            { value: 2, label: 'топ 300' },
-          ]}
         />
+        <div style={{display:'flex',justifyContent:isMobile?'space-between':'flex-start',width:'100%'}}>
+          {isActiveBubbles ? (
+              <Select
+                  // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+                  // @ts-expect-error
+                  value={timeValue}
+                  className='bubbles-header__select'
+                  suffixIcon={<ArrowDropdown />}
+                  onChange={handleChangeTime}
+                  options={[
+                    { value: 0, label: 'Час' },
+                    { value: 1, label: 'День' },
+                    { value: 2, label: 'Неделя' },
+                    { value: 3, label: 'Месяц' },
+                    { value: 4, label: 'Год' },
+                    { value: 5, label: 'Обьем' },
+                  ]}
+              />
+          ) : (
+              <Input
+                  setValue={setInputValue}
+                  value={inputValue}
+                  placeholder='Искать криповалюту'
+              />
+          )}
 
-        <div className='bubbles-header__toggle'>
-          <button
-            onClick={() => setActiveBubbles(true)}
-            className={
-              classnames(
-                'bubbles-header__toggle-btn',
-                isActiveBubbles && 'bubbles-header__toggle-btn_active',
-              )
-            }
-          >
+
+
+          <div className='bubbles-header__toggle'>
+            <button
+                onClick={() => setActiveBubbles(true)}
+                className={
+                  classnames(
+                      'bubbles-header__toggle-btn',
+                      isActiveBubbles && 'bubbles-header__toggle-btn_active',
+                  )
+                }
+            >
             <span
+                className={
+                  classnames(
+                      'bubbles-header__toggle-icon',
+                      'bubbles-header__toggle-icon_bubble',
+                      isActiveBubbles && 'bubbles-header__toggle-icon_bubble-active',
+                  )
+                }
+            />
+            </button>
+            <div style={{display:'flex'}}>
+
+
+            <button
+                onClick={() => setActiveBubbles(false)}
+                className={
+                  classnames(
+                      'bubbles-header__toggle-btn',
+                      !isActiveBubbles && 'bubbles-header__toggle-btn_active',
+                  )
+                }
+            >
+            <span
+                className={
+                  classnames(
+                      'bubbles-header__toggle-icon',
+                      'bubbles-header__toggle-icon_burger',
+                      !isActiveBubbles && 'bubbles-header__toggle-icon_burger-active',
+                  )
+                }
+            />
+            </button>
+          </div>
+          <button
+              onClick={handleFull}
               className={
                 classnames(
-                  'bubbles-header__toggle-icon',
-                  'bubbles-header__toggle-icon_bubble',
-                  isActiveBubbles && 'bubbles-header__toggle-icon_bubble-active',
+                    'bubbles-header__toggle-btn',
+                    'bubbles-header__toggle-btn_full',
+                    'bubbles-header__toggle-btn_active',
                 )
               }
-            />
-          </button>
-
-          <button
-            onClick={() => setActiveBubbles(false)}
-            className={
-              classnames(
-                'bubbles-header__toggle-btn',
-                !isActiveBubbles && 'bubbles-header__toggle-btn_active',
-              )
-            }
           >
-            <span
-              className={
-                classnames(
-                  'bubbles-header__toggle-icon',
-                  'bubbles-header__toggle-icon_burger',
-                  !isActiveBubbles && 'bubbles-header__toggle-icon_burger-active',
-                )
-              }
-            />
-          </button>
-        </div>
-        <button
-          onClick={handleFull}
-          className={
-            classnames(
-              'bubbles-header__toggle-btn',
-              'bubbles-header__toggle-btn_full',
-              'bubbles-header__toggle-btn_active',
-            )
-          }
-        >
           <span
               className={
                 classnames(
-                  'bubbles-header__toggle-icon',
-                  'bubbles-header__toggle-icon_full',
-                  'bubbles-header__toggle-icon_full-active',
+                    'bubbles-header__toggle-icon',
+                    'bubbles-header__toggle-icon_full',
+                    'bubbles-header__toggle-icon_full-active',
                 )
               }
-            />
-        </button>
+          />
+
+          </button>
+          </div>
+        </div>
       </div>
     </div>
   )
