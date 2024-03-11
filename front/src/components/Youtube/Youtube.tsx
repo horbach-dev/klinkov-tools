@@ -8,6 +8,7 @@ import SwiperItem from '$components/Youtube/components'
 
 import './Youtube.scss'
 import axios from 'axios'
+import { client } from "$api/index";
 
 const Youtube = () => {
   const [data, setData] = useState([])
@@ -17,7 +18,7 @@ const Youtube = () => {
     try {
     setLoading(true)
 
-      const res = await axios.get('http://localhost:8083/youtube')
+      const res = await client.get('/youtube')
        setData(res.data.data)
       //setData(mockData.items)
     } catch(ex) {

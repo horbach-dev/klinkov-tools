@@ -2328,7 +2328,7 @@ const getData = async (count= 100) => {
         resolve(convertDataToBubbles(parsed.data.cryptoCurrencyList));
       }
     };
-    xhr.open(`GET`,`http://localhost:8083/get-listing?count=${count}&withLesson=true`)
+    xhr.open(`GET`,`/get-listing?count=${count}&withLesson=true`)
     xhr.send();
   })
 }

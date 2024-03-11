@@ -7,6 +7,7 @@ import Title from '$components/Title'
 import DominanceChart from './components/DominanceChart'
 
 import './Dominance.scss'
+import { client } from "$api/index";
 
 const defaultValue = 'ALL'
 
@@ -19,7 +20,7 @@ const Dominance = () => {
     try {
       setLoading(true)
 
-      const res = await axios.get('http://localhost:8083/btc-dominance', {
+      const res = await client.get('/btc-dominance', {
         params: { range },
       })
 

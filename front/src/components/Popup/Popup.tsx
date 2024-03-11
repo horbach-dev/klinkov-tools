@@ -9,6 +9,9 @@ import useStore from '$hooks/useStore'
 import UserStore from '$stores/UserStore'
 
 import './Popup.scss'
+import CoinChart from '$components/Chart/CoinChart'
+import { client } from "$api/index";
+
 
 const defaultValue = '1M'
 
@@ -23,8 +26,7 @@ const Popup = () => {
   const getDominance = async (range) => {
     try {
       setLoading(true)
-
-      const res = await axios.get(`http://localhost:8083/get-coin?range=${range}&id=${popup.item['0'].id}`)
+      const res = await client.get(`/get-coin?range=${range}&id=${popup.item["0"].id}`)
 
       //setCurrentValue(range)
       setData(res.data)

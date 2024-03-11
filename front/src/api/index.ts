@@ -6,7 +6,7 @@ import { getServerLink } from '$utils/getServerLink'
 const FIELD_ERROR_CODE = 10001
 const ALERT_ERROR_CODE = 10101
 
-const client = axios.create({
+export const client = axios.create({
   baseURL: getServerLink(),
 })
 

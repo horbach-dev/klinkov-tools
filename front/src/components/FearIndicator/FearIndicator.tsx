@@ -4,6 +4,7 @@ import Loader from '$components/Loader'
 import Speed from './Speed'
 
 import './FearIndicator.scss'
+import { client } from "$api/index";
 
 const FearIndicator = () => {
   const [data, setData] = useState([])
@@ -13,8 +14,8 @@ const FearIndicator = () => {
     const yesterdayMidnight = todayMidnight - (86400 * 1000)
 
     try {
-      const res = await axios.get(
-        'http://localhost:8083/fear-and-greed',
+      const res = await client.get(
+        '/fear-and-greed',
         {
           params: {
             start: yesterdayMidnight / 1000,
