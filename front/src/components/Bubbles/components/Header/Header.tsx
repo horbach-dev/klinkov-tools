@@ -32,7 +32,6 @@ const Header = ({
   const isMobile = window.innerWidth <= 490
 
   const handleFull = () => {
-    // setWasToggle(true)
     setFull(prev => {
       const bubbles = document.getElementById('bubbles-section')
       const bubbleApp = document.getElementById('bubbles-app')
@@ -62,40 +61,45 @@ const Header = ({
       <Title>
         {'cryptocurrency'}
       </Title>
-      <div style={{display:'flex',flexDirection:isMobile?'column':'row',width:'100%'}} className='bubbles-header__right'>
+      <div className='bubbles-header__right'>
         <Select
-            // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-            value={top}
-            style={{width:isMobile?'100%':'unset'}}
-            className='bubbles-header__select'
-            suffixIcon={<ArrowDropdown />}
-            onChange={handleChangeTop}
-            options={[
-              { value: 0, label: 'топ 100' },
-              { value: 1, label: 'топ 200' },
-              { value: 2, label: 'топ 300' },
-            ]}
+          value={top}
+          className='bubbles-header__select'
+          suffixIcon={<ArrowDropdown />}
+          onChange={handleChangeTop}
+          options={[
+            { value: 0, label: 'топ 100' },
+            { value: 1, label: 'топ 200' },
+            { value: 2, label: 'топ 300' },
+          ]}
         />
-        <div style={{display:'flex',justifyContent:isMobile?'space-between':'flex-start',width:'100%'}}>
+        <div
+          className={
+            classnames(
+              'bubbles-header__select-input',
+              !isActiveBubbles && 'bubbles-header__select-input_without-bubbles',
+            )
+          }
+        >
           {isActiveBubbles ? (
-              <Select
-                  // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-                  // @ts-expect-error
-                  value={timeValue}
-                  className='bubbles-header__select'
-                  suffixIcon={<ArrowDropdown />}
-                  onChange={handleChangeTime}
-                  options={[
-                    { value: 0, label: 'Час' },
-                    { value: 1, label: 'День' },
-                    { value: 2, label: 'Неделя' },
-                    { value: 3, label: 'Месяц' },
-                    { value: 4, label: 'Год' },
-                    { value: 5, label: 'Обьем' },
-                  ]}
-              />
+            <Select
+              // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+              // @ts-expect-error
+              value={timeValue}
+              className='bubbles-header__select'
+              suffixIcon={<ArrowDropdown />}
+              onChange={handleChangeTime}
+              options={[
+                { value: 0, label: 'Час' },
+                { value: 1, label: 'День' },
+                { value: 2, label: 'Неделя' },
+                { value: 3, label: 'Месяц' },
+                { value: 4, label: 'Год' },
+                { value: 5, label: 'Обьем' },
+              ]}
+            />
           ) : (
-              <Input
+            <Input
                   setValue={setInputValue}
                   value={inputValue}
                   placeholder='Искать криповалюту'
@@ -114,7 +118,7 @@ const Header = ({
                   )
                 }
             >
-            <span
+              <span
                 className={
                   classnames(
                       'bubbles-header__toggle-icon',
@@ -124,10 +128,10 @@ const Header = ({
                 }
             />
             </button>
-            <div style={{display:'flex'}}>
+            <div style={{ display:'flex' }}>
 
 
-            <button
+              <button
                 onClick={() => setActiveBubbles(false)}
                 className={
                   classnames(
@@ -136,7 +140,7 @@ const Header = ({
                   )
                 }
             >
-            <span
+                <span
                 className={
                   classnames(
                       'bubbles-header__toggle-icon',
@@ -145,30 +149,30 @@ const Header = ({
                   )
                 }
             />
-            </button>
+              </button>
+            </div>
           </div>
           <button
-              onClick={handleFull}
-              className={
-                classnames(
-                    'bubbles-header__toggle-btn',
-                    'bubbles-header__toggle-btn_full',
-                    'bubbles-header__toggle-btn_active',
-                )
-              }
+            onClick={handleFull}
+            className={
+              classnames(
+                'bubbles-header__toggle-btn',
+                'bubbles-header__toggle-btn_full',
+                'bubbles-header__toggle-btn_active',
+              )
+            }
           >
-          <span
-              className={
-                classnames(
+              <span
+                className={
+                  classnames(
                     'bubbles-header__toggle-icon',
                     'bubbles-header__toggle-icon_full',
                     'bubbles-header__toggle-icon_full-active',
-                )
-              }
-          />
+                  )
+                }
+              />
 
           </button>
-          </div>
         </div>
       </div>
     </div>

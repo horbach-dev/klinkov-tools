@@ -285,7 +285,7 @@ td {
 }
 
 .bubble-chart {
-    position: relative
+    position: relative;
 }
 
 .bubble-chart canvas {

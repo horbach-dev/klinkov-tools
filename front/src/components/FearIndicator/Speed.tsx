@@ -62,9 +62,14 @@ const Speed = ({ score, speed }: IProps) => {
 
   useEffect(() => {
     const { x, y } = updatePointPosition(speed)
+    const grid = document.querySelector('.feather-indicator__speed')
+
+    // grid.
+
+
 
     setPointPosition({ x, y })
-  }, [speed])
+  }, [speed, pointRef])
 
   return (
     <div className='feather-indicator__speed'>
@@ -377,6 +382,7 @@ const Speed = ({ score, speed }: IProps) => {
             ref={pointRef}
             cx={pointPosition.x}
             cy={pointPosition.y}
+            className='circle-position'
             r='5'
             fill='#DBB466' />
           <circle

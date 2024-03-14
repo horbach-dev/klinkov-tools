@@ -8,11 +8,11 @@ const getEnv = (envName)=> {
 const apiId = Number(getEnv('API_ID'));
 const apiHash = getEnv('API_HASH');
 const phoneNumber = getEnv('PHONE');
-const stringSession = new sessions.StringSession(getEnv('STRING_SESSION'));
+// const stringSession = new sessions.StringSession(getEnv('STRING_SESSION'));
 
-const client = new TelegramClient(stringSession, apiId, apiHash, {
-  connectionRetries: 5,
-});
+// const client = new TelegramClient(stringSession, apiId, apiHash, {
+//   connectionRetries: 5,
+// });
 
 const clientConfigure = {
   phoneNumber,
