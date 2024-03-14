@@ -207,7 +207,18 @@ router.get('/get-listing', async (req, res) => {
         item.cmcRank = key + 1;
       })
       if(withLesson){
-        LESSON_BUBBLE.quotes[2].percentChange1h = Math.max(...(sliced_data.map(item => item.quotes[2].percentChange1h)))
+        const maxPerHour = Math.max(...(sliced_data.map(item => item.quotes[2].percentChange1h)))
+        const maxPerDay = Math.max(...(sliced_data.map(item => item.quotes[2].percentChange24h)))
+        const maxPerWeek = Math.max(...(sliced_data.map(item => item.quotes[2].percentChange7d)))
+        const maxPerMonth = Math.max(...(sliced_data.map(item => item.quotes[2].percentChange30d)))
+        const maxPerYear = Math.max(...(sliced_data.map(item => item.quotes[2].percentChange1y)))
+        const maxPerMarketCap = Math.max(...(sliced_data.map(item => item.quotes[2].marketCap)))
+        LESSON_BUBBLE.quotes[2].percentChange1h = maxPerHour
+        LESSON_BUBBLE.quotes[2].percentChange24h = maxPerDay
+        LESSON_BUBBLE.quotes[2].percentChange7d = maxPerWeek
+        LESSON_BUBBLE.quotes[2].percentChange30d = maxPerMonth
+        LESSON_BUBBLE.quotes[2].percentChange1y = maxPerYear
+        LESSON_BUBBLE.quotes[2].marketCap = maxPerMarketCap
         sliced_data.push(LESSON_BUBBLE)
       }
       return res.status(200).json({ data: {cryptoCurrencyList: sliced_data}})
