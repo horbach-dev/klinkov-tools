@@ -72,7 +72,7 @@ const BitcoinDominanceChart = ({ bitcoinDominanceData, range, onlyChart,symbol= 
 
       const gradient = ctx.createLinearGradient(0, 0, 0, 140)
 
-      gradient.addColorStop(0, 'rgba(219, 180, 102, 0.2)')
+      gradient.addColorStop(0, 'rgba(219, 180, 102, 0.5)')
       gradient.addColorStop(1, 'rgba(255, 255, 255, 0)')
 
       chartInstance.current = new Chart(ctx, {
@@ -113,7 +113,7 @@ const BitcoinDominanceChart = ({ bitcoinDominanceData, range, onlyChart,symbol= 
             y: {
               display: false,
               beginAtZero: false,
-              min: -50,
+              min: 20,
               max: 100,
             },
           },

@@ -126,7 +126,7 @@ const Popup = () => {
                       </p>
                     </Flex>
                     <div style={{ display: 'flex', flexDirection: 'row', alignItems: 'center', justifyContent: 'center',height:'100%',overflowX:'auto' }}>
-                      <div style={{ minWidth:'700px',height:'100%' }}>
+                      <div style={{ minWidth: window.innerWidth - 20,height:'100%' }}>
                         <CoinChart isMobile={isMobile} timeUnit={currentValue} label={popup.item[0].name} data={data.data} />
                       </div>
                     </div>
@@ -279,7 +279,7 @@ const Popup = () => {
                   </p>
                 </Flex>
                 <Flex>
-                  <CoinChart  isMobile={false} timeUnit={currentValue} label={popup.item[0].name} data={data.data}/>
+                  <CoinChart isMobile={false} timeUnit={currentValue} label={popup.item[0].name} data={data.data}/>
                   {/*<DominanceChart bitcoinDominanceData={data} range={currentValue} onlyChart />*/}
                 </Flex>
                 <Flex style={{  bottom: 0, width: '100%' }} gap={32} justify='center'>

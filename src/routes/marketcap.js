@@ -4,7 +4,6 @@ const router = Router()
 
 const TOKEN = 'c95511d1-8068-4d03-84f5-9c00c33b4dd9'
 
-
 const LESSON_BUBBLE = {
   "id": 99999999999,
   "name": "Бесплатный урок",
@@ -208,6 +207,7 @@ router.get('/get-listing', async (req, res) => {
         item.cmcRank = key + 1;
       })
       if(withLesson){
+        LESSON_BUBBLE.quotes[2].percentChange1h = Math.max(...(sliced_data.map(item => item.quotes[2].percentChange1h)))
         sliced_data.push(LESSON_BUBBLE)
       }
       return res.status(200).json({ data: {cryptoCurrencyList: sliced_data}})
