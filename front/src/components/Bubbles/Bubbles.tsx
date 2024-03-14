@@ -41,7 +41,7 @@ const Bubbles = () => {
     const searched = getItems(top)[id-1]
     if(searched){
       if(id === 100){
-        document.location = 'https://www.google.com/search?q=salam+alaikum';
+        document.location = 'https://www.google.com/search?q=salam+alaikum'
       } else {
         setUserState(prev => ({ ...prev, popup: { item:searched,isOpen: true } }))
       }
