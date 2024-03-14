@@ -1,7 +1,7 @@
-const DOMAIN_SERVER = process.env.DOMAIN
-const LOCAL_SERVER = process.env.LOCAL
-const MODE = process.env.MODE
+const DOMAIN_SERVER = process.env.DOMAIN || 'https://192.168.1.10'
+const LOCAL_SERVER = process.env.LOCAL || 'http://localhost:3005'
+const MODE = process.env.MODE || 'dev'
 
-export const getServerLink = (path?: string) => {
-  return MODE === 'dev' ? LOCAL_SERVER : DOMAIN_SERVER
+export const getServerLink = () => {
+  return MODE !== 'dev' ? DOMAIN_SERVER : LOCAL_SERVER
 }

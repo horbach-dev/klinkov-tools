@@ -56,6 +56,8 @@
 .header__menu {
   display: flex;
   align-items: center;
+  margin-left: 16px;
+  margin-top: 3px;
 }
 
 .header__menu-item {
@@ -90,11 +92,16 @@
   .header_links {
     display: none !important;
   }
+}
 
-  .header__drawer-item {
-    display: block;
-    margin-bottom: 20px;
-    color: #fff;
-    text-decoration: none;
+.header__drawer-item {
+  display: block;
+  //margin-bottom: 20px;
+  color: #fff !important;
+  text-decoration: none !important;
+  transition: color 0.25s;
+
+  &:hover {
+    color: #FCC521 !important;
   }
 }

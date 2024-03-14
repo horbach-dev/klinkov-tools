@@ -28,26 +28,26 @@ const useInitBubbles = (innerWidth, innerHeight, bubblesWrapRef) => {
     const [loaded,setLoaded] = useState(false);
 
     useEffect(() => {
-        const scriptTag = document.createElement('script')
-
-        scriptTag.src = 'assets/bubbleCode.js'
-        scriptTag.id = `bubbles`
-        document.head.appendChild(scriptTag)
-        scriptTag.onload = () => {
-            setLoaded(true);
-            window.dispatchEvent(new Event('load'));
-        }
-        const cssLink1 = document.createElement('link')
-
-        cssLink1.rel = 'stylesheet'
-        cssLink1.href = 'assets/bubbleStyles.css'
-        document.head.appendChild(cssLink1)
-
-        const cssLink2 = document.createElement('link')
-
-        cssLink2.rel = 'stylesheet'
-        cssLink2.href = 'assets/reset.css'
-        document.head.appendChild(cssLink2)
+        // const scriptTag = document.createElement('script')
+        //
+        // scriptTag.src = 'assets/bubbleCode.js'
+        // scriptTag.id = `bubbles`
+        // document.head.appendChild(scriptTag)
+        // scriptTag.onload = () => {
+        //     setLoaded(true);
+        //     window.dispatchEvent(new Event('load'));
+        // }
+        // const cssLink1 = document.createElement('link')
+        //
+        // cssLink1.rel = 'stylesheet'
+        // cssLink1.href = 'assets/bubbleStyles.css'
+        // document.head.appendChild(cssLink1)
+        //
+        // const cssLink2 = document.createElement('link')
+        //
+        // cssLink2.rel = 'stylesheet'
+        // cssLink2.href = 'assets/reset.css'
+        // document.head.appendChild(cssLink2)
 
     }, [])
 
