@@ -2323,10 +2323,13 @@ const getData = async (count= 100) => {
   return new Promise((resolve, reject)=>{
     const xhr = new XMLHttpRequest();
     xhr.onreadystatechange = function() {
-      if (this.readyState == 4 && this.status == 200) {
+      try {
+        if (this.readyState == 4 && this.status == 200) {
         const parsed = JSON.parse(this.response);
         resolve(convertDataToBubbles(parsed.data.cryptoCurrencyList));
-      }
+        document.querySelector('.loader-fix-bubbles-wrap').delete
+       }
+      } catch (e) {}
     };
     xhr.open(`GET`,`/get-listing?count=${count}&withLesson=true`)
     xhr.send();

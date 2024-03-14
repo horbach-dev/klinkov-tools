@@ -15,7 +15,6 @@ const Dominance = () => {
   const [data, setData] = useState([])
   const [isLoading, setLoading] = useState(false)
   const [currentValue, setCurrentValue] = useState(defaultValue)
-
   const getDominance = async (range) => {
     try {
       setLoading(true)

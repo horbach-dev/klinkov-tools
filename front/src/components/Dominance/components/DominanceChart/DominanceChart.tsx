@@ -21,6 +21,7 @@ const BitcoinDominanceChart = ({ bitcoinDominanceData, range, onlyChart,symbol= 
   const chartRef = useRef<any>(null)
   const chartInstance = useRef<Chart | null>(null)
   const [data, setData] = useState([])
+  const isMobile = window.innerWidth <= 1100
 
   useEffect(() => {
     moment.locale('ru')
@@ -91,7 +92,7 @@ const BitcoinDominanceChart = ({ bitcoinDominanceData, range, onlyChart,symbol= 
           ],
         },
         options: {
-          aspectRatio: 3,
+          aspectRatio: isMobile ? 5 : 4,
           scales: {
             x: {
               type: 'time',
@@ -107,6 +108,11 @@ const BitcoinDominanceChart = ({ bitcoinDominanceData, range, onlyChart,symbol= 
                 maxTicksLimit: 4,
                 padding: 0,
                 backdropPadding: 0,
+                font: {
+                  family: 'oswald',
+                  size: isMobile ? 18 : 14,
+                  weight: 700
+                }
               },
               offset: false,
             },
@@ -115,6 +121,13 @@ const BitcoinDominanceChart = ({ bitcoinDominanceData, range, onlyChart,symbol= 
               beginAtZero: false,
               min: 20,
               max: 100,
+              ticks: {
+                font: {
+                  family: 'oswald',
+                  size: 18,
+                  weight: 700
+                }
+              }
             },
           },
           plugins: {
