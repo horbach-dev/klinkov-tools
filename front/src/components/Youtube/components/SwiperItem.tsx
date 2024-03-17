@@ -10,7 +10,6 @@ interface IProps {
 
 const SwiperItem = ({ videoId, src, title }: IProps) => {
   const [isLoaded, setLoaded] = useState(false)
-
   return (
     <>
       <a
@@ -22,6 +21,7 @@ const SwiperItem = ({ videoId, src, title }: IProps) => {
       <img
         loading='lazy'
         onLoad={() => setLoaded(true)}
+        onError={() => setLoaded(true)}
         className={classnames('youtube__swiper-image', isLoaded && 'youtube__swiper-image_loaded')}
         alt='video'
         src={src}

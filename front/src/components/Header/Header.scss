@@ -96,10 +96,14 @@
 
 .header__drawer-item {
   display: block;
-  //margin-bottom: 20px;
+  font-size: 16px;
   color: #fff !important;
   text-decoration: none !important;
   transition: color 0.25s;
+
+  @media (max-width: 770px) {
+    margin-bottom: 20px;
+  }
 
   &:hover {
     color: #FCC521 !important;

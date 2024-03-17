@@ -155,7 +155,6 @@ router.get('/get-coin',async (req,res)=>{
       },
       params: { id, range },
     })
-    console.log(response.data)
     return res.status(200).json({ data: response.data.data.points})
   } catch(ex) {
     // error

@@ -92,7 +92,7 @@ const BitcoinDominanceChart = ({ bitcoinDominanceData, range, onlyChart,symbol= 
           ],
         },
         options: {
-          aspectRatio: isMobile ? 5 : 4,
+          aspectRatio: isMobile ? 5 : 3,
           scales: {
             x: {
               type: 'time',
@@ -110,7 +110,7 @@ const BitcoinDominanceChart = ({ bitcoinDominanceData, range, onlyChart,symbol= 
                 backdropPadding: 0,
                 font: {
                   family: 'oswald',
-                  size: isMobile ? 18 : 14,
+                  size: isMobile ? 16 : 14,
                   weight: 700
                 }
               },
@@ -124,7 +124,7 @@ const BitcoinDominanceChart = ({ bitcoinDominanceData, range, onlyChart,symbol= 
               ticks: {
                 font: {
                   family: 'oswald',
-                  size: 18,
+                  size: 16,
                   weight: 700
                 }
               }

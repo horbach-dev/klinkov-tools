@@ -1,31 +1,36 @@
-import 'swiper/css'
-
 import React, { useEffect, useState } from 'react'
-import { Navigation,Pagination } from 'swiper/modules'
 import { Swiper, SwiperSlide } from 'swiper/react'
+import { Navigation, Pagination } from 'swiper/modules'
+import { client } from '$api/index'
 import Loader from '$components/Loader'
 import SwiperItem from '$components/Youtube/components'
+import { mock } from '$components/Youtube/mock'
 
 import './Youtube.scss'
-import axios from 'axios'
-import { client } from "$api/index";
+import 'swiper/scss'
 
 const Youtube = () => {
   const [data, setData] = useState([])
-  const [isLoading, setLoading] = useState(false)
 
   const getYouTubeVideos = async () => {
     try {
-    setLoading(true)
-
       const res = await client.get('/youtube')
-       setData(res.data.data)
-      //setData(mockData.items)
-    } catch(ex) {
+      setData(res.data.data)
+
+      const q = mock.items.map(item => ({
+          etag: item.etag,
+          id: item.id.videoId,
+          title: item.snippet.title,
+          description: item.snippet.description,
+          thumbnail: item.snippet.thumbnails.high.url,
+          publishedAt: item.snippet.publishedAt
+        })
+      )
+
+      setData(q)
+    } catch (ex) {
       // error
       console.log(ex)
-    } finally {
-      setLoading(false)
     }
   }
 
@@ -33,7 +38,7 @@ const Youtube = () => {
     getYouTubeVideos()
   }, [])
 
-  if (!data.length) return <Loader />
+  if (!data.length) return <Loader/>
 
   return (
     <div className='youtube'>
@@ -51,9 +56,9 @@ const Youtube = () => {
           return (
             <SwiperSlide key={item.etag}>
               <SwiperItem
-                videoId={item.id.videoId}
-                src={item.snippet.thumbnails.high.url}
-                title={item.snippet.title}
+                videoId={item.id}
+                src={item.thumbnail}
+                title={item.title}
               />
             </SwiperSlide>
           )

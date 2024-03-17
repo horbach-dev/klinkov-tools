@@ -11,6 +11,7 @@
     "test": "jest --runInBand",
     "start": "cross-env npx webpack serve --host localhost --mode=development"
   },
+  "sideEffects": [ "*.css", "*.scss" ],
   "dependencies": {
     "@ant-design/icons": "^5.2.6",
     "antd": "^5.13.3",

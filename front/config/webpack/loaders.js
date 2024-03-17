@@ -14,8 +14,7 @@ module.exports = ({ isDev }) => {
       rules: [
         {
           test: /\.[jt]sx?$/,
-          exclude: /node_modules/,
-          include: [/src/, /lib/],
+          exclude: /node_modules\/(?!(dom7|swiper)\/).*/,
           use: {
             loader: 'esbuild-loader',
             options: {

@@ -1,6 +1,5 @@
 import React, { Suspense, useEffect, useState } from 'react'
 import { Select } from 'antd'
-import axios from 'axios'
 import ArrowDropdown from '$components/Bubbles/components/ArrowDropdown'
 import Loader from '$components/Loader'
 import Title from '$components/Title'

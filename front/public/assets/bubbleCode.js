@@ -1517,66 +1517,7 @@ const lt = {
   show_more: "もっと見る"
 };
 var st = Q('<svg class=flag viewBox="0 0 513 342"><path fill=#FFF d="M0 0h512v342H0z"></path><path fill=#6DA544 d="M0 0h513v114H0z"></path><path fill=#D80027 d="M0 227.9h513v114H0zM278.8 134.8c.1 2 8.7 26.2 4.4 39.4-6.6 20.3-15.8 21.8-19.8 24.5V134l-6.9-4.2-6.9 4.2v64.7c-4-2.7-12.4-2.4-19.8-24.5-4.3-12.7 5.7-37.3 5.8-39.2 0 0-9.5 8.1-15.8 24-5.9 14.8 1.9 49.6 29.5 54.8 2.3.4 4.7 5.6 7.2 5.6 2.1 0 4.1-5.2 6-5.5 28.4-4.6 35-41.7 29.9-55.6-5.4-14.6-13.6-23.5-13.6-23.5z"></path><path fill=#FFF opacity=.5 d="M44.6 98.9h22.3v24.4H44.6zM0 98.9h22.3v24.4H0zM89.2 98.9h22.3v24.4H89.2zM133.8 98.9h22.3v24.4h-22.3zM178.4 98.9h22.3v24.4h-22.3zM223 98.9h22.3v24.4H223zM267.7 98.9H290v24.4h-22.3zM312.3 98.9h22.3v24.4h-22.3zM356.9 98.9h22.3v24.4h-22.3zM401.5 98.9h22.3v24.4h-22.3zM446.1 98.9h22.3v24.4h-22.3zM490.7 98.9H513v24.4h-22.3zM44.6 216.9h22.3v25.5H44.6zM0 216.9h22.3v25.5H0zM89.2 216.9h22.3v25.5H89.2zM133.8 216.9h22.3v25.5h-22.3zM178.4 216.9h22.3v25.5h-22.3zM223 216.9h22.3v25.5H223zM267.7 216.9H290v25.5h-22.3zM312.3 216.9h22.3v25.5h-22.3zM356.9 216.9h22.3v25.5h-22.3zM401.5 216.9h22.3v25.5h-22.3zM446.1 216.9h22.3v25.5h-22.3zM490.7 216.9H513v25.5h-22.3z">');
-const ct = {
-  id: "fa",
-  flag: () => st(),
-  name: "فارسی",
-  loading: "...در حال بارگیری محتوا",
-  currencyName: "رمزارز",
-  settings: "تنظیمات",
-  currency: "واحد پول",
-  language: "زبان",
-  colors: "رنگها",
-  red_green: "قرمز + سبز",
-  yellow_blue: "زرد + آبی",
-  rank: "رتبه بندی",
-  marketcap: "سرمایه بازار",
-  volume: "حجم روزانه",
-  price: "قیمت",
-  dominance: "تسلط",
-  performance: "پرفورمنس",
-  neutral: "خنثی",
-  period_hour: "ساعت",
-  period_day: "روز",
-  period_week: "هفته",
-  period_month: "ماه",
-  period_year: "سال",
-  favorites: "علاقه مندی ها",
-  add_favorite: "افزودن به علاقه مندی ها",
-  remove_favorite: "از علاقه مندی ها حذف شود",
-  search_crypto: "رمز ارز را جستجو کنید",
-  bubble_size: "اندازه حباب",
-  bubble_content: "محتوای حباب",
-  bubble_color: "رنگ حباب",
-  period: "بازه زمانی",
-  description: "نمودار حبابی تعاملی برای ۵۰۰ رمز ارزهای برتر",
-  support_my_work: "از پروژه من حمایت کنید",
-  window_close: "بستن پنجره",
-  window_toggleExpand: "پنجره را باز / بسته کنید",
-  configuration_add: "نمودار اضافه کنید",
-  configuration_edit: "نمودار را ویرایش کنید",
-  copy: "کپی",
-  not_found: "در TOP 1000 یافت نشد",
-  links: "پیوندها",
-  exchanges: "مبادلات",
-  pages: "صفحات",
-  empty_list: "لیست خالی است",
-  delete: "حذف",
-  lists: "لیست ها",
-  show: "نمایش",
-  hide: "مخفی کردن",
-  watchlist_add: "افزودن به لیست نظارت",
-  add_to_list: "افزودن به لیست",
-  blocklist: "لیست مسدود",
-  watchlist: "لیست نظارت",
-  watchlists: "لیست های نظارتی",
-  cancel: "لغو",
-  confirm: "تأیید",
-  trade: "معامله",
-  info_tooltip: "(currency) را در (service) مشاهده کنید",
-  trade_tooltip: "(currency) را در (exchange) معامله کنید",
-  show_more: "نمایش بیشتر"
-};
+
 var ut = Q('<svg class=flag viewBox="0 0 16 10"><path fill=#fff d="M0 0h16v10H0z"></path><path fill=#dc143c d="M0 5h16v5H0z">');
 const dt = {
   id: "pl",
@@ -1944,67 +1885,8 @@ const _t = {
   show_more: "Daha fazla göster"
 };
 var kt = Q('<svg class=flag viewBox="0 85.333 512 341.333"><path fill=#FFDA44 d="M0 85.337h512v341.326H0z"></path><path fill=#338AF3 d="M0 85.337h512V256H0z">');
-const Ct = {
-    id: "uk",
-    flag: () => kt(),
-    name: "Українська",
-    loading: "Завантаження контенту...",
-    currencyName: "Ім'я",
-    settings: "Налаштування",
-    currency: "Валюта",
-    language: "Мова",
-    colors: "Кольори",
-    red_green: "Червоний + Зелений",
-    yellow_blue: "Жовтий + Синій",
-    rank: "Ранг",
-    marketcap: "Капіталізація",
-    volume: "Обсяг за 24 години",
-    price: "Ціна",
-    dominance: "Домінантність",
-    performance: "Динаміка",
-    neutral: "Нейтрально",
-    period_hour: "Година",
-    period_day: "День",
-    period_week: "Тиждень",
-    period_month: "Місяць",
-    period_year: "Рік",
-    favorites: "Вибрані",
-    add_favorite: "Додати до обраного",
-    remove_favorite: "Видалити з обраного",
-    search_crypto: "Пошук криптовалюти",
-    bubble_size: "Розмір бульбашки",
-    bubble_content: "Зміст бульбашки",
-    bubble_color: "Колір бульбашки",
-    period: "Період",
-    description: "Інтерактивна діаграма бульбашок для ТОП-1000 криптовалют",
-    support_my_work: "Підтримайте мою роботу",
-    window_close: "Закрити вікно",
-    window_toggleExpand: "Розгорнути/згорнути вікно",
-    configuration_add: "Додати графік",
-    configuration_edit: "Редагувати графік",
-    copy: "Копіювати",
-    not_found: "Не знайдено в ТОП-1000",
-    links: "Посилання",
-    exchanges: "Біржі",
-    pages: "Сторінки",
-    empty_list: "Список порожній",
-    delete: "Видалити",
-    lists: "Списки",
-    show: "Показати",
-    hide: "Сховати",
-    watchlist_add: "Додати в спостереження",
-    add_to_list: "Додати до списку",
-    blocklist: "Блок-список",
-    watchlist: "Спостереження",
-    watchlists: "Списки спостереження",
-    cancel: "Скасувати",
-    confirm: "Підтвердити",
-    trade: "Торгувати",
-    info_tooltip: "Переглянути (currency) на (service)",
-    trade_tooltip: "Торгувати (currency) на (exchange)",
-    show_more: "Показати більше"
-  },
-  xt = class {};
+
+const xt = class {};
 xt.app = "Crypto Bubbles", xt.twitter = "CryptoBubbles", xt.instagram = "cryptobubbles", xt.telegram = "CryptoBubbles", xt.email = "contact@cryptobubbles.net", xt.logo = "/images/logo64.png", xt.playStore = "https://play.google.com/store/apps/details?id=net.cryptobubbles", xt.appStore = "https://apps.apple.com/app/id1599892658", xt.bubblePadding = Math.round(2 * window.devicePixelRatio), xt.bubbleBorder = Math.round(4 * window.devicePixelRatio), xt.bubbleHitbox = Math.round(4 * window.devicePixelRatio), xt.sliceFilters = [100, 200, 300, 400, 500, 600, 700, 800, 900, 1e3].map((e => ({
   type: "slice",
   from: e - 99,
@@ -2057,7 +1939,7 @@ xt.app = "Crypto Bubbles", xt.twitter = "CryptoBubbles", xt.instagram = "cryptob
   id: "eth",
   symbol: "Ξ",
   code: "ETH"
-}], xt.translations = [Qe, ft, pt, tt, nt, ct, dt, mt, Ke, it, _t, Xe, yt, lt, Ye, Ct, Ze], xt.periods = ["min1", "min5", "min15", "hour", "day", "week", "month", "year"], xt.exchanges = [{
+}], xt.translations = [Qe, ft, pt, tt, nt, dt, mt, Ke, it, _t, Xe, yt, lt, Ye, Ze], xt.periods = ["min1", "min5", "min15", "hour", "day", "week", "month", "year"], xt.exchanges = [{
   id: "binance",
   name: "Binance",
   referralUrl: "https://www.binance.com/register?ref=BRM28YZ5",
@@ -3830,10 +3712,6 @@ function Go() {
   var o, i, a
 }
 var Zo = Q('<svg viewBox="0 0 24 24"><path d="M7.8,2H16.2C19.4,2 22,4.6 22,7.8V16.2A5.8,5.8 0 0,1 16.2,22H7.8C4.6,22 2,19.4 2,16.2V7.8A5.8,5.8 0 0,1 7.8,2M7.6,4A3.6,3.6 0 0,0 4,7.6V16.4C4,18.39 5.61,20 7.6,20H16.4A3.6,3.6 0 0,0 20,16.4V7.6C20,5.61 18.39,4 16.4,4H7.6M17.25,5.5A1.25,1.25 0 0,1 18.5,6.75A1.25,1.25 0 0,1 17.25,8A1.25,1.25 0 0,1 16,6.75A1.25,1.25 0 0,1 17.25,5.5M12,7A5,5 0 0,1 17,12A5,5 0 0,1 12,17A5,5 0 0,1 7,12A5,5 0 0,1 12,7M12,9A3,3 0 0,0 9,12A3,3 0 0,0 12,15A3,3 0 0,0 15,12A3,3 0 0,0 12,9Z">');
-const qo = e => {
-  return oe(t = Zo(), e, !0, !0), t;
-  var t
-};
 var Ko = Q('<svg viewBox="0 0 24 24"><path d="M20 4H4c-1.1 0-1.99.9-1.99 2L2 18c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z">');
 const Jo = e => {
   return oe(t = Ko(), e, !0, !0), t;
@@ -4012,19 +3890,8 @@ function ui() {
       get children() {
         return R(Jo, {})
       }
-    }), null), ae(l, R(Br, {
-      class: "icon-button",
-      get href() {
-        return "https://www.instagram.com/".concat(Mt.instagram)
-      },
-      get title() {
-        return "@".concat(Mt.instagram, " on Instagram")
-      },
-      name: "Instagram",
-      get children() {
-        return R(qo, {})
-      }
-    }), null), ae(l, R(Br, {
+    }), null),
+      ae(l, R(Br, {
       class: "icon-button",
       get href() {
         return "https://t.me/".concat(Mt.telegram)

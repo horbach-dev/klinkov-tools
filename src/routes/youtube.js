@@ -17,41 +17,42 @@ router.get('/youtube', async (req, res) => {
     return res.status(200).json({ data: memory.data })
   }
 
-// Параметры запроса
+  const playlistId = 'PLjnopwjjJO4UdRUASVtQ_bahNw8Qgb-GS'; // ID вашего плейлиста
+
   const params = {
     key: process.env.YOUTUBE_API_KEY,
     part: 'snippet',
-    channelId: 'UCgdsZEp1RGXJRK4I7nULrkw', // Замените на идентификатор канала, с которого хотите получить видео
-    order: 'date', // Порядок сортировки по дате
-    maxResults: 5, // Максимальное количество результатов
+    playlistId: playlistId,
+    maxResults: 5,
     type: 'video'
   };
 
   const VIDEOS_COUNT = 5;
 
   try {
-    //Чтобы не сыпать запросами, или не городить велосипеды с duration video сделал такое решение
-    const all_videos = await axios.get('https://www.googleapis.com/youtube/v3/search', { params:{...params,maxResults: 50}})
-    const shorts = (await axios.get('https://www.googleapis.com/youtube/v3/search', {
-      params: {
-        ...params,
-        videoDuration: 'short',
-        maxResults: 20
-      }
-    })).data.items.map(item=>item.id.videoId);
+    const response = await axios.get('https://www.googleapis.com/youtube/v3/playlistItems', {
+      params: params
+    });
 
-    const videos = all_videos.data.items.filter(video=>!shorts.includes(video.id.videoId));
-    const response = videos.slice(0,VIDEOS_COUNT);
+    const videos = response.data.items.map(item => {
+      return {
+        etag: item.etag,
+        id: item.snippet.resourceId.videoId,
+        title: item.snippet.title,
+        description: item.snippet.description,
+        thumbnail: item.snippet.thumbnails.high.url,
+        publishedAt: item.snippet.publishedAt
+      };
+    });
 
-    memory.data = response
-    memory.time = moment()
+    memory.data = videos;
+    memory.time = moment();
 
-    return res.status(200).json({ data: response })
-  } catch (e) {
-
-    console.log(e.message)
-    return res.status(500).json({message: 'шота не так'})
+    return res.status(200).json({ data: videos });
+  } catch (error) {
+    console.log(error.message);
+    return res.status(500).json({ message: 'Что-то пошло не так' });
   }
-})
+});
 
 module.exports = router;

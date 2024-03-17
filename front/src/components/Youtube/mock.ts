@@ -1,4 +1,4 @@
-export const data = {
+export const mock = {
   'kind': 'youtube#searchListResponse',
   'etag': 'UTvXTkDXaphfUf19YX2od2fPDmk',
   'nextPageToken': 'CAUQAA',
@@ -8,40 +8,40 @@ export const data = {
     'resultsPerPage': 5
   },
   'items': [
-    {
-      'kind': 'youtube#searchResult',
-      'etag': 'UnIKgYznI0wJea3oD1VKwSiWIEI',
-      'id': {
-        'kind': 'youtube#video',
-        'videoId': 'E7ujnhIdxRI'
-      },
-      'snippet': {
-        'publishedAt': '2024-02-06T06:43:37Z',
-        'channelId': 'UCgdsZEp1RGXJRK4I7nULrkw',
-        'title': 'Свежий Crypto Podcast с Владом | Смотри на канале !  #крипта #заработок #shorts #podcast  #crypto',
-        'description': 'криптовалюта,биткоин,bitcoin,btc,биткоин прогноз сегодня,новости криптовалют,трейдинг,биткоин обзор,bitcoin прогноз ...',
-        'thumbnails': {
-          'default': {
-            'url': 'https://i.ytimg.com/vi/E7ujnhIdxRI/default.jpg',
-            'width': 120,
-            'height': 90
-          },
-          'medium': {
-            'url': 'https://i.ytimg.com/vi/E7ujnhIdxRI/mqdefault.jpg',
-            'width': 320,
-            'height': 180
-          },
-          'high': {
-            'url': 'https://i.ytimg.com/vi/E7ujnhIdxRI/hqdefault.jpg',
-            'width': 480,
-            'height': 360
-          }
-        },
-        'channelTitle': 'Professor Klinkov | Инвестиции и Трейдинг',
-        'liveBroadcastContent': 'none',
-        'publishTime': '2024-02-06T06:43:37Z'
-      }
-    },
+    // {
+    //   'kind': 'youtube#searchResult',
+    //   'etag': 'UnIKgYznI0wJea3oD1VKwSiWIEI',
+    //   'id': {
+    //     'kind': 'youtube#video',
+    //     'videoId': 'E7ujnhIdxRI'
+    //   },
+    //   'snippet': {
+    //     'publishedAt': '2024-02-06T06:43:37Z',
+    //     'channelId': 'UCgdsZEp1RGXJRK4I7nULrkw',
+    //     'title': 'Свежий Crypto Podcast с Владом | Смотри на канале !  #крипта #заработок #shorts #podcast  #crypto',
+    //     'description': 'криптовалюта,биткоин,bitcoin,btc,биткоин прогноз сегодня,новости криптовалют,трейдинг,биткоин обзор,bitcoin прогноз ...',
+    //     'thumbnails': {
+    //       'default': {
+    //         'url': 'https://i.ytimg.com/vi/E7ujnhIdxRI/default.jpg',
+    //         'width': 120,
+    //         'height': 90
+    //       },
+    //       'medium': {
+    //         'url': 'https://i.ytimg.com/vi/E7ujnhIdxRI/mqdefault.jpg',
+    //         'width': 320,
+    //         'height': 180
+    //       },
+    //       'high': {
+    //         'url': 'https://i.ytimg.com/vi/E7ujnhIdxRI/hqdefault.jpg',
+    //         'width': 480,
+    //         'height': 360
+    //       }
+    //     },
+    //     'channelTitle': 'Professor Klinkov | Инвестиции и Трейдинг',
+    //     'liveBroadcastContent': 'none',
+    //     'publishTime': '2024-02-06T06:43:37Z'
+    //   }
+    // },
     {
       'kind': 'youtube#searchResult',
       'etag': '9TDZH7_OsGCH-CXdoU8zE0Zox9Q',
