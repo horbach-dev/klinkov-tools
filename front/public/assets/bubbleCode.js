@@ -2200,6 +2200,15 @@ const convertDataToBubbles = (data) => {
   return res;
 }
 
+const delLoader = () => {
+  if (document.querySelector('.loader-fix-bubbles-wrap')) {
+    document.querySelector('.loader-fix-bubbles-wrap').delete
+  }
+  else {
+    setTimeout(delLoader, 100)
+  }
+}
+
 const getData = async (count= 100) => {
 
   return new Promise((resolve, reject)=>{
@@ -2209,7 +2218,7 @@ const getData = async (count= 100) => {
         if (this.readyState == 4 && this.status == 200) {
         const parsed = JSON.parse(this.response);
         resolve(convertDataToBubbles(parsed.data.cryptoCurrencyList));
-        document.querySelector('.loader-fix-bubbles-wrap').delete
+          delLoader()
        }
       } catch (e) {}
     };

@@ -56,6 +56,7 @@ const Header = ({
 
   return (
     <div
+      id={'bubbles-header'}
       className={classnames('bubbles-header', !isActiveBubbles && 'bubbles-header_is-bubbles')}
     >
       <Title>
