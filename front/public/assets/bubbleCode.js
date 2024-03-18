@@ -2205,7 +2205,7 @@ const delLoader = () => {
     document.querySelector('.loader-fix-bubbles-wrap').delete
   }
   else {
-    setTimeout(delLoader, 100)
+    setTimeout(() => delLoader(), 500)
   }
 }
 
