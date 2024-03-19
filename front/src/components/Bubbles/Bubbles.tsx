@@ -8,6 +8,7 @@ import useWindowSizeListener from '$hooks/useWindowSize'
 import UserStore from '$stores/UserStore'
 import CryptoList from './components/CryptoList'
 import useInitBubbles from './hooks/useInitBubbles'
+import ContentStore from '$stores/ContentStore'
 
 import './Bubbles.scss'
 
@@ -20,6 +21,7 @@ const Bubbles = () => {
   const [timeValue, setTimeValue] = useState(0)
   const { innerWidth, innerHeight } = useWindowSizeListener()
   const [popup,setUserState] = useStore(UserStore, store => store.popup)
+  const [links] = useStore(ContentStore, store => store.links || {})
 
   const getItems = (index: number) => {
     switch (index) {
@@ -42,7 +44,8 @@ const Bubbles = () => {
     if(searched){
       if(id === 100){
         // document.location = 'https://www.google.com/search?q=salam+alaikum'
-        window.open('https://www.google.com/search?q=salam+alaikum', '_blank')
+        // window.open('https://www.google.com/search?q=salam+alaikum', '_blank')
+        window.open(links.lesson, '_blank')
       } else {
         setUserState(prev => ({ ...prev, popup: { item:searched,isOpen: true } }))
       }

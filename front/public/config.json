@@ -1,0 +1,22 @@
+{
+  "links": {
+    "lesson": "https://www.google.com/search?q=salam+alaikum"
+  },
+  "cryptoExchange": [
+    {
+      "price": "30$",
+      "link": "https://www.google.com/search?q=salam+alaikum",
+      "img": "/icons/image-1.png"
+    },
+    {
+      "price": "30$",
+      "link": "https://www.google.com/search?q=salam+alaikum",
+      "img": "/icons/image-2.png"
+    },
+    {
+      "price": "30$",
+      "link": "https://www.google.com/search?q=salam+alaikum",
+      "img": "/icons/image-3.png"
+    }
+  ]
+}

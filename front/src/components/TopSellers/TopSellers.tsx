@@ -1,54 +1,16 @@
 import React from 'react'
-import img1 from './image-1.png'
-import img2 from './image-2.png'
-import img3 from './image-3.png'
+import useStore from '$hooks/useStore'
+import ContentStore from '$stores/ContentStore'
 
 import './TopSellers.scss'
 
-const items = [
-  {
-    title: (
-      <p className='top-sellers__list-item-title'>
-        <span>
-          {'20$'}
-        </span>
-        {'подарок по ссылке ↓'}
-      </p>
-    ),
-    img: img1,
-    url: '/'
-  },
-  {
-    title: (
-      <p className='top-sellers__list-item-title'>
-        <span>
-          {'20$'}
-        </span>
-        {'подарок по ссылке ↓'}
-      </p>
-    ),
-    img: img2,
-    url: '/'
-  },
-  {
-    title: (
-      <p className='top-sellers__list-item-title'>
-        <span>
-          {'20$'}
-        </span>
-        {'подарок по ссылке ↓'}
-      </p>
-    ),
-    img: img3,
-    url: '/'
-  }
-]
-
 const TopSellers = () => {
+  const [cryptoExchange] = useStore(ContentStore, store => store.cryptoExchange || [])
+
   return (
     <div className='top-sellers'>
       <div className='top-sellers__list'>
-        {items.map((item, index) => {
+        {cryptoExchange.map((item, index) => {
           return (
             <div
               key={index}
@@ -59,10 +21,19 @@ const TopSellers = () => {
                 alt='okex'
               />
               <div className='top-sellers__list-item-left'>
-                {item.title}
+                {
+                  <p className='top-sellers__list-item-title'>
+                    <span>
+                      {item.price}
+                    </span>
+                    {'подарок по ссылке ↓'}
+                  </p>
+                }
                 <a
                   className='top-sellers__list-item-link'
-                  href={item.url}
+                  href={item.link}
+                  target='_blank'
+                  rel='noreferrer'
                 >
                   {'Получить'}
                 </a>

@@ -3508,7 +3508,7 @@ function Oo() {
   return true;
 }
 ee(["mousedown", "click"]);
-const [Vo, Ro] = v(Oo());
+const [Voo, Ro] = v(Oo());
 
 function jo() {
   document.activeElement instanceof HTMLElement && document.activeElement.blur()
@@ -3530,7 +3530,7 @@ function Io(e) {
       return gr()
     },
     get autoFocus() {
-      return !Vo()
+      return !Voo()
     },
     iconComponent: xo,
     get placeholder() {
@@ -3648,7 +3648,7 @@ function Go() {
   const [e, t] = v(!1), [r, n] = v(!1);
   return o = Yo(), i = o.firstChild, (a = i.nextSibling).nextSibling, ae(a, (() => Mt.app)), ae(o, R(U, {
     get when() {
-      return Vo()
+      return Voo()
     },
     get fallback() {
       return R(U, {
@@ -4808,7 +4808,7 @@ function ba() {
     }))),
     o = () => {
       if (e) {
-        const t = Vo() ? 0 : 52,
+        const t = Voo() ? 0 : 52,
           r = Math.max(document.documentElement.clientHeight, window.innerHeight),
           n = Math.floor(r - e.offsetTop - t);
         e.style.height = "".concat(n, "px")
@@ -5169,7 +5169,7 @@ function Pa() {
     get children() {
       return [R(X, {
         get when() {
-          return Vo()
+          return Voo()
         },
         get children() {
           let e
@@ -5559,14 +5559,14 @@ function el() {
     document.documentElement.style.setProperty("--color-theme-light", t || null), document.documentElement.style.setProperty("--color-theme-dark", r || null)
   })), [R(Er, {}), R(Go, {}), R(Pa, {}), R(U, {
     get when() {
-      return !Vo()
+      return !Voo()
     },
     get children() {
       return R(Wa, {})
     }
   }), R(U, {
     get when() {
-      return "settings" !== or() || Vo()
+      return "settings" !== or() || Voo()
     },
     get children() {
       return R(Qa, {})
