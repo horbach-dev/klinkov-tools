@@ -1,16 +1,15 @@
 import React, { useEffect, useRef, useState } from 'react'
-import axios from 'axios'
 import classnames from 'classnames'
+import { client } from '$api/index'
 import Header from '$components/Bubbles/components/Header'
 import { performList } from '$components/Bubbles/utils'
+import useStore from '$hooks/useStore'
 import useWindowSizeListener from '$hooks/useWindowSize'
+import UserStore from '$stores/UserStore'
 import CryptoList from './components/CryptoList'
 import useInitBubbles from './hooks/useInitBubbles'
 
 import './Bubbles.scss'
-import useStore from '$hooks/useStore';
-import UserStore from "$stores/UserStore";
-import { client } from "$api/index";
 
 const Bubbles = () => {
   const [top, setTop] = useState(0)
@@ -39,6 +38,7 @@ const Bubbles = () => {
 
   const onFindModal = (id:number) => {
     const searched = getItems(top)[id-1]
+
     if(searched){
       if(id === 100){
         document.location = 'https://www.google.com/search?q=salam+alaikum'
@@ -54,33 +54,37 @@ const Bubbles = () => {
         if (mutation.type === 'childList' && mutation.addedNodes.length > 0) {
           mutation.addedNodes.forEach(addedNode => {
             if (addedNode instanceof Element) {
-              const elementsWithClass = addedNode.querySelectorAll('.window-content');
+              const elementsWithClass = addedNode.querySelectorAll('.window-content')
+
               if (elementsWithClass.length > 0) {
-                const rank = elementsWithClass[0].querySelectorAll('.currency-rank');
+                const rank = elementsWithClass[0].querySelectorAll('.currency-rank')
+
                 if(rank.length){
-                  const number = rank[0].querySelectorAll(`.number`)
+                  const number = rank[0].querySelectorAll('.number')
+
                   onFindModal(Number(number[0].innerHTML))
                 }
               }
             }
-          });
+          })
         }
       }
-    });
+    })
 
     mutationObserver.observe(document.body, {
       childList: true,
       subtree: true
-    });
-  };
+    })
+  }
 
-  initModalObserver();
+  initModalObserver()
 
   const handleChangeTop = (val) => {
     if (top === val) return
 
     // eslint-disable-next-line no-magic-numbers
     const ev = new CustomEvent('updateData',{ detail:(val + 1) * 100 })
+
     document.dispatchEvent(ev)
     setTop(val)
   }

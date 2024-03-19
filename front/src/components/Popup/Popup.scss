@@ -82,7 +82,7 @@
   &__percent-text {
     font-family: 'Roboto Condensed',sans-serif;
     font-style: normal;
-    font-weight: 300;
+    font-weight: 400;
     font-size: 16px;
     line-height: 24px;
     color: #FFFFFF;
@@ -103,4 +103,8 @@
 
 .popup__percent-text-blue {
   color: #51b6f3 !important;
+}
+
+.ant-modal-content {
+  padding: 20px 0 !important;
 }

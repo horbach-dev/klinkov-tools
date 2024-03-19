@@ -527,7 +527,6 @@ td {
 }
 
 .status {
-    border-radius: 12px;
     position: fixed;
     left: 50%;
     top: 50%;
@@ -536,23 +535,23 @@ td {
     flex-direction: column;
     align-items: center;
     text-align: center;
-    background-color: #222;
-    gap: 20px;
-    padding: 20px;
+    width: 120px;
+    height: 48px;
+    /*background-color: #222;*/
     user-select: none;
-    white-space: nowrap
+    white-space: nowrap;
 }
 
 .status img {
-    box-shadow: 0 4px 16px rgba(0, 0, 0, .4);
-    animation-name: pulsing;
-    animation-duration: 1s;
-    animation-iteration-count: infinite;
-    animation-direction: alternate
+    /*box-shadow: 0 4px 16px rgba(0, 0, 0, .4);*/
+    /*animation-name: pulsing;*/
+    /*animation-duration: 1s;*/
+    /*animation-iteration-count: infinite;*/
+    /*animation-direction: alternate*/
 }
 
 .status svg {
-    height: 3em
+    /*height: 3em*/
 }
 
 .configuration-tabs {
