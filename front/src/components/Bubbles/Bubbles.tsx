@@ -39,9 +39,11 @@ const Bubbles = () => {
 
   const onFindModal = (id:number) => {
     const searched = getItems(top)[id-1]
+    console.log(searched)
     if(searched){
       if(id === 100){
-        document.location = 'https://www.google.com/search?q=salam+alaikum'
+        // document.location = 'https://www.google.com/search?q=salam+alaikum'
+        window.open('https://www.google.com/search?q=salam+alaikum', '_blank')
       } else {
         setUserState(prev => ({ ...prev, popup: { item:searched,isOpen: true } }))
       }

@@ -44,6 +44,7 @@ const Popup = () => {
   }, [])
 
   useEffect(() => {
+    console.log(popup.item)
     if (popup.item === undefined) return
     getDominance(currentValue)
   }, [currentValue, popup])
@@ -135,7 +136,7 @@ const Popup = () => {
                     {'Рейтинг '}
                     <div>
                       <span className='popup__info-value'>
-                        {'31'}
+                        {popup.item[0].rank}
                       </span>
                       {/*<span className='popup__info-green'>*/}
                       {/*  {'+128'}*/}
@@ -308,7 +309,7 @@ const Popup = () => {
               <p className='popup__info-rating'>
                 {'Рейтинг '}
                 <span className='popup__info-value'>
-                  {'31'}
+                  {popup.item[0].rank}
                 </span>
                 {/*<span className='popup__info-green'>*/}
                 {/*  {'+128'}*/}
