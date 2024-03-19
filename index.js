@@ -6,7 +6,7 @@ const path = require('path')
 const express = require("express");
 const {getChannelMessages} = require("./src/bootTGBot");
 
-const PORT = process.env.PORT || 8083
+const PORT = process.env.PORT || 3005
 
 server.on("request", app)
 

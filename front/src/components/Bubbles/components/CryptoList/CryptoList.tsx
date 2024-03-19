@@ -1,9 +1,9 @@
-import React from 'react'
+import React, {useRef, useState} from 'react'
 import classnames from 'classnames'
+import useStore from '$hooks/useStore'
+import UserStore from '$stores/UserStore'
 
 import './CryptoList.scss'
-import useStore from "$hooks/useStore";
-import UserStore from "$stores/UserStore";
 
 const head = [
   'Имя',
@@ -19,11 +19,13 @@ const head = [
 ]
 
 const CryptoList = ({ items = [] }: any) => {
+  const scrollableRef = useRef(null)
+  const [isScrolling, setScrolling] = useState(false)
 
   const [popup,setUserState] = useStore(UserStore, store => store.popup)
 
-  const handleScroll = (e) => {
-    console.log('e', e)
+  const handleScroll = () => {
+      setScrolling((scrollableRef?.current?.scrollLeft || 0) > 1)
   }
 
   const handleClickItem = item => {
@@ -33,6 +35,7 @@ const CryptoList = ({ items = [] }: any) => {
   return (
     <div className='crypto-list'>
       <div
+        ref={scrollableRef}
         className='crypto-list__table'
         onScroll={handleScroll}
       >
@@ -72,7 +75,7 @@ const CryptoList = ({ items = [] }: any) => {
                   return (
                     <div
                       key={index}
-                      className={classnames('crypto-list__table-col', `crypto-list__table-col_${key}`)}
+                      className={classnames('crypto-list__table-col', `crypto-list__table-col_${key}`, isScrolling && 'crypto-list__table-col_scr')}
                     >
                       <img
                         className='crypto-list__logo'

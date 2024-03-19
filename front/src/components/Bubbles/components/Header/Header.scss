@@ -17,7 +17,12 @@
   }
 
   &_is-bubbles {
-    background-color: #D9D9D90A;
+    //background-color: #D9D9D90A;
+    background-color: rgb(32 32 27);
+
+    @include max(1348px) {
+      background-color: rgb(32 32 27);
+    }
   }
 
   &__select {

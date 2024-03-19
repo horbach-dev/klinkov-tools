@@ -58,13 +58,15 @@ const TopSellers = () => {
                 src={item.img}
                 alt='okex'
               />
-              {item.title}
-              <a
-                className='top-sellers__list-item-link'
-                href={item.url}
-              >
-                {'Получить'}
-              </a>
+              <div className='top-sellers__list-item-left'>
+                {item.title}
+                <a
+                  className='top-sellers__list-item-link'
+                  href={item.url}
+                >
+                  {'Получить'}
+                </a>
+              </div>
             </div>
           )
         })}

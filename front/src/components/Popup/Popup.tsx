@@ -9,7 +9,6 @@ import useStore from '$hooks/useStore'
 import UserStore from '$stores/UserStore'
 
 import './Popup.scss'
-import CoinChart from '$components/Chart/CoinChart'
 import { client } from "$api/index";
 
 
@@ -68,8 +67,16 @@ const Popup = () => {
 
   if (isMobile && popup.isOpen) {
     return (
-      <div style={{position: 'fixed', top: 0, left: 0, right: 0, bottom: 0, backgroundColor: '#060604', zIndex: 999}}>
-        <div style={{padding: '5px', height: '100vh', overflowY: 'auto'}} className='popup-content'>
+      <div style={{
+        position: 'fixed',
+        top: 0,
+        left: 0,
+        right: 0,
+        bottom: 0,
+        backgroundColor: '#151514',
+        zIndex: 999,
+      }}>
+        <div style={{ height: '100vh', overflowY: 'auto'}} className='popup-content'>
           {!data || !popup.item ? (
             <Loader/>
           ) : (
@@ -88,7 +95,7 @@ const Popup = () => {
                     style={{
                       cursor: 'pointer',
                       height: '3px',
-                      width: '40%',
+                      width: '32%',
                       backgroundColor: '#ccc',
                       borderRadius: '1.5px'
                     }} onClick={() => handleCancel()}>
@@ -100,10 +107,16 @@ const Popup = () => {
                     flexDirection: 'row',
                     alignItems: 'center',
                     justifyContent: 'space-between',
-                    width: '100%'
+                    width: '100%',
+                    padding: '0 16px',
                   }}>
                   <div
-                    style={{display: 'flex', flexDirection: 'row', alignItems: 'center', justifyContent: 'flex-start'}}>
+                    style={{
+                      display: 'flex',
+                      flexDirection: 'row',
+                      alignItems: 'center',
+                      justifyContent: 'flex-start',
+                    }}>
                     <Avatar size={40} alt={popup.item[0].name} src={popup.item[0].logo}/>
                     <div style={{marginLeft: '10px'}}>
                       <p className='popup__info-title'>
@@ -129,7 +142,11 @@ const Popup = () => {
                     </p>
                   </div>
                 </div>
-                <Flex style={{width: '100%'}} gap={8} justify='space-between'>
+                <Flex
+                  style={{ width: '100%', padding: '0 16px' }}
+                  gap={8}
+                  justify='space-between'
+                >
                   <p
                     className='popup__info-rating'
                     style={{display: 'flex', flexDirection: 'column', margin: '10px 0'}}>
@@ -169,15 +186,14 @@ const Popup = () => {
                     <CoinChart isMobile={isMobile} timeUnit={currentValue} label={popup.item[0].name} data={data.data}/>
                   </div>
                 </div>
-                <div
-                  style={{
-                    display: 'flex',
-                    flexDirection: 'row',
-                    alignItems: 'center',
-                    justifyContent: 'space-between',
-                    width: '100%'
-                  }}>
-                  <Flex onClick={() => setCurrentValue('1H')} align='center' gap={12} vertical>
+                <div className='popup__timeline-mobile'>
+                  <Flex
+                    className={classnames('popup-time-item', currentValue === '1H' && 'popup-time-item_active')}
+                    onClick={() => setCurrentValue('1H')}
+                    align='center'
+                    gap={12}
+                    vertical
+                  >
                     <div
                       className={classnames(
                         'popup__percentBlock',
@@ -188,12 +204,17 @@ const Popup = () => {
                       {' '}
                       {'%'}
                     </div>
-                    <div
-                      className={classnames('popup__percent-text', currentValue === '1H' ? 'popup__percent-text-blue' : '')}>
+                    <div className='popup__percent-text'>
                       {'Час'}
                     </div>
                   </Flex>
-                  <Flex onClick={() => setCurrentValue('1D')} align='center' gap={12} vertical>
+                  <Flex
+                    onClick={() => setCurrentValue('1D')}
+                    className={classnames('popup-time-item', currentValue === '1D' && 'popup-time-item_active')}
+                    align='center'
+                    gap={12}
+                    vertical
+                  >
                     <div
                       className={classnames(
                         'popup__percentBlock',
@@ -204,12 +225,17 @@ const Popup = () => {
                       {' '}
                       {'%'}
                     </div>
-                    <div
-                      className={classnames('popup__percent-text', currentValue === '24H' ? 'popup__percent-text-blue' : '')}>
+                    <div className='popup__percent-text'>
                       {'День'}
                     </div>
                   </Flex>
-                  <Flex onClick={() => setCurrentValue('7D')} align='center' gap={12} vertical>
+                  <Flex
+                    onClick={() => setCurrentValue('7D')}
+                    className={classnames('popup-time-item', currentValue === '7D' && 'popup-time-item_active')}
+                    align='center'
+                    gap={12}
+                    vertical
+                  >
                     <div
                       className={classnames(
                         'popup__percentBlock',
@@ -220,12 +246,17 @@ const Popup = () => {
                       {' '}
                       {'%'}
                     </div>
-                    <div
-                      className={classnames('popup__percent-text', currentValue === '7D' ? 'popup__percent-text-blue' : '')}>
+                    <div className='popup__percent-text'>
                       {'Неделя'}
                     </div>
                   </Flex>
-                  <Flex onClick={() => setCurrentValue('1M')} align='center' gap={12} vertical>
+                  <Flex
+                    onClick={() => setCurrentValue('1M')}
+                    className={classnames('popup-time-item', currentValue === '1M' && 'popup-time-item_active')}
+                    align='center'
+                    gap={12}
+                    vertical
+                  >
                     <div
                       className={classnames(
                         'popup__percentBlock',
@@ -236,12 +267,17 @@ const Popup = () => {
                       {' '}
                       {'%'}
                     </div>
-                    <div
-                      className={classnames('popup__percent-text', currentValue === '30D' ? 'popup__percent-text-blue' : '')}>
+                    <div className='popup__percent-text'>
                       {'Месяц'}
                     </div>
                   </Flex>
-                  <Flex onClick={() => setCurrentValue('1Y')} align='center' gap={12} vertical>
+                  <Flex
+                    className={classnames('popup-time-item', currentValue === '1Y' && 'popup-time-item_active')}
+                    onClick={() => setCurrentValue('1Y')}
+                    align='center'
+                    gap={12}
+                    vertical
+                  >
                     <div
                       className={classnames(
                         'popup__percentBlock',
@@ -252,8 +288,7 @@ const Popup = () => {
                       {' '}
                       {'%'}
                     </div>
-                    <div
-                      className={classnames('popup__percent-text', currentValue === '1Y' ? 'popup__percent-text-blue' : '')}>
+                    <div className='popup__percent-text'>
                       {'Год'}
                     </div>
                   </Flex>
@@ -275,7 +310,7 @@ const Popup = () => {
       centered
       footer=''
       closeIcon={<CloseIcon/>}
-      styles={{content: {background: '#060604'}}}
+      styles={{content: {background: '#151514'}}}
     >
       {!data || isLoading || !popup.item ? (
         <div style={{height: '430px'}}>
@@ -283,8 +318,8 @@ const Popup = () => {
         </div>
       ) : (
         <Suspense fallback={<Loader/>}>
-          <Flex gap='middle' style={{position: 'relative'}} vertical>
-            <Flex>
+          <Flex gap='middle' style={{ position: 'relative' }} vertical>
+            <Flex style={{ paddingLeft: 16, paddingRight: 16 }}>
               <Flex flex={1} gap='small'>
                 <Avatar size={40} alt={popup.item[0].name} src={popup.item[0].logo}/>
                 <Flex vertical>
@@ -305,7 +340,7 @@ const Popup = () => {
                 </p>
               </Flex>
             </Flex>
-            <Flex gap={32}>
+            <Flex gap={32} style={{ paddingLeft: 16, paddingRight: 16 }}>
               <p className='popup__info-rating'>
                 {'Рейтинг '}
                 <span className='popup__info-value'>
@@ -334,6 +369,7 @@ const Popup = () => {
             </Flex>
             <Flex style={{bottom: 0, width: '100%'}} gap={32} justify='center'>
               <Flex
+                className={classnames('popup-time-item', currentValue === '1H' && 'popup-time-item_active')}
                 key='perc1' onClick={() => setCurrentValue('1H')} align='center' gap={8}
                 vertical>
                 <div
@@ -346,12 +382,12 @@ const Popup = () => {
                   {' '}
                   {'%'}
                 </div>
-                <div
-                  className={classnames('popup__percent-text', currentValue === '1H' ? 'popup__percent-text-blue' : '')}>
+                <div className='popup__percent-text'>
                   {'Час'}
                 </div>
               </Flex>
               <Flex
+                className={classnames('popup-time-item', currentValue === '1D' && 'popup-time-item_active')}
                 key='perc2' onClick={() => setCurrentValue('1D')} align='center' gap={8}
                 vertical>
                 <div
@@ -364,12 +400,12 @@ const Popup = () => {
                   {' '}
                   {'%'}
                 </div>
-                <div
-                  className={classnames('popup__percent-text', currentValue === '24H' ? 'popup__percent-text-blue' : '')}>
+                <div className='popup__percent-text'>
                   {'День'}
                 </div>
               </Flex>
               <Flex
+                className={classnames('popup-time-item', currentValue === '7D' && 'popup-time-item_active')}
                 key='perc1w' onClick={() => setCurrentValue('7D')} align='center' gap={8}
                 vertical>
                 <div
@@ -382,12 +418,12 @@ const Popup = () => {
                   {' '}
                   {'%'}
                 </div>
-                <div
-                  className={classnames('popup__percent-text', currentValue === '7D' ? 'popup__percent-text-blue' : '')}>
+                <div className='popup__percent-text'>
                   {'Неделя'}
                 </div>
               </Flex>
               <Flex
+                className={classnames('popup-time-item', currentValue === '1M' && 'popup-time-item_active')}
                 key='perc30D' onClick={() => setCurrentValue('1M')} align='center' gap={8}
                 vertical>
                 <div
@@ -400,12 +436,12 @@ const Popup = () => {
                   {' '}
                   {'%'}
                 </div>
-                <div
-                  className={classnames('popup__percent-text', currentValue === '1M' ? 'popup__percent-text-blue' : '')}>
+                <div className='popup__percent-text'>
                   {'Месяц'}
                 </div>
               </Flex>
               <Flex
+                className={classnames('popup-time-item', currentValue === '1Y' && 'popup-time-item_active')}
                 key='perc1Y' onClick={() => setCurrentValue('1Y')} align='center' gap={8}
                 vertical>
                 <div
@@ -418,8 +454,7 @@ const Popup = () => {
                   {' '}
                   {'%'}
                 </div>
-                <div
-                  className={classnames('popup__percent-text', currentValue === '1Y' ? 'popup__percent-text-blue' : '')}>
+                <div className='popup__percent-text'>
                   {'Год'}
                 </div>
               </Flex>

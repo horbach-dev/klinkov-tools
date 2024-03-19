@@ -26,6 +26,8 @@ interface IProps {
 
 const Speed = ({ score, speed }: IProps) => {
   const pointRef = useRef<any>(null)
+  const [angle2, setAngle] = useState(0)
+
   const [pointPosition, setPointPosition] = useState({
     x: 0,
     y: 0,
@@ -62,14 +64,36 @@ const Speed = ({ score, speed }: IProps) => {
 
   useEffect(() => {
     const { x, y } = updatePointPosition(speed)
-    const grid = document.querySelector('.feather-indicator__speed')
 
-    // grid.
+    // Вычислить разницу между текущим положением и центром
+    const dy = y - 245.5
+    const dx = x - 212.5
 
+    // Внутри useEffect
+    const newAngle = Math.atan2(dy, dx)
+    const rotationAngle = (newAngle * (180 / Math.PI)) + 90
 
+    setAngle(rotationAngle)
 
     setPointPosition({ x, y })
   }, [speed, pointRef])
+
+  // const trianglePoints = `${pointPosition.x},${pointPosition.y - 10} ${pointPosition.x - 10},${pointPosition.y + 10} ${pointPosition.x + 10},${pointPosition.y + 10}`
+
+  const angle = Math.atan2(pointPosition.y - 245.5, pointPosition.x - 212.5)
+  const newX = 212.5 + 120 * Math.cos(angle)
+  const newY = 245.5 + 120 * Math.sin(angle)
+
+// Вычислить новые координаты для точек треугольника с учетом нового радиуса и угла
+  const x1New = newX
+  const y1New = newY - 12.5
+  const x2New = newX - 12.5
+  const y2New = newY + 12.5
+  const x3New = newX + 12.5
+  const y3New = newY + 12.5
+
+// Формируем строку с новыми координатами точек треугольника
+  const trianglePoints = `${x1New},${y1New} ${x2New},${y2New} ${x3New},${y3New}`
 
   return (
     <div className='feather-indicator__speed'>
@@ -378,13 +402,14 @@ const Speed = ({ score, speed }: IProps) => {
           fill='white'
         />
         <g clipPath='url(#clip0_392_123)'>
-          <circle
+          <polygon
             ref={pointRef}
-            cx={pointPosition.x}
-            cy={pointPosition.y}
-            className='circle-position'
-            r='5'
-            fill='#DBB466' />
+            points={trianglePoints}
+            className='triangle-position'
+            fill='#DBB466'
+            transform={`rotate(${angle2} ${newX} ${newY})`}
+            // opacity={0.8}
+          />
           <circle
             cx='212.5'
             cy='245.5'
