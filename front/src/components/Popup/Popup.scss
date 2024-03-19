@@ -1,3 +1,5 @@
+@import "src/styles/Mixins";
+
 .popup {
 
   &__info-title {
@@ -15,10 +17,11 @@
     font-family: 'Roboto Condensed', sans-serif;
     font-style: normal;
     font-weight: 300;
-    font-size: 16px;
+    font-size: 15px;
     line-height: 24px;
     color: #FFFFFF;
     margin: 0;
+    margin-top: 3px;
   }
 
   &__info-rating {
@@ -37,8 +40,14 @@
     font-weight: 700;
     font-size: 16px;
     line-height: 16px;
+    margin-left: 4px;
     text-transform: uppercase;
     color: #FFFFFF;
+
+    @include max(768px) {
+      margin-left: 0;
+      margin-top: 4px;
+    }
   }
 
   &__info-green {
@@ -56,6 +65,7 @@
     font-family: Oswald, sans-serif;
     font-size: 16px;
     font-weight: 700;
+    white-space: nowrap;
     line-height: 24px;
     letter-spacing: 0;
     text-align: left;
@@ -91,6 +101,29 @@
       line-height: 18px;
     }
   }
+
+  &__timeline-mobile {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    min-height: 94px;
+    padding: 0 16px 16px;
+    overflow-x: auto;
+    justify-content: center;
+    width: 100%;
+
+    @include max(660px) {
+      justify-content: flex-start;
+    }
+
+    .popup-time-item {
+      min-width: 80px;
+    }
+
+    .popup-time-item:not(:last-child) {
+      margin-right: 50px;
+    }
+  }
 }
 
 .popup-content {
@@ -106,5 +139,19 @@
 }
 
 .ant-modal-content {
-  padding: 20px 0 !important;
+  padding: 20px 0 8px 0 !important;
+}
+
+.popup-time-item {
+  cursor: pointer;
+  padding: 8px;
+  border-radius: 4px;
+
+  &:hover:not(.popup-time-item_active) {
+    background-color: rgba(255,255,255,0.04);
+  }
+
+  &_active {
+    background-color: rgba(255,255,255,0.15);
+  }
 }

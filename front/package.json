@@ -48,7 +48,6 @@
     "styled-components": "^6.1.6",
     "swiper": "^11.0.6",
     "typescript": "^5.3.3",
-    "use-mobile-detect-hook": "^1.0.5",
     "webpack": "^5.64.4",
     "webpack-bundle-analyzer": "^4.5.0",
     "webpack-cli": "^4.9.1",

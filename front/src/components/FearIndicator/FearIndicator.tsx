@@ -1,10 +1,9 @@
 import React, { useEffect, useState } from 'react'
-import axios from 'axios'
+import { client } from '$api/index'
 import Loader from '$components/Loader'
 import Speed from './Speed'
 
 import './FearIndicator.scss'
-import { client } from "$api/index";
 
 const FearIndicator = () => {
   const [data, setData] = useState([])
@@ -23,6 +22,7 @@ const FearIndicator = () => {
           }
         },
       )
+
       setData(res.data?.data?.dataList || [])
     } catch(ex) {
       // error
@@ -34,7 +34,7 @@ const FearIndicator = () => {
     getIndex()
   }, [])
 
-  const score = Math.ceil(data[data.length - 1]?.score || 0)
+  const score = 85
   const speed = (score / 2) + 50
 
   if (!data.length) return <Loader />

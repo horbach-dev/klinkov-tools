@@ -1,3 +1,5 @@
+@import "src/styles/Mixins";
+
 .top-sellers {
   height: 100%;
 
@@ -6,6 +8,11 @@
     display: flex;
     gap: 10px;
     height: calc(100% - 30px);
+
+    @include max(440px) {
+      flex-direction: column;
+      gap: 0;
+    }
   }
 
   &__list-item {
@@ -14,13 +21,17 @@
     margin-top: 15px;
     display: flex;
     flex-direction: column;
-
     border-radius: 8px;
     justify-content: space-between;
     padding: 10px 15px;
     background-color: rgba(217, 217, 217, 0.04);
     border-bottom: 1px solid rgba(255,255,255, 0.05);
     transition: background-color 0.25s ease-in-out;
+
+    @include max(440px) {
+      flex-direction: row;
+      padding: 16px;
+    }
 
     &:hover {
       background-color: rgba(217, 217, 217, 0.12);
@@ -35,6 +46,10 @@
       object-fit: contain;
       height: 24px;
       width: 100%;
+
+      @include max(440px) {
+        width: auto;
+      }
     }
 
     a {
@@ -44,9 +59,22 @@
     }
   }
 
+  &__list-item-left {
+    display: flex;
+    flex-direction: column;
+
+    @include max(440px) {
+      align-items: flex-end;
+    }
+  }
+
   &__list-item-title {
     font-size: 16px;
     line-height: 24px;
+
+    @include max(440px) {
+      margin-top: 0;
+    }
 
     span {
       margin-right: 3px;
@@ -56,5 +84,9 @@
 
   &__list-item-link {
     margin-top: 14px;
+
+    @include max(440px) {
+      margin-top: 0;
+    }
   }
 }
