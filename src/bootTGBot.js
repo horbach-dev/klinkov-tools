@@ -1,5 +1,6 @@
 const {TelegramClient, sessions} = require("telegram");
 const {InputMessagesFilterEmpty, InputMessagesFilterVideo} = require("telegram/tl/api");
+const input = require("input");
 
 const getEnv = (envName)=> {
   return process.env[envName]
@@ -8,11 +9,11 @@ const getEnv = (envName)=> {
 const apiId = Number(getEnv('API_ID'));
 const apiHash = getEnv('API_HASH');
 const phoneNumber = getEnv('PHONE');
-// const stringSession = new sessions.StringSession(getEnv('STRING_SESSION'));
+const stringSession = new sessions.StringSession(getEnv('STRING_SESSION'));
 
-// const client = new TelegramClient(stringSession, apiId, apiHash, {
-//   connectionRetries: 5,
-// });
+const client = new TelegramClient(stringSession, apiId, apiHash, {
+  connectionRetries: 5,
+});
 
 const clientConfigure = {
   phoneNumber,
@@ -43,7 +44,7 @@ const bootTGBot = async () => {
 }
 
 const getMessages = (limit = 3) => {
-  return  client.getMessages('@ProfessorKlinkov', {
+  return client.getMessages('@ProfessorKlinkov', {
     filter: InputMessagesFilterVideo,
     limit: 20
   })

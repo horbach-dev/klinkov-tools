@@ -17,17 +17,17 @@ const Youtube = () => {
       const res = await client.get('/youtube')
       setData(res.data.data)
 
-      const q = mock.items.map(item => ({
-          etag: item.etag,
-          id: item.id.videoId,
-          title: item.snippet.title,
-          description: item.snippet.description,
-          thumbnail: item.snippet.thumbnails.high.url,
-          publishedAt: item.snippet.publishedAt
-        })
-      )
-
-      setData(q)
+      // const q = mock.items.map(item => ({
+      //     etag: item.etag,
+      //     id: item.id.videoId,
+      //     title: item.snippet.title,
+      //     description: item.snippet.description,
+      //     thumbnail: item.snippet.thumbnails.high.url,
+      //     publishedAt: item.snippet.publishedAt
+      //   })
+      // )
+      //
+      // setData(q)
     } catch (ex) {
       // error
       console.log(ex)

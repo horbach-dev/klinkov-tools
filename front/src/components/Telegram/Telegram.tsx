@@ -18,12 +18,12 @@ const Telegram = () => {
   const [messages,setMessages] = useState<Message[]>()
 
   const getLatestMessages = () => {
-    // client.get('/get-last-messages')
-    //     .then((res:AxiosResponse<ResponseType>)=>{
-    //         setMessages(res.data.data)
-    //     }).catch((e) => {
-    //   console.error(e.message)
-    // })
+    client.get('/get-last-messages')
+        .then((res:AxiosResponse<ResponseType>)=>{
+            setMessages(res.data.data)
+        }).catch((e) => {
+      console.error(e.message)
+    })
   }
 
   useEffect(()=>{
