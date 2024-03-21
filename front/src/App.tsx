@@ -1,4 +1,4 @@
-import React, { Suspense } from 'react'
+import React, {Suspense, useEffect} from 'react'
 import classnames from 'classnames'
 import Bubbles from '$components/Bubbles'
 import Dominance from '$components/Dominance'
@@ -11,23 +11,41 @@ import Telegram from '$components/Telegram'
 import TopSellers from '$components/TopSellers'
 import Youtube from '$components/Youtube'
 import useInitApp from '$hooks/useInitApp'
+import useStore from '$hooks/useStore'
+import UserStore from '$stores/UserStore'
 
 import './styles/default.scss'
 
 const App = () => {
   const isInitialized = useInitApp()
+  const [popup] = useStore(UserStore, (store) => store.popup as any)
+
+  useEffect(() => {
+    if (popup.isOpen) {
+      document.body.style.overflow = 'hidden'
+    } else {
+      document.body.style.overflow = 'auto'
+    }
+  }, [popup?.isOpen])
 
   return (
     <>
       {!isInitialized && <Loader isGlobal />}
-      <div className={classnames('app', isInitialized && 'app_inited')}>
+      <div
+        id='app-wrapper'
+        className={classnames('app', isInitialized && 'app_inited')}
+      >
         <Header />
         <div className='app__top'>
-          <GridItemWrap isAnimate={isInitialized}>
+          <GridItemWrap
+            id='btc-dominance'
+            isAnimate={isInitialized}
+          >
             <Dominance />
           </GridItemWrap>
 
           <GridItemWrap
+            id='fear-and-greed'
             title='Fear & Greed Index'
             isAnimate={isInitialized}
           >
