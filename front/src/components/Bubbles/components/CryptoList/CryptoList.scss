@@ -159,7 +159,13 @@
 
 .full-screen {
   &-chart {
-    height: calc(100% - 56px - 34px) !important;
+    height: calc(100vh - 64px) !important;
+    @include max(700px) {
+      height: calc(100vh - 96px) !important;
+    }
+    @include max(574px) {
+      height: calc(100vh - 136px) !important;
+    }
   }
   &-bubbles-app {
     height: 100% !important;

@@ -29,7 +29,6 @@ const useInitBubbles = (innerWidth, innerHeight, bubblesWrapRef) => {
 
     scriptTag.onload = () => {
       setLoaded(true)
-      window.dispatchEvent(new Event('load'))
     }
 
     const cssLink1 = document.createElement('link')
