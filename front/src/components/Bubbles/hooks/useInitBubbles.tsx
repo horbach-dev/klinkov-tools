@@ -46,22 +46,22 @@ const useInitBubbles = (innerWidth, innerHeight, bubblesWrapRef) => {
 
   }, [])
 
-  useEffect(() => {
-    if (!loaded) return
-
-    const width = bubblesWrapRef?.current?.getBoundingClientRect?.()?.height || defaultHeight
-
-    const block1 = document.getElementById('bubbles-app')
-
-    if (block1 && block1.style) {
-      block1.style.height = `${width / 2.14}px`
-
-      setTimeout(() => {
-        block1.style.height = `${(width / 2.14) + 24}px`
-      }, 100)
-    }
-
-  }, [loaded, innerWidth, innerHeight, bubblesWrapRef])
+  // useEffect(() => {
+  //   if (!loaded) return
+  //
+  //   const width = bubblesWrapRef?.current?.getBoundingClientRect?.()?.height || defaultHeight
+  //
+  //   const block1 = document.getElementById('bubbles-app')
+  //
+  //   if (block1 && block1.style) {
+  //     block1.style.height = `${width / 2.14}px`
+  //
+  //     setTimeout(() => {
+  //       block1.style.height = `${(width / 2.14) + 24}px`
+  //     }, 100)
+  //   }
+  //
+  // }, [loaded, innerWidth, innerHeight, bubblesWrapRef])
 
   useEffect(() => {
     if (!loaded) return

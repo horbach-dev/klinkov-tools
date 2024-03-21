@@ -42,11 +42,14 @@ const Header = ({
       if (bubbles && chart && bubbleApp) {
         if (!prev) {
           bubbles.classList.add('full-screen')
+          bubbleApp.classList.add('full-screen-bubbles-app')
           document.body.style.overflow = 'hidden'
-          chart.style.height = 'calc(100% - 56px)'
+          chart.classList.add('full-screen-chart')
           // bubbleApp.style.height = '100%'
         } else {
           bubbles.classList.remove('full-screen')
+          bubbleApp.classList.remove('full-screen-bubbles-app')
+          chart.classList.remove('full-screen-chart')
           document.body.style.overflow = 'auto'
           // bubbleApp.style.height = '100%'
         }

@@ -158,7 +158,37 @@
 }
 
 .full-screen {
+  &-chart {
+    height: calc(100% - 56px - 34px) !important;
+  }
+  &-bubbles-app {
+    height: 100% !important;
+  }
   .crypto-list__table-rows {
     height: calc(100vh - 56px - 34px);
+  }
+
+  .crypto-list {
+    position: absolute;
+    top: 64px;
+    @include max(700px) {
+      top: 96px
+    }
+
+    @include max(574px) {
+      top: 136px
+    }
+
+    &__table {
+      height: calc(100vh - 64px);
+
+      @include max(700px) {
+        height: calc(100vh - 96px);
+      }
+
+      @include max(574px) {
+        height: calc(100vh - 136px);
+      }
+    }
   }
 }
