@@ -1,14 +1,6 @@
 import { useEffect, useState } from 'react'
-import useWindowSize from '$hooks/useWindowSize'
-
 
 const defaultHeight = 350
-const paddingVertical = 32
-const headerHeight = 28
-
-const getBubbles = () => {
-  return document.querySelector('.bubble-chart')
-}
 
 const getBubbleChart = async () => {
   return new Promise(resolve => {
@@ -55,12 +47,11 @@ const useInitBubbles = (innerWidth, innerHeight, bubblesWrapRef) => {
   }, [])
 
   useEffect(() => {
-    if (!loaded) return;
-    const width = bubblesWrapRef?.current?.getBoundingClientRect?.()?.height || defaultHeight
-    const block1 = document.getElementById('bubbles-app')
-    // const block2 = document.getElementById('top-sellers')
+    if (!loaded) return
 
-    // const bubbles= getBubbles()
+    const width = bubblesWrapRef?.current?.getBoundingClientRect?.()?.height || defaultHeight
+
+    const block1 = document.getElementById('bubbles-app')
 
     if (block1 && block1.style) {
       block1.style.height = `${width / 2.14}px`
@@ -73,22 +64,20 @@ const useInitBubbles = (innerWidth, innerHeight, bubblesWrapRef) => {
   }, [loaded, innerWidth, innerHeight, bubblesWrapRef])
 
   useEffect(() => {
-    if (!loaded) return;
+    if (!loaded) return
+
     (async () => {
       const height = bubblesWrapRef?.current?.getBoundingClientRect?.()?.height || defaultHeight
-      const block1 = document.getElementById('bubbles-header')
+      const block1: any = document.getElementById('bubbles-header')
 
       const currentBubbleHeight = height - block1?.getBoundingClientRect?.()?.height
-      const bubbleChart = await getBubbleChart()
+      const bubbleChart: any = await getBubbleChart()
 
       if (bubbleChart) {
-        console.log(currentBubbleHeight)
+        console.log('currentBubbleHeight', currentBubbleHeight)
 
         bubbleChart.style.height = `${currentBubbleHeight}px`
       }
-
-
-      // bubbleCart?.style?.height = `${currentBubbleHeight}px`
     })()
   }, [loaded, innerWidth, innerHeight, bubblesWrapRef])
 }

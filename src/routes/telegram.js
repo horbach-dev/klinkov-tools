@@ -27,12 +27,13 @@ function truncateString(str, maxLength = 50) {
 }
 
 router.get('/get-last-messages',async (req,res)=>{
-    const messages = await getMessages().then(res => res.map(message => ({
-        link: `https://t.me/ProfessorKlinkov/${message.id}`,
-        title: truncateString(message.message)
-    })))
-
-    return res.status(200).json({ data: messages})
+    // const messages = await getMessages().then(res => res.map(message => ({
+    //     link: `https://t.me/ProfessorKlinkov/${message.id}`,
+    //     title: truncateString(message.message)
+    // })))
+    //
+    // return res.status(200).json({ data: messages})
+    return res.status(200).json({ data: []})
 })
 
 module.exports = router;

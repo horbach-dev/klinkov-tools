@@ -9,11 +9,13 @@ const getEnv = (envName)=> {
 const apiId = Number(getEnv('API_ID'));
 const apiHash = getEnv('API_HASH');
 const phoneNumber = getEnv('PHONE');
-const stringSession = new sessions.StringSession(getEnv('STRING_SESSION'));
+// const stringSession = new sessions.StringSession(getEnv('STRING_SESSION'));
 
-const client = new TelegramClient(stringSession, apiId, apiHash, {
-  connectionRetries: 5,
-});
+const client = {}
+
+// const client = new TelegramClient(stringSession, apiId, apiHash, {
+//   connectionRetries: 5,
+// });
 
 const clientConfigure = {
   phoneNumber,
@@ -26,33 +28,27 @@ const clientConfigure = {
 
 
 const bootTGBot = async () => {
-  // bot.launch()
-  //   .then(() => {
-  //     bot.telegram.sendContact()
-  //   })
-  try {
-    console.log("Loading interactive example...");
-
-    await client.connect()
-
-    client.session.save()
-
-    // client.addEventHandler(mainHandler, new NewMessage({}))
-  } catch (e) {
-    console.log('e.message', e.message)
-  }
+  // try {
+  //   console.log("Loading interactive example...");
+  //
+  //   await client.connect()
+  //
+  //   client.session.save()
+  // } catch (e) {
+  //   console.log('e.message', e.message)
+  // }
 }
 
 const getMessages = (limit = 3) => {
-  return client.getMessages('@ProfessorKlinkov', {
-    filter: InputMessagesFilterVideo,
-    limit: 20
-  })
-    .then(q => q.filter(message => message.message).slice(0, 3))
-    .then(q => q.map(message => ({
-      message: message.message,
-      id: message.id
-    })))
+  // return client.getMessages('@ProfessorKlinkov', {
+  //   filter: InputMessagesFilterVideo,
+  //   limit: 20
+  // })
+  //   .then(q => q.filter(message => message.message).slice(0, 3))
+  //   .then(q => q.map(message => ({
+  //     message: message.message,
+  //     id: message.id
+  //   })))
 }
 
 module.exports = {

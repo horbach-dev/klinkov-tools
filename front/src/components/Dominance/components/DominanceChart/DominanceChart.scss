@@ -11,8 +11,10 @@
   }
 
   &__container {
+    display: flex;
+    align-items: flex-end;
     width: 100%;
-    height: calc(100% - 85px);
+    height: 100%;
   }
 
   &__label-value {
