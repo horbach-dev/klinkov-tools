@@ -73,9 +73,9 @@ const Header = ({
           suffixIcon={<ArrowDropdown />}
           onChange={handleChangeTop}
           options={[
-            { value: 0, label: 'топ 100' },
-            { value: 1, label: 'топ 101-200' },
-            { value: 2, label: 'топ 201-300' },
+            { value: 0, label: 'ТОП 100' },
+            { value: 1, label: '101-200' },
+            { value: 2, label: '201-300' },
           ]}
         />
         <div
