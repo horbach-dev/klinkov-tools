@@ -126,6 +126,7 @@
     width: 26px;
     height: 24px;
     border-radius: 4px;
+    background-color: #060604;
 
     &_full {
       height: 32px;
@@ -164,6 +165,10 @@
     }
 
     &_full-active {
+      background-image: url('../../../../images/full-screen-active.svg');
+    }
+
+    &_full {
       background-image: url('../../../../images/full-screen.svg');
     }
   }

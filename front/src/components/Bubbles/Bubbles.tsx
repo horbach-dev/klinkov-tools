@@ -20,7 +20,7 @@ const Bubbles = () => {
   const [inputValue, setInputValue] = useState('')
   const [timeValue, setTimeValue] = useState(0)
   const { innerWidth, innerHeight } = useWindowSizeListener()
-  const [popup,setUserState] = useStore(UserStore, store => store.popup)
+  const [_,setUserState] = useStore(UserStore, store => store.popup)
   const [links] = useStore(ContentStore, store => store.links || {})
 
   const getItems = (index: number) => {

@@ -31,6 +31,8 @@ const Header = ({
   const [isFull, setFull] = useState(false)
   const isMobile = window.innerWidth <= 490
 
+  console.log('isFull', isFull)
+
   const handleFull = () => {
     setFull(prev => {
       const bubbles = document.getElementById('bubbles-section')
@@ -54,9 +56,11 @@ const Header = ({
     })
   }
 
+  console.log('isFull', isFull)
+
   return (
     <div
-      id={'bubbles-header'}
+      id='bubbles-header'
       className={classnames('bubbles-header', !isActiveBubbles && 'bubbles-header_is-bubbles')}
     >
       <Title>
@@ -70,8 +74,8 @@ const Header = ({
           onChange={handleChangeTop}
           options={[
             { value: 0, label: 'топ 100' },
-            { value: 1, label: 'топ 200' },
-            { value: 2, label: 'топ 300' },
+            { value: 1, label: 'топ 101-200' },
+            { value: 2, label: 'топ 201-300' },
           ]}
         />
         <div
@@ -106,9 +110,6 @@ const Header = ({
                   placeholder='Искать криповалюту'
               />
           )}
-
-
-
           <div className='bubbles-header__toggle'>
             <button
                 onClick={() => setActiveBubbles(true)}
@@ -130,9 +131,8 @@ const Header = ({
             />
             </button>
             <div style={{ display:'flex' }}>
-
-
               <button
+                name='Set active button'
                 onClick={() => setActiveBubbles(false)}
                 className={
                   classnames(
@@ -154,24 +154,24 @@ const Header = ({
             </div>
           </div>
           <button
+            name='Full screen button'
             onClick={handleFull}
             className={
               classnames(
                 'bubbles-header__toggle-btn',
                 'bubbles-header__toggle-btn_full',
-                'bubbles-header__toggle-btn_active',
+                isFull && 'bubbles-header__toggle-btn_active',
               )
             }
           >
-              <span
-                className={
-                  classnames(
-                    'bubbles-header__toggle-icon',
-                    'bubbles-header__toggle-icon_full',
-                    'bubbles-header__toggle-icon_full-active',
-                  )
-                }
-              />
+            <span
+              className={
+                classnames(
+                  'bubbles-header__toggle-icon',
+                      isFull ? 'bubbles-header__toggle-icon_full-active' : 'bubbles-header__toggle-icon_full',
+                )
+              }
+            />
 
           </button>
         </div>
