@@ -5,7 +5,7 @@ const app = express();
 const marketcap = require("./routes/marketcap");
 const youtube = require("./routes/youtube");
 const telegram = require("./routes/telegram");
-// const {bootTGBot} = require("./bootTGBot");
+const {bootTGBot} = require("./bootTGBot");
 
 app.use(function (req, res, next) {
   res.setHeader("Access-Control-Allow-Origin", "*");
@@ -21,7 +21,7 @@ app.use(function (req, res, next) {
   next();
 });
 
-// bootTGBot()
+bootTGBot()
 
 app.use(express.urlencoded({ extended: true }));
 app.use(bodyParser.json());
