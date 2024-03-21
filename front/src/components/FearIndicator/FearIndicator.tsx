@@ -6,7 +6,7 @@ import Speed from './Speed'
 import './FearIndicator.scss'
 
 const FearIndicator = () => {
-  const [data, setData] = useState([])
+  const [data, setData] = useState<any>([])
 
   const getIndex = async () => {
     const todayMidnight = new Date(new Date().setHours(0, 0, 0, 0)).getTime()
@@ -34,7 +34,7 @@ const FearIndicator = () => {
     getIndex()
   }, [])
 
-  const score = 85
+  const score = Math.ceil(data[data.length - 1]?.score || 0)
   const speed = (score / 2) + 50
 
   if (!data.length) return <Loader />
