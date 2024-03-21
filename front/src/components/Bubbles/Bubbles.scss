@@ -27,10 +27,13 @@
   display: none;
   visibility: hidden;
   opacity: 0;
+  height: 0;
 
   &_show {
     visibility: visible;
     opacity: 1;
     display: block;
   }
+
+
 }

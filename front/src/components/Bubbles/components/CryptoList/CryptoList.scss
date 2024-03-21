@@ -6,6 +6,8 @@
   &__table {
     width: 100%;
     overflow-x: scroll;
+    overflow-y: scroll;
+    @include custom-scroll()
   }
 
   &__table-header {

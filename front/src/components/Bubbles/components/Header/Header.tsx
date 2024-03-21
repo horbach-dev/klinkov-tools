@@ -42,11 +42,11 @@ const Header = ({
           bubbles.classList.add('full-screen')
           document.body.style.overflow = 'hidden'
           chart.style.height = 'calc(100% - 56px)'
-          bubbleApp.style.height = '100%'
+          // bubbleApp.style.height = '100%'
         } else {
           bubbles.classList.remove('full-screen')
           document.body.style.overflow = 'auto'
-          bubbleApp.style.height = '100%'
+          // bubbleApp.style.height = '100%'
         }
       }
 

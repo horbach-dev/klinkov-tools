@@ -1,5 +1,4 @@
 @import 'Theme';
-
 @mixin max($size) {
 
   @media (max-width: $size) {
@@ -24,7 +23,7 @@
 @mixin custom-scroll {
   overflow-y: auto;
   scrollbar-width: thin;
-  scrollbar-color: $color-blue $color-pink;
+  scrollbar-color: $color-accent $color-thumb;
 
   &::-webkit-scrollbar {
     width: 5px;
@@ -33,19 +32,19 @@
   &::-webkit-scrollbar-track {
     margin-bottom: 2px;
     border-radius: 5px;
-    background-color: $color-blue;
+    background-color: $color-accent;
   }
 
   &::-webkit-scrollbar-thumb {
     border-radius: 5px;
-    background-color: $color-pink;
+    background-color: $color-thumb;
   }
 }
 
 @mixin custom-horizontal-scroll {
   overflow-x: auto;
   scrollbar-width: thin;
-  scrollbar-color: $color-blue $color-pink;
+  scrollbar-color: $color-accent $color-thumb;
 
   &::-webkit-scrollbar {
     height: 5px;
@@ -54,12 +53,12 @@
   &::-webkit-scrollbar-track {
     height: 5px;
     border-radius: 5px;
-    background-color: $color-blue;
+    background-color: $color-accent;
   }
 
   &::-webkit-scrollbar-thumb {
     border-radius: 5px;
-    background-color: $color-yellow;
+    background-color: $color-thumb;
   }
 }
 

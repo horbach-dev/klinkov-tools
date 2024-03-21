@@ -162,6 +162,19 @@ const BitcoinDominanceChart = ({ bitcoinDominanceData, range, onlyChart,symbol= 
     }
   }, [innerWidth, chartRef])
 
+  window.addEventListener('orientationchange', () => {
+    if (chartRef.current) {
+      const wrap = document.getElementById('bubbles-section')
+      const widthWrap = (wrap?.getBoundingClientRect?.()?.width || 0) / 2.35 || 0
+      const heightWrap = widthWrap / 1.68 || 0
+
+      chartRef.current.style.width = `${widthWrap + 'px' || '100%'}`
+      chartRef.current.style.height = `${(heightWrap - 16) + 'px' || '100%'}`
+      chartRef.current.style.position = 'relative'
+      // chartRef.current.style.left = '-16'
+    }
+  })
+
   const [currentValue, lastValue] = data
 
   const percent = ((currentValue - lastValue) / lastValue) * 100

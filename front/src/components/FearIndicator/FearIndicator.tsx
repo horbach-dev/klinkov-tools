@@ -34,7 +34,7 @@ const FearIndicator = () => {
     getIndex()
   }, [])
 
-  const score = Math.ceil(data[data.length - 1]?.score || 0)
+  const score = Math.floor(data[data.length - 1]?.score || 0)
   const speed = (score / 2) + 50
 
   if (!data.length) return <Loader />

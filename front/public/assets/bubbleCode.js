@@ -2120,20 +2120,16 @@ const Et = Mt.baseCurrencies.find((e => e.id === (null == Tt ? void 0 : Tt.baseC
   [gr, fr] = v("");
 
 // FYI: подписка на изменение периода баблов
+const qwe =  ["hour", "day", "week", "month", "year"];
+
 document.addEventListener('toggle-period', ({ detail }) => {
-  const buttons = document.querySelectorAll('.configuration-tabs button')
-
-  if (!!buttons && !!buttons[detail]) {
-
-    const clickEvent = new MouseEvent('click', {
-      view: window,
-      bubbles: true,
-      cancelable: true
-    });
-    buttons[detail].dispatchEvent(clickEvent);
+  if (detail === 5) {
+    const e = De('day', "marketcap");
+    Xt((t => [...t, e])), Yt(e.id)
+    return
   }
-
-  // Xt($t.length, "period", detail)
+  const e = De(qwe[detail], "performance");
+  Xt((t => [...t, e])), Yt(e.id)
 })
 
 function vr(e, t) {

@@ -139,16 +139,14 @@ const Bubbles = () => {
       <main></main>
       <div
         style={{
-          display: isActiveBubbles ? 'block' : 'none',
-          // visibility: isActiveBubbles ? 'visible' : 'hidden'
-          // height: isActiveBubbles ? '100%' : 0,
+          visibility: isActiveBubbles ? 'visible' : 'hidden'
         }}
         id='bubbles-app'
         className={
           classnames(
             'web',
             'bubbles-container-hi',
-            isActiveBubbles && 'bubbles-container-hi_show'
+            'bubbles-container-hi_show'
           )
         }
       />
