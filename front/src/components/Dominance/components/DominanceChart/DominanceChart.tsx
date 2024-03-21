@@ -149,18 +149,18 @@ const BitcoinDominanceChart = ({ bitcoinDominanceData, range, onlyChart,symbol= 
 
   const { innerWidth } = useWindowSizeListener()
 
-  useEffect(() => {
-    if (chartRef.current) {
-      const wrap = document.getElementById('bubbles-section')
-      const widthWrap = (wrap?.getBoundingClientRect?.()?.width || 0) / 2.35 || 0
-      const heightWrap = widthWrap / 1.68 || 0
-
-      chartRef.current.style.width = `${widthWrap + 'px' || '100%'}`
-      chartRef.current.style.height = `${(heightWrap - 16) + 'px' || '100%'}`
-      chartRef.current.style.position = 'relative'
-      // chartRef.current.style.left = '-16'
-    }
-  }, [innerWidth, chartRef])
+  // useEffect(() => {
+  //   if (chartRef.current) {
+  //     const wrap = document.getElementById('bubbles-section')
+  //     const widthWrap = (wrap?.getBoundingClientRect?.()?.width || 0) / 2.35 || 0
+  //     const heightWrap = widthWrap / 1.68 || 0
+  //
+  //     chartRef.current.style.width = `${widthWrap + 'px' || '100%'}`
+  //     chartRef.current.style.height = `${(heightWrap - 16) + 'px' || '100%'}`
+  //     chartRef.current.style.position = 'relative'
+  //     // chartRef.current.style.left = '-16'
+  //   }
+  // }, [innerWidth, chartRef])
 
   window.addEventListener('orientationchange', () => {
     if (chartRef.current) {

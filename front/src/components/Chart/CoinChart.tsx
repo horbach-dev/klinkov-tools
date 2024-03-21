@@ -81,6 +81,8 @@ const CoinChart = ({ data, label, timeUnit, isMobile }) => {
                             display: false
                         },
                         tooltip: {
+                            mode: 'index',
+                            intersect: false,
                             callbacks: {
                                 label: (context) => {
                                     let label = context.dataset.label || '';
