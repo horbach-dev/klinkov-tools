@@ -30,8 +30,10 @@ const bootTGBot = async () => {
     console.log("Loading interactive example...");
 
     await client.connect()
+    // await client.start(clientConfigure)
 
     client.session.save()
+    // console.log(client.session.save())
   } catch (e) {
     console.log('e.message', e.message)
   }
