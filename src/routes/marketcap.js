@@ -1,6 +1,16 @@
-const { Router } = require("express")
+const {Router} = require("express")
 const axios = require("axios");
+const moment = require("moment/moment");
 const router = Router()
+
+const memory = {
+  data: null,
+  time: null
+}
+
+const canUpdate = () => {
+  return moment().diff(memory.time, 'minutes') >= 1
+}
 
 const TOKEN = 'c95511d1-8068-4d03-84f5-9c00c33b4dd9'
 
@@ -98,10 +108,10 @@ const LESSON_BUBBLE = {
 }
 
 router.get('/btc-dominance', async (req, res) => {
-  const { range } = req.query
+  const {range} = req.query
 
   if (!range) {
-    return res.status(422).json({ message: 'няма range' })
+    return res.status(422).json({message: 'няма range'})
   }
 
   try {
@@ -109,11 +119,11 @@ router.get('/btc-dominance', async (req, res) => {
       headers: {
         'X-CMC_PRO_API_KEY': TOKEN,
       },
-      params: { range }
+      params: {range}
     })
 
-    return res.status(200).json({ data: response.data.data})
-  } catch(ex) {
+    return res.status(200).json({data: response.data.data})
+  } catch (ex) {
     // error
     console.log(ex.message)
     return res.status(500).json({message: 'шота не так'})
@@ -122,7 +132,7 @@ router.get('/btc-dominance', async (req, res) => {
 })
 
 router.get('/fear-and-greed', async (req, res) => {
-  const { start, end } = req.query
+  const {start, end} = req.query
   if (!start || !end) {
     return res.status(422).json({message: 'шота не так'})
   }
@@ -132,11 +142,11 @@ router.get('/fear-and-greed', async (req, res) => {
       headers: {
         'X-CMC_PRO_API_KEY': TOKEN,
       },
-      params: { start, end },
+      params: {start, end},
     })
 
-    return res.status(200).json({ data: response.data.data})
-  } catch(ex) {
+    return res.status(200).json({data: response.data.data})
+  } catch (ex) {
     // error
     console.log(ex.message)
     return res.status(500).json({message: 'шота не так'})
@@ -145,18 +155,18 @@ router.get('/fear-and-greed', async (req, res) => {
 })
 
 
-router.get('/get-coin',async (req,res)=>{
-  const {range,id} = req.query;
+router.get('/get-coin', async (req, res) => {
+  const {range, id} = req.query;
 
   try {
     const response = await axios.get(`https://api.coinmarketcap.com/data-api/v3/cryptocurrency/detail/chart`, {
       headers: {
         'X-CMC_PRO_API_KEY': TOKEN,
       },
-      params: { id, range },
+      params: {id, range},
     })
-    return res.status(200).json({ data: response.data.data.points})
-  } catch(ex) {
+    return res.status(200).json({data: response.data.data.points})
+  } catch (ex) {
     // error
     console.log(ex.message)
     return res.status(500).json({message: 'шота не так'})
@@ -164,7 +174,7 @@ router.get('/get-coin',async (req,res)=>{
 })
 
 router.get('/get-listing', async (req, res) => {
-  const { count,withLesson } = req.query
+  const {count, withLesson} = req.query
 
   // if (!start || !end) {
   //   return res.status(422).json({message: 'шота не так'})
@@ -181,6 +191,7 @@ router.get('/get-listing', async (req, res) => {
   const aux = 'ath,atl,high24h,low24h,num_market_pairs,cmc_rank,date_added,max_supply,circulating_supply,total_supply,volume_7d,volume_30d,self_reported_circulating_supply,self_reported_market_cap,logo'
 
   try {
+
     const response = await axios.get('https://api.coinmarketcap.com/data-api/v3/cryptocurrency/listing', {
       headers: {
         'X-CMC_PRO_API_KEY': TOKEN,
@@ -198,14 +209,14 @@ router.get('/get-listing', async (req, res) => {
       },
     })
 
-    if(count){
+    if (count) {
       const start_point = count - 100;
       const end_point = count;
-      const sliced_data = response.data.data.cryptoCurrencyList.slice(start_point,end_point)
-      sliced_data.forEach((item,key)=>{
+      const sliced_data = response.data.data.cryptoCurrencyList.slice(start_point, end_point)
+      sliced_data.forEach((item, key) => {
         item.cmcRank = key + 1;
       })
-      if(withLesson){
+      if (withLesson) {
         const maxPerHour = Math.max(...(sliced_data.map(item => item.quotes[2].percentChange1h)))
         const maxPerDay = Math.max(...(sliced_data.map(item => item.quotes[2].percentChange24h)))
         const maxPerWeek = Math.max(...(sliced_data.map(item => item.quotes[2].percentChange7d)))
@@ -220,19 +231,26 @@ router.get('/get-listing', async (req, res) => {
         LESSON_BUBBLE.quotes[2].marketCap = maxPerMarketCap
         sliced_data.push(LESSON_BUBBLE)
       }
-      return res.status(200).json({ data: {cryptoCurrencyList: sliced_data}})
-    }
-    else {
+
+      return res.status(200).json({data: {cryptoCurrencyList: sliced_data}})
+    } else {
+      if (memory.data && memory.time && !canUpdate()) {
+        return res.status(200).json({data: {cryptoCurrencyList: memory.data}})
+      }
       const sliced_data = response.data.data.cryptoCurrencyList;
-      sliced_data.forEach((item,key)=>{
+      sliced_data.forEach((item, key) => {
         item.cmcRank = key + 1;
       })
       sliced_data.push(LESSON_BUBBLE)
-      return res.status(200).json({ data: {cryptoCurrencyList: sliced_data}})
+
+      memory.data = sliced_data;
+      memory.time = moment();
+
+      return res.status(200).json({data: {cryptoCurrencyList: sliced_data}})
     }
 
 
-  } catch(ex) {
+  } catch (ex) {
     // error
     console.log(ex.message)
     return res.status(500).json({message: 'шота не так'})

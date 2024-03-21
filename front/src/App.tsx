@@ -96,7 +96,7 @@ const App = () => {
           >
             <footer className='footer'>
               <p className='footer__copyright'>
-                {'© 2023'}
+                {'© 2024'}
               </p>
               <p className='footer__developer'>
                 {'made with 🤍 by easy agency'}

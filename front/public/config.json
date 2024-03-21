@@ -1,22 +1,25 @@
 {
   "links": {
-    "lesson": "https://www.google.com/search?q=salam+alaikum"
+    "lesson": "https://www.google.com/search?q=%D0%BF%D1%80%D0%BE%D1%84%D0%B5%D1%81%D1%81%D0%BE%D1%80+%D0%BA%D0%BB%D0%B8%D0%BD%D0%BA%D0%BE%D0%B2",
+    "youtube": "https://www.youtube.com/@KlinkovProfessor",
+    "telegram": "https://t.me/ProfessorKlinkov/",
+    "klinkov_capital": "https://professorklinkov.com/"
   },
   "cryptoExchange": [
     {
       "price": "30$",
-      "link": "https://www.google.com/search?q=salam+alaikum",
-      "img": "/icons/image-1.png"
+      "link": "https://www.okx.com/",
+      "img": "/icons/okex-2.svg"
     },
     {
       "price": "30$",
-      "link": "https://www.google.com/search?q=salam+alaikum",
-      "img": "/icons/image-2.png"
+      "link": "https://www.bitget.com/",
+      "img": "/icons/Logo_Biget.svg"
     },
     {
       "price": "30$",
-      "link": "https://www.google.com/search?q=salam+alaikum",
-      "img": "/icons/image-3.png"
+      "link": "https://www.bybit.com/",
+      "img": "/icons/bybit-seeklogo.svg"
     }
   ]
 }
