@@ -1,4 +1,4 @@
-import React, {Suspense, useEffect} from 'react'
+import React, { Suspense, useEffect } from 'react'
 import classnames from 'classnames'
 import Bubbles from '$components/Bubbles'
 import Dominance from '$components/Dominance'
