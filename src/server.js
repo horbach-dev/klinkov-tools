@@ -21,13 +21,13 @@ app.use(function (req, res, next) {
   next();
 });
 
-bootTGBot()
+// bootTGBot()
 
 app.use(express.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 
 app.use(marketcap);
 app.use(youtube);
-app.use(telegram);
+// app.use(telegram);
 
 module.exports = app;

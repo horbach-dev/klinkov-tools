@@ -34,6 +34,23 @@
     color: #FFFFFF;
   }
 
+  &__info-traiding {
+    font-family: Oswald, sans-serif;
+    font-style: normal;
+    font-weight: 300;
+    font-size: 14px;
+    line-height: 16px;
+    text-transform: capitalize;
+    color: #FFFFFF;
+    display: flex;
+
+    @media (max-width: 400px) {
+      & {
+        flex-direction: column;
+      }
+    }
+  }
+
   &__info-value {
     font-family: Oswald, sans-serif;
     font-style: normal;

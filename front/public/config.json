@@ -8,16 +8,19 @@
   "cryptoExchange": [
     {
       "price": "30$",
+      "text": "подарок по ссылке ↓",
       "link": "https://www.okx.com/",
       "img": "/icons/okex-2.svg"
     },
     {
-      "price": "30$",
+      "price": "5000 руб",
+      "text": "скидка на курс Клинков Академии",
       "link": "https://www.bitget.com/",
-      "img": "/icons/Logo_Biget.svg"
+      "img": "/50d1debac09002287cf8.svg"
     },
     {
       "price": "30$",
+      "text": "подарок по ссылке ↓",
       "link": "https://www.bybit.com/",
       "img": "/icons/bybit-seeklogo.svg"
     }

@@ -16,6 +16,8 @@ interface IProps {
   setInputValue: (v: any) => void
   inputValue: string
   top: number
+  mode: number
+  handleChangeMode: (v: number) => void
 }
 
 const Header = ({
@@ -27,11 +29,12 @@ const Header = ({
   timeValue,
   handleChangeTop,
   top,
+  mode,
+  handleChangeMode
   }: IProps) => {
   const [isFull, setFull] = useState(false)
   const isMobile = window.innerWidth <= 490
 
-  console.log('isFull', isFull)
 
   const handleFull = () => {
     setFull(prev => {
@@ -59,7 +62,6 @@ const Header = ({
     })
   }
 
-  console.log('isFull', isFull)
 
   return (
     <div
@@ -70,6 +72,16 @@ const Header = ({
         {'cryptocurrency'}
       </Title>
       <div className='bubbles-header__right'>
+        <Select
+          value={mode}
+          className='bubbles-header__select'
+          suffixIcon={<ArrowDropdown />}
+          onChange={handleChangeMode}
+          options={[
+            { value: 0, label: 'Цена' },
+            { value: 1, label: 'Объем' },
+          ]}
+        />
         <Select
           value={top}
           className='bubbles-header__select'
@@ -97,14 +109,20 @@ const Header = ({
               className='bubbles-header__select'
               suffixIcon={<ArrowDropdown />}
               onChange={handleChangeTime}
-              options={[
-                { value: 0, label: 'Час' },
-                { value: 1, label: 'День' },
-                { value: 2, label: 'Неделя' },
-                { value: 3, label: 'Месяц' },
-                { value: 4, label: 'Год' },
-                { value: 5, label: 'Обьем' },
-              ]}
+              options={mode === 0?
+                [
+                  { value: 0, label: 'Час' },
+                  { value: 1, label: 'День' },
+                  { value: 2, label: 'Неделя' },
+                  { value: 3, label: 'Месяц' },
+                  { value: 4, label: 'Год' },
+                ] :
+                [
+                  { value: 1, label: 'День' },
+                  { value: 2, label: 'Неделя' },
+                  { value: 3, label: 'Месяц' },
+                ]
+              }
             />
           ) : (
             <Input

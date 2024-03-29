@@ -29,12 +29,12 @@ const Header = () => {
               target='_blank'
               rel='noreferrer'
               className='header__drawer-item'>
-              {'KlinkovCapital'}
+              {'Закрытый клуб'}
             </a>
           </div>
           <div className='header_links' style={{ marginRight: 20, display: 'flex', alignItems: 'center' }}>
             <a href={links.lesson} rel='noreferrer' target='_blank' className='header__drawer-item'>
-              {'Обучение'}
+              {'Обучение для новичков'}
             </a>
           </div>
           <a
@@ -86,10 +86,10 @@ const Header = () => {
           onClick={() => setDrawerVisible(false)}
         />
         <a href={links.klinkov_capital} target='_blank' rel='noreferrer' className='header__drawer-item'>
-          {'KlinkovCapital'}
+          {'Закрытый клуб'}
         </a>
         <a href={links.lesson} target='_blank' rel='noreferrer' className='header__drawer-item'>
-          {'Обучение'}
+          {'Обучение для новичков'}
         </a>
       </Drawer>
     </header>

@@ -121,8 +121,8 @@ const BitcoinDominanceChart = ({ bitcoinDominanceData, range, onlyChart,symbol= 
               y: {
                 display: false,
                 beginAtZero: false,
-                min: 20,
-                max: 100,
+                min: Math.min(arrData.map(item => item.y)),
+                max: Math.max(arrData.map(item => item.y)),
                 ticks: {
                   font: {
                     family: 'oswald',

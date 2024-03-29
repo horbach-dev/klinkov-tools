@@ -14,6 +14,7 @@ import './Bubbles.scss'
 
 const Bubbles = () => {
   const [top, setTop] = useState(0)
+  const [mode, setMode] = useState(0)
   const [listing, setListing] = useState<any[]>([])
   const [isActiveBubbles, setActiveBubbles] = useState(true)
   const bubblesWrapRef = useRef<any>(null)
@@ -93,11 +94,28 @@ const Bubbles = () => {
     setTop(val)
   }
 
+  const handleChangeMode = (val) => {
+    if (mode === val) return
+
+    if (val === 1 && (timeValue === 0 || timeValue === 4)) {
+      setTimeValue(1)
+      const ev = new CustomEvent('toggle-period',{ detail: { value: 1, mode: val } })
+
+      document.dispatchEvent(ev)
+      setMode(val)
+    } else {
+      const ev = new CustomEvent('toggle-period',{ detail: { value: timeValue, mode: val } })
+
+      document.dispatchEvent(ev)
+      setMode(val)
+    }
+  }
+
   const handleChangeTime = val => {
     if (timeValue === val) return
 
     setTimeValue(val)
-    document.dispatchEvent(new CustomEvent('toggle-period', { detail: val }))
+    document.dispatchEvent(new CustomEvent('toggle-period', { detail: { value: val, mode } }))
   }
 
   useEffect(() => {
@@ -135,6 +153,8 @@ const Bubbles = () => {
         handleChangeTime={handleChangeTime}
         handleChangeTop={handleChangeTop}
         timeValue={timeValue}
+        mode={mode}
+        handleChangeMode={handleChangeMode}
       />
       <main></main>
       <div

@@ -222,13 +222,17 @@ router.get('/get-listing', async (req, res) => {
         const maxPerWeek = Math.max(...(sliced_data.map(item => item.quotes[2].percentChange7d)))
         const maxPerMonth = Math.max(...(sliced_data.map(item => item.quotes[2].percentChange30d)))
         const maxPerYear = Math.max(...(sliced_data.map(item => item.quotes[2].percentChange1y)))
-        const maxPerMarketCap = Math.max(...(sliced_data.map(item => item.quotes[2].marketCap)))
+        const maxPerDayVolume = Math.max(...(sliced_data.map(item => item.quotes[2].volume24h)))
+        const maxPerWeekVolume = Math.max(...(sliced_data.map(item => item.quotes[2].volume7d)))
+        const maxPerMonthVolume = Math.max(...(sliced_data.map(item => item.quotes[2].volume30d)))
         LESSON_BUBBLE.quotes[2].percentChange1h = maxPerHour
         LESSON_BUBBLE.quotes[2].percentChange24h = maxPerDay
         LESSON_BUBBLE.quotes[2].percentChange7d = maxPerWeek
         LESSON_BUBBLE.quotes[2].percentChange30d = maxPerMonth
         LESSON_BUBBLE.quotes[2].percentChange1y = maxPerYear
-        LESSON_BUBBLE.quotes[2].marketCap = maxPerMarketCap
+        LESSON_BUBBLE.quotes[2].volume24h = maxPerDayVolume
+        LESSON_BUBBLE.quotes[2].volume7d = maxPerWeekVolume
+        LESSON_BUBBLE.quotes[2].volume30d = maxPerMonthVolume
         sliced_data.push(LESSON_BUBBLE)
       }
 

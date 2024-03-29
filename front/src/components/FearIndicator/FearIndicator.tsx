@@ -35,7 +35,15 @@ const FearIndicator = () => {
   }, [])
 
   const score = Math.floor(data[data.length - 1]?.score || 0)
-  const speed = (score / 2) + 50
+  let speed = (score / 2) + 50
+
+  if (score > 50) {
+    speed += 2 - (score) / 20
+  }
+
+  if (score < 50) {
+    speed += 3 - score / 20
+  }
 
   if (!data.length) return <Loader />
 
@@ -44,7 +52,7 @@ const FearIndicator = () => {
       <div className='feather-indicator__pie'>
         <Speed
           score={score}
-          speed={Number(speed.toFixed(0))}
+          speed={Number(speed)}
         />
       </div>
     </div>

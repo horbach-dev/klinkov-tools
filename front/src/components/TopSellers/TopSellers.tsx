@@ -19,6 +19,8 @@ const TopSellers = () => {
               <img
                 src={item.img}
                 alt='okex'
+                width='100%'
+                height='32px'
               />
               <div className='top-sellers__list-item-left'>
                 {
@@ -26,7 +28,7 @@ const TopSellers = () => {
                     <span>
                       {item.price}
                     </span>
-                    {'подарок по ссылке ↓'}
+                    {item.text}
                   </p>
                 }
                 <a
