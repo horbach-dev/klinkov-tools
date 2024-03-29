@@ -2286,34 +2286,34 @@ function wr(count = 100, newData = false) {
       // e[100].performance.hour+=1000
 
       Nt(t), nr(Fe(e)),cr("loaded")
-      setTimeout(wr, 1000)
+      // setTimeout(wr, 1000)
     })).catch((() => {
       (null == e ? void 0 : e.signal.aborted) || (cr("loading-failed"), pr((() => Dt())))
     }))
   } else {
     // console.log(mockData[0].performance.hour)
     // mockData[100].performance.hour+=1000
-    setTimeout(() => {
-      console.log(mockData)
-      mockData[100].performance.hour+=1000
-      mockData = [...mockData]
-      // mockData.pop()
-      // const ev = new CustomEvent('updateData',{ detail: false })
-      // document.dispatchEvent(ev)
-      Nt(t), nr(Fe([...mockData]))
-      // wr()
-      // getData(count, true).then(() => {
-      //   console.log(mockData[100])
-      //   mockData[100].performance.hour+=1000
-      //   console.log(mockData[100].performance.hour)
-        setTimeout(wr, 1000)
-      // })
-    }, 5000)
-    Nt(t), nr(Fe(mockData)), cr("loaded")
-    const e = De('hour', "performance");
-    Xt((t => [...t, e])), Yt(e.id)
-    Ro(Oo())
-    Xt((t => [...t]))
+    // setTimeout(() => {
+    //   console.log(mockData)
+    //   mockData[100].performance.hour+=1000
+    //   mockData = [...mockData]
+    //   // mockData.pop()
+    //   // const ev = new CustomEvent('updateData',{ detail: false })
+    //   // document.dispatchEvent(ev)
+    //   Nt(t), nr(Fe([...mockData]))
+    //   // wr()
+    //   // getData(count, true).then(() => {
+    //   //   console.log(mockData[100])
+    //   //   mockData[100].performance.hour+=1000
+    //   //   console.log(mockData[100].performance.hour)
+    //     setTimeout(wr, 1000)
+    //   // })
+    // }, 5000)
+    // Nt(t), nr(Fe(mockData)), cr("loaded")
+    // const e = De('hour', "performance");
+    // Xt((t => [...t, e])), Yt(e.id)
+    // Ro(Oo())
+    // Xt((t => [...t]))
   }
 }
 
