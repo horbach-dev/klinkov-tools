@@ -4925,7 +4925,7 @@ class va extends fa {
       const t = .5 * Math.sin(.008 * Date.now()) + .5,
         r = t + 2,
         n = "rgb(".concat(Math.floor(255 * t), ", ").concat(Math.floor(160 * t) + 95, ", 255)");
-      this.renderBubbleBorder(e, n, r)
+      // this.renderBubbleBorder(e, n, r)
     }
   }
 

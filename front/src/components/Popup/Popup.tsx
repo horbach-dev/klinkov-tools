@@ -275,7 +275,7 @@ const Popup = () => {
                           </svg>
                         </span>
                       </a>
-                      <a target='_blank' href='https://www.okx.com/join/2325727K' rel='noreferrer'>
+                      <a target='_blank' href='https://partner.bybit.com/b/Klinkov' rel='noreferrer'>
                         <span className='popup__info-value' style={{ padding: '3px' }}>
                           <svg viewBox='8 8 84 84'>
                             <path
@@ -472,7 +472,7 @@ const Popup = () => {
                 </p>
               </Flex>
             </Flex>
-            <Flex gap={32} style={{paddingLeft: 16, paddingRight: 16, justifyContent: "space-around"}}>
+            <Flex gap={32} style={{ paddingLeft: 16, paddingRight: 16, justifyContent: 'space-around' }}>
               <p className='popup__info-rating'>
                 {'Рейтинг '}
                 <span className='popup__info-value'>
@@ -495,73 +495,73 @@ const Popup = () => {
                 </span>
               </p>
               <p className='popup__info-traiding'>
-                    <span className='popup__info-value' style={{padding: '5px'}}>
-                      {'Торговля'}
-                    </span>
-                <div style={{padding: '3px'}}>
+                <span className='popup__info-value' style={{ padding: '5px' }}>
+                  {'Торговля'}
+                </span>
+                <div style={{ padding: '3px' }}>
                   <a target='_blank' href='https://www.okx.com/join/2325727K' rel='noreferrer'>
-                        <span
+                    <span
                           className='popup__info-value'
-                          style={{padding: '3px'}}
+                          style={{ padding: '3px' }}
                         >
-                          <svg viewBox='0 0 24 24'>
-                            <rect
+                      <svg viewBox='0 0 24 24'>
+                        <rect
                               x='1' y='1' width='22' height='22'
                               fill='#000'>
-                            </rect>
-                            <rect
+                        </rect>
+                        <rect
                               x='6'
                               y='6'
                               width='4'
                               height='4'
                               fill='#fff'>
-                            </rect>
-                            <rect
+                        </rect>
+                        <rect
                               x='14' y='6' width='4' height='4'
                               fill='#fff'>
-                            </rect>
-                            <rect
+                        </rect>
+                        <rect
                               x='10' y='10' width='4' height='4'
                               fill='#fff'>
-                            </rect>
-                            <rect
+                        </rect>
+                        <rect
                               x='6' y='14'
                               width='4'
                               height='4'
                               fill='#fff'>
-                            </rect>
-                            <rect
+                        </rect>
+                        <rect
                               x='14' y='14' width='4' height='4'
                               fill='#fff'>
-                            </rect>
-                          </svg>
-                        </span>
+                        </rect>
+                      </svg>
+                    </span>
                   </a>
-                  <a target='_blank' href='https://www.okx.com/join/2325727K' rel='noreferrer'>
-                        <span className='popup__info-value' style={{padding: '3px'}}>
-                          <svg viewBox='8 8 84 84'>
-                            <path
+                  <a target='_blank' href='https://partner.bybit.com/b/Klinkov' rel='noreferrer'>
+                    <span className='popup__info-value' style={{ padding: '3px' }}>
+                      <svg viewBox='8 8 84 84'>
+                        <path
                               fill='#F7A600'
                               d='m69.17248,54.28325l0,-22.3572l4.4939,0l0,22.3572l-4.4939,0z'>
-                            </path>
-                            <path
+                        </path>
+                        <path
                               fill='white'
                               d='m16.79825,60.92435l-9.63407,0l0,-22.35719l9.24666,0c4.49394,0 7.11244,2.44919 7.11244,6.28029c0,2.4799 -1.6817,4.0825 -2.8457,4.6161c1.3894,0.6277 3.1679,2.0404 3.1679,5.0249c0,4.1749 -2.9407,6.4359 -7.04723,6.4359zm-0.74311,-18.4628l-4.39706,0l0,5.1497l4.39706,0c1.90714,0 2.97424,-1.0364 2.97424,-2.5757c0,-1.5376 -1.0671,-2.574 -2.97424,-2.574zm0.29055,9.0749l-4.68761,0l0,5.4952l4.68761,0c2.03739,0 3.00589,-1.2553 3.00589,-2.7638c0,-1.5068 -0.9703,-2.7314 -3.00589,-2.7314z'>
-                            </path>
-                            <path
+                        </path>
+                        <path
                               fill='white'
                               d='m37.55238,51.75535l0,9.169l-4.4622,0l0,-9.169l-6.9187,-13.18819l4.8813,0l4.3002,9.01159l4.2351,-9.01159l4.8813,0l-6.917,13.18819z'>
-                            </path>
-                            <path
+                        </path>
+                        <path
                               fill='white'
                               d='m57.20988,60.92435l-9.6341,0l0,-22.35719l9.2467,0c4.4939,0 7.1124,2.44919 7.1124,6.28029c0,2.4799 -1.6817,4.0825 -2.8457,4.6161c1.3894,0.6277 3.168,2.0404 3.168,5.0249c0,4.1749 -2.9408,6.4359 -7.0473,6.4359zm-0.7431,-18.4628l-4.3971,0l0,5.1497l4.3971,0c1.9071,0 2.9742,-1.0364 2.9742,-2.5757c0,-1.5376 -1.0671,-2.574 -2.9742,-2.574zm0.2905,9.0749l-4.6876,0l0,5.4952l4.6876,0c2.0374,0 3.0059,-1.2553 3.0059,-2.7638c0,-1.5068 -0.9685,-2.7314 -3.0059,-2.7314z'>
-                            </path>
-                            <path
+                        </path>
+                        <path
                               fill='white'
                               d='m88.15018,42.46155l0,18.4645l-4.4939,0l0,-18.4645l-6.0136,0l0,-3.89439l16.5211,0l0,3.89439l-6.0136,0z'>
-                            </path>
-                          </svg>
-                        </span>
+                        </path>
+                      </svg>
+                    </span>
                   </a>
                 </div>
 
@@ -571,7 +571,7 @@ const Popup = () => {
               <CoinChart isMobile={false} timeUnit={currentValue} label={popup.item[0].name} data={data.data}/>
               {/*<DominanceChart bitcoinDominanceData={data} range={currentValue} onlyChart />*/}
             </Flex>
-            <Flex style={{bottom: 0, width: '100%'}} gap={32} justify='center'>
+            <Flex style={{ bottom: 0, width: '100%' }} gap={32} justify='center'>
               <Flex
                 className={classnames('popup-time-item', currentValue === '1H' && 'popup-time-item_active')}
                 key='perc1' onClick={() => setCurrentValue('1H')} align='center' gap={8}

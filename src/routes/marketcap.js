@@ -217,14 +217,14 @@ router.get('/get-listing', async (req, res) => {
         item.cmcRank = key + 1;
       })
       if (withLesson) {
-        const maxPerHour = Math.max(...(sliced_data.map(item => item.quotes[2].percentChange1h)))
-        const maxPerDay = Math.max(...(sliced_data.map(item => item.quotes[2].percentChange24h)))
-        const maxPerWeek = Math.max(...(sliced_data.map(item => item.quotes[2].percentChange7d)))
-        const maxPerMonth = Math.max(...(sliced_data.map(item => item.quotes[2].percentChange30d)))
-        const maxPerYear = Math.max(...(sliced_data.map(item => item.quotes[2].percentChange1y)))
-        const maxPerDayVolume = Math.max(...(sliced_data.map(item => item.quotes[2].volume24h)))
-        const maxPerWeekVolume = Math.max(...(sliced_data.map(item => item.quotes[2].volume7d)))
-        const maxPerMonthVolume = Math.max(...(sliced_data.map(item => item.quotes[2].volume30d)))
+        const maxPerHour = Math.max(...(sliced_data.map(item => item.quotes[2].percentChange1h))) * 0.8
+        const maxPerDay = Math.max(...(sliced_data.map(item => item.quotes[2].percentChange24h))) * 0.8
+        const maxPerWeek = Math.max(...(sliced_data.map(item => item.quotes[2].percentChange7d))) * 0.8
+        const maxPerMonth = Math.max(...(sliced_data.map(item => item.quotes[2].percentChange30d))) * 0.8
+        const maxPerYear = Math.max(...(sliced_data.map(item => item.quotes[2].percentChange1y))) * 0.8
+        const maxPerDayVolume = Math.max(...(sliced_data.map(item => item.quotes[2].volume24h))) * 0.8
+        const maxPerWeekVolume = Math.max(...(sliced_data.map(item => item.quotes[2].volume7d))) * 0.8
+        const maxPerMonthVolume = Math.max(...(sliced_data.map(item => item.quotes[2].volume30d))) * 0.8
         LESSON_BUBBLE.quotes[2].percentChange1h = maxPerHour
         LESSON_BUBBLE.quotes[2].percentChange24h = maxPerDay
         LESSON_BUBBLE.quotes[2].percentChange7d = maxPerWeek
