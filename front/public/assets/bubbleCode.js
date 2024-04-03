@@ -842,8 +842,6 @@ function Le(e, t, r, n = !1) {
   const o = e[t],
     i = e.length;
   void 0 === r ? (delete e[t], e[be] && e[be][t] && void 0 !== o && e[be][t].$()) : (e[t] = r, e[be] && e[be][t] && void 0 === o && e[be][t].$());
-  console.log('t', t)
-  console.log('r', r)
   let a, l = Ce(e, me);
   if ((a = xe(l, t, o)) && a.$((() => r)), Array.isArray(e) && e.length !== i) {
     for (let t = e.length; t < i; t++) (a = l[t]) && a.$();
@@ -2249,7 +2247,7 @@ const getData = async (count = 100, qqqqqqqwwwwww=false) => {
       }
     };
     if (!qqqqqqqwwwwww) {
-      xhr.open(`GET`, `/get-listing?count=${count}&withLesson=true`)
+      xhr.open(`GET`, `http://localhost:3005/get-listing?count=${count}&withLesson=true`)
       xhr.send();
     } else {
       resolve()
@@ -2621,7 +2619,10 @@ function tn(e) {
       var e;
       return null == (e = t()) ? void 0 : e.label
     },
-    onClick: () => e.onChange(t().value),
+    onClick: () => {
+      console.log(e)
+      e.onChange(t().value)
+    },
     get children() {
       return e.children
     }
@@ -2970,6 +2971,7 @@ function An(e) {
     }
   }), null), ae(o, (() => e.header), null), ae(o, R(Or, {
     get onClick() {
+      console.log(e)
       return e.onClose
     },
     get title() {
@@ -5089,6 +5091,7 @@ function _a(e, t) {
 function ka(e) {
   const t = () => {
       console.log('ttt', $t, e)
+        console.log(e.value.id)
       return $t.findIndex((t => t.id === e.value.id))
     },
     r = () => {

@@ -79,6 +79,7 @@ const useInitBubbles = (innerWidth, innerHeight, bubblesWrapRef) => {
       }
     })()
   }, [loaded, innerWidth, innerHeight, bubblesWrapRef])
+  return [loaded]
 }
 
 export default useInitBubbles

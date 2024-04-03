@@ -16,13 +16,14 @@ const TopSellers = () => {
               key={index}
               className='top-sellers__list-item'
             >
-              <img
-                src={item.img}
-                alt='okex'
-                width='100%'
-                height='32px'
-              />
+
               <div className='top-sellers__list-item-left'>
+                <img
+                    src={item.img}
+                    alt='okex'
+                    width='100%'
+                    height='32px'
+                />
                 {
                   <p className='top-sellers__list-item-title'>
                     <span>
@@ -30,13 +31,13 @@ const TopSellers = () => {
                     </span>
                     {item.text}
                   </p>
-                }
+                    }
                 <a
-                  className='top-sellers__list-item-link'
-                  href={item.link}
-                  target='_blank'
-                  rel='noreferrer'
-                >
+                        className='top-sellers__list-item-link'
+                        href={item.link}
+                        target='_blank'
+                        rel='noreferrer'
+                    >
                   {'Получить'}
                 </a>
               </div>

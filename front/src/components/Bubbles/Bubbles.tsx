@@ -5,10 +5,10 @@ import Header from '$components/Bubbles/components/Header'
 import { performList } from '$components/Bubbles/utils'
 import useStore from '$hooks/useStore'
 import useWindowSizeListener from '$hooks/useWindowSize'
+import ContentStore from '$stores/ContentStore'
 import UserStore from '$stores/UserStore'
 import CryptoList from './components/CryptoList'
 import useInitBubbles from './hooks/useInitBubbles'
-import ContentStore from '$stores/ContentStore'
 
 import './Bubbles.scss'
 
@@ -23,8 +23,12 @@ const Bubbles = () => {
   const { innerWidth, innerHeight } = useWindowSizeListener()
   const [_,setUserState] = useStore(UserStore, store => store.popup)
   const [links] = useStore(ContentStore, store => store.links || {})
+  const [q, setq] = useState(true)
+  const list = []
 
   const getItems = (index: number) => {
+    console.log(listing)
+
     switch (index) {
       case 0:
         return listing.slice(0, 100)
@@ -37,16 +41,19 @@ const Bubbles = () => {
     }
   }
 
-  useInitBubbles(innerWidth, innerHeight, bubblesWrapRef)
+  const [loading] = useInitBubbles(innerWidth, innerHeight, bubblesWrapRef)
 
   const onFindModal = (id:number) => {
+    console.log(listing)
+
     const searched = getItems(top)[id-1]
 
     if(searched){
-      if(id === 100){
+      if(id === 100) {
         // document.location = 'https://www.google.com/search?q=salam+alaikum'
         // window.open('https://www.google.com/search?q=salam+alaikum', '_blank')
         window.open(links.lesson, '_blank')
+        console.log('lesson')
       } else {
         setUserState(prev => ({ ...prev, popup: { item:searched,isOpen: true } }))
       }
@@ -54,10 +61,15 @@ const Bubbles = () => {
   }
 
   const initModalObserver = () => {
+    const asd = false
+
+    console.log('mutationObserver')
+
     const mutationObserver = new MutationObserver((mutationsList) => {
       for (const mutation of mutationsList) {
         if (mutation.type === 'childList' && mutation.addedNodes.length > 0) {
           mutation.addedNodes.forEach(addedNode => {
+          // const addedNode = mutation.addedNodes[0]
             if (addedNode instanceof Element) {
               const elementsWithClass = addedNode.querySelectorAll('.window-content')
 
@@ -67,6 +79,7 @@ const Bubbles = () => {
                 if(rank.length){
                   const number = rank[0].querySelectorAll('.number')
 
+                  console.log(Number(number[0].innerHTML))
                   onFindModal(Number(number[0].innerHTML))
                 }
               }
@@ -82,7 +95,6 @@ const Bubbles = () => {
     })
   }
 
-  initModalObserver()
 
   const handleChangeTop = (val) => {
     if (top === val) return
@@ -99,6 +111,7 @@ const Bubbles = () => {
 
     if (val === 1 && (timeValue === 0 || timeValue === 4)) {
       setTimeValue(1)
+
       const ev = new CustomEvent('toggle-period',{ detail: { value: 1, mode: val } })
 
       document.dispatchEvent(ev)
@@ -118,20 +131,26 @@ const Bubbles = () => {
     document.dispatchEvent(new CustomEvent('toggle-period', { detail: { value: val, mode } }))
   }
 
-  useEffect(() => {
-    getListing()
-  }, [])
-
   const getListing = async () => {
     try {
       const res = await client.get('/get-listing')
       const items = performList(res.data.data.cryptoCurrencyList)
 
-      setListing(items)
+      setListing([...items])
     } catch(ex) {
       console.log(ex)
     }
   }
+
+  useEffect(() => {
+    getListing()
+  }, [])
+
+  useEffect(() => {
+    if (listing.length) {
+      initModalObserver()
+    }
+  }, [listing])
 
   function searchByName (nameToSearch) {
     const lowercaseNameToSearch = nameToSearch.toLowerCase()

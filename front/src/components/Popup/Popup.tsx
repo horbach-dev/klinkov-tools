@@ -236,11 +236,13 @@ const Popup = () => {
                     <span className='popup__info-value' style={{ padding: '5px' }}>
                       {'Торговля'}
                     </span>
-                    <div style={{ padding: '3px' }}>
+                    <div
+                        style={{ padding: '3px' }}
+                    >
                       <a target='_blank' href='https://www.okx.com/join/2325727K' rel='noreferrer'>
                         <span
                         className='popup__info-value'
-                        style={{ padding: '3px' }}
+                        // style={{ padding: '3px' }}
                       >
                           <svg viewBox='0 0 24 24'>
                             <rect
