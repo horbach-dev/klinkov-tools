@@ -217,14 +217,14 @@ router.get('/get-listing', async (req, res) => {
         item.cmcRank = key + 1;
       })
       if (withLesson) {
-        const maxPerHour = Math.max(...(sliced_data.map(item => Math.abs(item.quotes[2].percentChange1h)))) * 0.5
-        const maxPerDay = Math.max(...(sliced_data.map(item => Math.abs(item.quotes[2].percentChange24h)))) * 0.5
-        const maxPerWeek = Math.max(...(sliced_data.map(item => Math.abs(item.quotes[2].percentChange7d)))) * 0.5
-        const maxPerMonth = Math.max(...(sliced_data.map(item => Math.abs(item.quotes[2].percentChange30d)))) * 0.5
-        const maxPerYear = Math.max(...(sliced_data.map(item => Math.abs(item.quotes[2].percentChange1y)))) * 0.5
-        const maxPerDayVolume = Math.max(...(sliced_data.map(item => Math.abs(item.quotes[2].volume24h)))) * 0.5
-        const maxPerWeekVolume = Math.max(...(sliced_data.map(item => Math.abs(item.quotes[2].volume7d)))) * 0.5
-        const maxPerMonthVolume = Math.max(...(sliced_data.map(item => Math.abs(item.quotes[2].volume30d)))) * 0.5
+        const maxPerHour = Math.max(...(sliced_data.map(item => Math.abs(item.quotes[2].percentChange1h)))) * 0.3
+        const maxPerDay = Math.max(...(sliced_data.map(item => Math.abs(item.quotes[2].percentChange24h)))) * 0.3
+        const maxPerWeek = Math.max(...(sliced_data.map(item => Math.abs(item.quotes[2].percentChange7d)))) * 0.3
+        const maxPerMonth = Math.max(...(sliced_data.map(item => Math.abs(item.quotes[2].percentChange30d)))) * 0.3
+        const maxPerYear = Math.max(...(sliced_data.map(item => Math.abs(item.quotes[2].percentChange1y)))) * 0.3
+        const maxPerDayVolume = Math.max(...(sliced_data.map(item => Math.abs(item.quotes[2].volume24h)))) * 0.3
+        const maxPerWeekVolume = Math.max(...(sliced_data.map(item => Math.abs(item.quotes[2].volume7d)))) * 0.3
+        const maxPerMonthVolume = Math.max(...(sliced_data.map(item => Math.abs(item.quotes[2].volume30d)))) * 0.3
         LESSON_BUBBLE.quotes[2].percentChange1h = maxPerHour
         LESSON_BUBBLE.quotes[2].percentChange24h = maxPerDay
         LESSON_BUBBLE.quotes[2].percentChange7d = maxPerWeek
