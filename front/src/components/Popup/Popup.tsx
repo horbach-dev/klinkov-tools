@@ -233,12 +233,10 @@ const Popup = () => {
                     </span>
                   </p>
                   <p className='popup__info-traiding'>
-                    <span className='popup__info-value' style={{ padding: '5px' }}>
+                    <span className='popup__info-value'>
                       {'Торговля'}
                     </span>
-                    <div
-                        style={{ padding: '3px' }}
-                    >
+                    <div>
                       <a target='_blank' href='https://www.okx.com/join/2325727K' rel='noreferrer'>
                         <span
                         className='popup__info-value'
@@ -496,8 +494,8 @@ const Popup = () => {
                   {popup.item[3].volume}
                 </span>
               </p>
-              <p className='popup__info-traiding'>
-                    <span className='popup__info-value' style={{padding: '5px'}}>
+              <p className='popup__info-traiding' style={{ margin: '6px 0' }}>
+                    <span className='popup__info-value' style={{ margin: '4px 0' }}>
                       {'Торговля'}
                     </span>
                 <div
@@ -542,7 +540,7 @@ const Popup = () => {
                         </span>
                   </a>
                   <a target='_blank' href='https://partner.bybit.com/b/Klinkov' rel='noreferrer'>
-                        <span className='popup__info-value' style={{padding: '3px'}}>
+                        <span className='popup__info-value'>
                           <svg viewBox='8 8 84 84'>
                             <path
                                 fill='#F7A600'

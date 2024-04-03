@@ -9,8 +9,8 @@
     {
       "price": "30$",
       "text": "подарок по ссылке ↓",
-      "link": "https://www.okx.com/join/2325727K",
-      "img": "/icons/okex-2.svg"
+      "link": "https://partner.bybit.com/b/Klinkov",
+      "img": "/icons/bybit-seeklogo.svg"
     },
     {
       "price": "5000 руб",
@@ -22,7 +22,7 @@
       "price": "30$",
       "text": "подарок по ссылке ↓",
       "link": "https://partner.bybit.com/b/Klinkov",
-      "img": "/icons/bybit-seeklogo.svg"
+      "img": "/icons/bingx-seeklogo.svg"
     }
   ]
 }
