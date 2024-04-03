@@ -25,6 +25,7 @@ const useInitBubbles = (innerWidth, innerHeight, bubblesWrapRef) => {
 
     scriptTag.src = 'assets/bubbleCode.js'
     scriptTag.id = 'bubbles'
+    scriptTag.nonce = (Math.random() * 100000).toFixed(0).toString()
     document.head.appendChild(scriptTag)
 
     scriptTag.onload = () => {
