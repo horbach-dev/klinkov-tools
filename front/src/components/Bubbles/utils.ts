@@ -36,7 +36,8 @@ export const performList = (list: any) => {
         name: i.name,
         description: `${i.symbol}/USD`,
         id:i.id,
-        rank: i.cmcRank
+        rank: i.cmcRank,
+        slug: i.slug
       },
       '1': {
         price: formatPrice(i.quotes[2].price),
