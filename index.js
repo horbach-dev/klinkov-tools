@@ -13,6 +13,8 @@ server.on("request", app)
 app.use(express.static(path.join(__dirname, "./front/dist"), {
   setHeaders: (res, path, stat) => {
     res.setHeader('Cache-Control', 'no-cache, no-store, must-revalidate');
+    res.setHeader('Pragma', 'no-cache');
+    res.setHeader('Expires', '0');
   }
 }))
 
