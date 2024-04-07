@@ -10,11 +10,11 @@ const PORT = process.env.PORT || 3005
 
 server.on("request", app)
 
-app.use(express.static(path.join(__dirname, "./front/dist", {
+app.use(express.static(path.join(__dirname, "./front/dist"), {
   setHeaders: (res, path, stat) => {
     res.setHeader('Cache-Control', 'no-cache, no-store, must-revalidate');
   }
-})))
+}))
 
 async function start() {
   try {
