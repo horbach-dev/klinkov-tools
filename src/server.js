@@ -10,7 +10,7 @@ const {bootTGBot} = require("./bootTGBot");
 app.use(function (req, res, next) {
   res.setHeader("Access-Control-Allow-Origin", "*");
   res.setHeader("Access-Control-Allow-Credentials", true);
-  res.setHeader("Cache-Control", 'max-age=0');
+  res.setHeader("Cache-Control", "no-cache");
   res.setHeader(
     "Access-Control-Allow-Methods",
     "GET,HEAD,OPTIONS,POST,PUT,DELETE"
