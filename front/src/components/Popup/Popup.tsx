@@ -178,14 +178,26 @@ const Popup = () => {
                       alignItems: 'center',
                       justifyContent: 'flex-start',
                     }}>
-                    <Avatar size={40} alt={popup.item[0].name} src={popup.item[0].logo}/>
-                    <div style={{ marginLeft: '10px' }}>
-                      <p className='popup__info-title'>
-                        {popup.item[0].name}
-                      </p>
-                      <p className='popup__info-description'>
-                        {popup.item[0].description}
-                      </p>
+                    <div
+                        style={{
+                          display: 'flex',
+                          flexDirection: 'row',
+                          alignItems: 'center',
+                          justifyContent: 'flex-start',
+                          backgroundColor: '#060604',
+                          padding: '12px 16px 10px 12px',
+                          borderRadius: 8
+                        }}
+                    >
+                      <Avatar size={40} alt={popup.item[0].name} src={popup.item[0].logo}/>
+                      <div style={{ marginLeft: '10px' }}>
+                        <p className='popup__info-title'>
+                          {popup.item[0].name}
+                        </p>
+                        <p className='popup__info-description'>
+                          {popup.item[0].description}
+                        </p>
+                      </div>
                     </div>
                   </div>
                   <div
@@ -242,7 +254,7 @@ const Popup = () => {
                         backgroundColor: '#ffffff1f',
                         // transition: background-color .4s;
                         margin: 0,
-                        padding: '8px 8px 3px',
+                        padding: '8px 8px 6px',
                         display: 'inline-flex',
                         // alignItems: 'center',
                         // gap: 5,
@@ -273,26 +285,33 @@ const Popup = () => {
                       }}
                     >
                       <span className='popup__info-value' style={{ marginTop: 0 }}>
-                        {'Торговля'}
-                      </span>
-                      <div
-                        // style={{padding: '3px'}}
-                      >
-                        <a target='_blank' href='https://www.okx.com/join/2325727K' rel='noreferrer'>
-                          <span
-                        className='popup__info-value'
-                        style={{ margin: '0 4px' }}
-                        // style={{ padding: '3px' }}
-                      >
-                            <img src='/icons/bingx-seeklogo.svg' height={16} alt='bingx'/>
-                          </span>
-                        </a>
+                        {'Торгуй: '}
                         <a target='_blank' href='https://partner.bybit.com/b/Klinkov' rel='noreferrer'>
-                          <span className='popup__info-value' style={{ margin: '0 4px' }}>
-                            <img src='/icons/bybit-seeklogo.svg' height={19} alt='bybit'/>
-                          </span>
+                          {'Bybit'}
                         </a>
-                      </div>
+                          {' | '}
+                        <a target='_blank' href='https://bingx.com/partner/professorklinkov' rel='noreferrer'>
+                          {'Bingx'}
+                        </a>
+                      </span>
+                      {/*<div*/}
+                      {/*  // style={{padding: '3px'}}*/}
+                      {/*>*/}
+                      {/*  <a target='_blank' href='https://www.okx.com/join/2325727K' rel='noreferrer'>*/}
+                      {/*    <span*/}
+                      {/*  className='popup__info-value'*/}
+                      {/*  style={{ margin: '0 4px' }}*/}
+                      {/*  // style={{ padding: '3px' }}*/}
+                      {/*>*/}
+                      {/*      <img src='/icons/bingx-seeklogo.svg' height={16} alt='bingx'/>*/}
+                      {/*    </span>*/}
+                      {/*  </a>*/}
+                      {/*  <a target='_blank' href='https://partner.bybit.com/b/Klinkov' rel='noreferrer'>*/}
+                      {/*    <span className='popup__info-value' style={{ margin: '0 4px' }}>*/}
+                      {/*      <img src='/icons/bybit-seeklogo.svg' height={19} alt='bybit'/>*/}
+                      {/*    </span>*/}
+                      {/*  </a>*/}
+                      {/*</div>*/}
 
                     </p>
                   </div>
@@ -445,17 +464,29 @@ const Popup = () => {
           <Flex gap='middle' style={{ position: 'relative' }} vertical>
             <Flex style={{ paddingLeft: 16, paddingRight: 16 }}>
               <Flex flex={1} gap='small'>
-                <Avatar size={40} alt={popup.item[0].name} src={popup.item[0].logo}/>
-                <Flex vertical>
-                  <p className='popup__info-title'>
-                    {popup.item[0].name}
-                  </p>
-                  <p className='popup__info-description'>
-                    {popup.item[0].description}
-                  </p>
-                </Flex>
+                <div
+                  style={{
+                    display: 'flex',
+                    flexDirection: 'row',
+                    alignItems: 'center',
+                    justifyContent: 'flex-start',
+                    backgroundColor: '#060604',
+                    padding: '12px 16px 10px 12px',
+                    borderRadius: 8
+                  }}
+                >
+                  <Avatar size={40} alt={popup.item[0].name} src={popup.item[0].logo}/>
+                  <Flex vertical>
+                    <p className='popup__info-title'>
+                      {popup.item[0].name}
+                    </p>
+                    <p className='popup__info-description'>
+                      {popup.item[0].description}
+                    </p>
+                  </Flex>
+                </div>
               </Flex>
-              <Flex flex={1} vertical>
+              <Flex flex={1} vertical justify='center'>
                 <p className='popup__info-title'>
                   {popup.item[1].price}
                 </p>
@@ -495,7 +526,7 @@ const Popup = () => {
                     backgroundColor: '#ffffff1f',
                     // transition: background-color .4s;
                     margin: 0,
-                    padding: '8px 8px 3px',
+                    padding: '8px 8px 6px',
                     display: 'inline-flex',
                     // alignItems: 'center',
                     // gap: 5,
@@ -518,7 +549,7 @@ const Popup = () => {
                     backgroundColor: '#ffffff1f',
                     // transition: background-color .4s;
                     margin: 0,
-                    padding: '10px 15px 7px 10px',
+                    padding: '10px 15px 9px 10px',
                     display: 'inline-flex',
                     alignItems: 'center',
                     // gap: 5,
@@ -526,25 +557,32 @@ const Popup = () => {
                   }}
                 >
                   <span className='popup__info-value'>
-                    {'Торговля'}
-                  </span>
-                  <div
-                    // style={{padding: '3px'}}
-                  >
-                    <a target='_blank' href='https://www.okx.com/join/2325727K' rel='noreferrer'>
-                      <span
-                        className='popup__info-value'
-                        // style={{ padding: '3px' }}
-                      >
-                        <img src='/icons/bingx-seeklogo.svg' height={16} alt='bingx'/>
-                      </span>
-                    </a>
+                    {'Торгуй: '}
                     <a target='_blank' href='https://partner.bybit.com/b/Klinkov' rel='noreferrer'>
-                      <span className='popup__info-value'>
-                        <img src='/icons/bybit-seeklogo.svg' height={19} alt='bybit'/>
-                      </span>
+                      {'Bybit'}
                     </a>
-                  </div>
+                    {' | '}
+                    <a target='_blank' href='https://bingx.com/partner/professorklinkov' rel='noreferrer'>
+                      {'Bingx'}
+                    </a>
+                  </span>
+                  {/*<div*/}
+                  {/*  // style={{padding: '3px'}}*/}
+                  {/*>*/}
+                  {/*  <a target='_blank' href='https://www.okx.com/join/2325727K' rel='noreferrer'>*/}
+                  {/*    <span*/}
+                  {/*      className='popup__info-value'*/}
+                  {/*      // style={{ padding: '3px' }}*/}
+                  {/*    >*/}
+                  {/*      <img src='/icons/bingx-seeklogo.svg' height={16} alt='bingx'/>*/}
+                  {/*    </span>*/}
+                  {/*  </a>*/}
+                  {/*  <a target='_blank' href='https://partner.bybit.com/b/Klinkov' rel='noreferrer'>*/}
+                  {/*    <span className='popup__info-value'>*/}
+                  {/*      <img src='/icons/bybit-seeklogo.svg' height={19} alt='bybit'/>*/}
+                  {/*    </span>*/}
+                  {/*  </a>*/}
+                  {/*</div>*/}
 
                 </p>
               </div>
