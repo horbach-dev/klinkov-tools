@@ -22,27 +22,19 @@ const BitcoinDominanceChart = ({ bitcoinDominanceData, range, onlyChart,symbol= 
   const chartRef = useRef<HTMLCanvasElement | null>(null)
   const chartInstance = useRef<Chart | null>(null)
   const [data, setData] = useState([])
-  const isMobile = window.innerWidth <= 1100
+  const { innerWidth } = useWindowSizeListener()
+  const isMobile = innerWidth <= 1100
 
   useEffect(() => {
     moment.locale('ru')
 
-    // window.addEventListener('resize', () => {
-    //   chartInstance.current?.resize()
-    //
-    //   if (chartRef.current) {
-    //     chartRef.current.style.width = '100%'
-    //     chartRef.current.style.height = '100%'
-    //   }
-    // })
-
     if (bitcoinDominanceData && bitcoinDominanceData.length) {
-      // setTimeout(() => {
-      //   if (chartRef.current) {
-      //     chartRef.current.style.width = '100%'
-      //     chartRef.current.style.height = '100%'
-      //   }
-      // }, 100)
+      setTimeout(() => {
+        if (chartRef.current) {
+          chartRef.current.style.width = '100%'
+          chartRef.current.style.height = '100%'
+        }
+      }, 100)
 
       const arrData: any = []
       const points: string[] = []
@@ -72,11 +64,10 @@ const BitcoinDominanceChart = ({ bitcoinDominanceData, range, onlyChart,symbol= 
         chartInstance.current?.destroy()
       }
 
-      const gradient = ctx?.createLinearGradient?.(0, 0, 0, 140)
+      const gradient = ctx?.createLinearGradient?.(0, 0, 0, 500)
 
-      gradient?.addColorStop?.(0, 'rgba(219, 180, 102, 0.5)')
-      gradient?.addColorStop?.(1, 'rgba(255, 255, 255, 0)')
-
+      gradient?.addColorStop?.(0, 'rgba(219, 180, 102, 1)')
+      gradient?.addColorStop?.(1, 'rgba(219, 180, 102, 0)')
       if (ctx) {
         chartInstance.current = new Chart(ctx, {
           type: 'line',
@@ -94,7 +85,8 @@ const BitcoinDominanceChart = ({ bitcoinDominanceData, range, onlyChart,symbol= 
             ],
           },
           options: {
-            aspectRatio: isMobile ? 5 : 3,
+            aspectRatio: isMobile ? 2 : 5,
+            backgroundColor: gradient,
             scales: {
               x: {
                 type: 'time',
@@ -145,35 +137,33 @@ const BitcoinDominanceChart = ({ bitcoinDominanceData, range, onlyChart,symbol= 
         })
       }
     }
-  }, [bitcoinDominanceData, range])
-
-  const { innerWidth } = useWindowSizeListener()
-
-  // useEffect(() => {
-  //   if (chartRef.current) {
-  //     const wrap = document.getElementById('bubbles-section')
-  //     const widthWrap = (wrap?.getBoundingClientRect?.()?.width || 0) / 2.35 || 0
-  //     const heightWrap = widthWrap / 1.68 || 0
-  //
-  //     chartRef.current.style.width = `${widthWrap + 'px' || '100%'}`
-  //     chartRef.current.style.height = `${(heightWrap - 16) + 'px' || '100%'}`
-  //     chartRef.current.style.position = 'relative'
-  //     // chartRef.current.style.left = '-16'
-  //   }
-  // }, [innerWidth, chartRef])
+  }, [bitcoinDominanceData, range, innerWidth])
 
   window.addEventListener('orientationchange', () => {
     if (chartRef.current) {
       const wrap = document.getElementById('bubbles-section')
-      const widthWrap = (wrap?.getBoundingClientRect?.()?.width || 0) / 2.35 || 0
-      const heightWrap = widthWrap / 1.68 || 0
+      const widthWrap = (wrap?.getBoundingClientRect?.()?.width || 0) / (isMobile ? 2.35 : 1.1) || 0
+      // const heightWrap =  0
 
-      chartRef.current.style.width = `${widthWrap + 'px' || '100%'}`
-      chartRef.current.style.height = `${(heightWrap - 16) + 'px' || '100%'}`
-      chartRef.current.style.position = 'relative'
+      // chartRef.current.style.width = `${widthWrap + 'px' || '100%'}`
+      // chartRef.current.style.height = `${ '100%'}`
+      // chartRef.current.style.position = 'relative'
       // chartRef.current.style.left = '-16'
     }
   })
+
+  // useEffect(() => {
+  //   if (chartRef.current) {
+  //     const wrap = document.getElementById('bubbles-section')
+  //     const widthWrap = (wrap?.getBoundingClientRect?.()?.width || 0) / (isMobile ? 2.35 : 1.1) || 0
+  //     const heightWrap = 0
+  //
+  //     // chartRef.current.style.width = `${widthWrap + 'px' || '100%'}`
+  //     // chartRef.current.style.height = `${'100%'}`
+  //     // chartRef.current.style.position = 'relative'
+  //     // chartRef.current.style.left = '-16'
+  //   }
+  // }, [innerWidth])
 
   const [currentValue, lastValue] = data
 
@@ -189,7 +179,7 @@ const BitcoinDominanceChart = ({ bitcoinDominanceData, range, onlyChart,symbol= 
           <p className='dominance-chart__label-value'>
             {currentValue + '%'}
           </p>
-)}
+        )}
         {currentValue && lastValue && (
           <p className={classnames('dominance-chart__label-diff', isProfit && 'dominance-chart__label-diff_profit')}>
             {isProfit && '+'}

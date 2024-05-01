@@ -1,27 +1,28 @@
-import React, { useEffect, useRef } from 'react';
-import Chart from 'chart.js/auto';
+import React, { useEffect, useRef } from 'react'
+import Chart from 'chart.js/auto'
 
 const CoinChart = ({ data, label, timeUnit, isMobile }) => {
-    const chartRef = useRef();
-    const chartInstance = useRef(null);
+    const chartRef = useRef()
+    const chartInstance = useRef(null)
 
     useEffect(() => {
-        if (!data) return;
-        const labels = Object.keys(data).map(timestamp => parseInt(timestamp) * 1000);
-        const values = Object.values(data).map(item => item.v[0]);
+        if (!data) return
 
-
+        const labels = Object.keys(data).map(timestamp => parseInt(timestamp) * 1000)
+        const values = Object.values(data).map(item => item.v[0])
+        console.log('qwe', Object.values(data)[0].v[0])
         if (chartInstance.current) {
             chartInstance.current?.destroy()
         }
 
         if (chartRef.current) {
             const ctx = chartRef.current?.getContext('2d')
-            const aspectRatio = isMobile ? window.innerHeight / window.innerWidth : 3;
-            const gradient = ctx.createLinearGradient(0, 0, 0, isMobile ? window.innerHeight : 240)
+            const aspectRatio = isMobile ? window.innerHeight / window.innerWidth : 3
+            const gradient = ctx.createLinearGradient(0, 0, 0, isMobile ? window.innerHeight : 500)
 
             gradient.addColorStop(0, 'rgba(219, 180, 102, 0.5)')
             gradient.addColorStop(1, 'rgba(255, 255, 255, 0)')
+            // @ts-expect-error
             chartInstance.current = new Chart(ctx, {
                 type: 'line',
                 data: {
@@ -67,9 +68,9 @@ const CoinChart = ({ data, label, timeUnit, isMobile }) => {
                                 padding:10,
                                 callback: (value) => {
                                     if (value >= 1) {
-                                        return value.toFixed(0);
+                                        return value.toFixed(0)
                                     } else {
-                                        return value.toFixed(6);
+                                        return value.toFixed(6)
                                     }
                                 }
                             },
@@ -85,38 +86,39 @@ const CoinChart = ({ data, label, timeUnit, isMobile }) => {
                             intersect: false,
                             callbacks: {
                                 label: (context) => {
-                                    let label = context.dataset.label || '';
+                                    let label = context.dataset.label || ''
 
                                     if (label) {
-                                        label += ': ';
-                                    }
-                                    if (context.parsed.y >= 1) {
-                                        label += context.parsed.y.toFixed(3);
-                                    } else {
-                                        label += context.parsed.y.toFixed(5);
+                                        label += ': '
                                     }
 
-                                    return label;
+                                    if (context.parsed.y >= 1) {
+                                        label += context.parsed.y.toFixed(3)
+                                    } else {
+                                        label += context.parsed.y.toFixed(5)
+                                    }
+
+                                    return label
                                 }
                             }
                         }
                     }
                 }
-            });
+            })
         }
-    }, [data, timeUnit, isMobile]);
+    }, [data, timeUnit, isMobile])
 
     if (isMobile) {
         return (
-            <canvas ref={chartRef} style={{ width: '100%', height: '100%' }}></canvas>
-        );
+          <canvas ref={chartRef} style={{ width: '100%', height: '100%' }}></canvas>
+        )
     } else {
         return (
-            <canvas style={{ minHeight: '300px' }} ref={chartRef}></canvas>
-        );
+          <canvas style={{ minHeight: '230px' }} ref={chartRef}></canvas>
+        )
     }
 
-};
+}
 
 const parseRange = {
     '1H': 'hour',
@@ -125,4 +127,4 @@ const parseRange = {
     '1Y': 'month',
 }
 
-export default CoinChart;
+export default CoinChart

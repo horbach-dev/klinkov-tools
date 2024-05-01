@@ -72,6 +72,7 @@ const useInitBubbles = (innerWidth, innerHeight, bubblesWrapRef) => {
 
       const currentBubbleHeight = height - block1?.getBoundingClientRect?.()?.height
       const bubbleChart: any = await getBubbleChart()
+      console.log(height)
 
       if (bubbleChart) {
         console.log('currentBubbleHeight', currentBubbleHeight)

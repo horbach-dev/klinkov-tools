@@ -6,6 +6,7 @@ import CoinChart from '$components/Chart/CoinChart'
 import Loader from '$components/Loader'
 import { CloseIcon } from '$components/Popup/CloseIcon'
 import useStore from '$hooks/useStore'
+import useWindowSizeListener from '$hooks/useWindowSize'
 import UserStore from '$stores/UserStore'
 
 import './Popup.scss'
@@ -21,7 +22,10 @@ const Popup = () => {
   const [currentValue, setCurrentValue] = useState(defaultValue)
   const [verticalOffset, setVerticalOffset] = useState(0)
   const [startY, setStartY] = useState(0)
-  const isMobile = window.innerWidth <= 768
+  const { innerWidth } = useWindowSizeListener()
+  const [diff, setDiff] = useState(0)
+  const isMobile = innerWidth <= 768
+  const [diffColor, setDiffColor] = useState('white')
 
   const getDominance = async (range) => {
     try {
@@ -54,6 +58,27 @@ const Popup = () => {
     getDominance(currentValue)
 
   }, [currentValue, popup])
+
+  useEffect(() => {
+    if (popup.item === undefined) return
+
+    const diffValue = data.data && (+popup.item[1].price.slice(0, -1) - Object.values(data.data)[0].v[0]).toFixed(6)
+
+    setDiff(diffValue)
+
+    if (diffValue === 0) {
+      setDiffColor('white')
+    }
+
+    if (diffValue > 0) {
+      setDiffColor('rgba(117, 217, 182, 1)')
+    }
+
+    if (diffValue < 0) {
+      setDiffColor('rgb(236, 132, 119)')
+    }
+
+  }, [data, popup])
 
   const handleCancel = () => {
     setUserState((prevState) => ({ ...prevState, popup: { isOpen: false } }))
@@ -184,7 +209,7 @@ const Popup = () => {
                           flexDirection: 'row',
                           alignItems: 'center',
                           justifyContent: 'flex-start',
-                          backgroundColor: '#060604',
+                          // backgroundColor: '#060604',
                           padding: '12px 16px 10px 12px',
                           borderRadius: 8
                         }}
@@ -193,6 +218,24 @@ const Popup = () => {
                       <div style={{ marginLeft: '10px' }}>
                         <p className='popup__info-title'>
                           {popup.item[0].name}
+                          <span
+                                style={{
+                                  fontWeight: 100,
+                                  color: 'rgba(227, 230, 233, .5)',
+                                  fontSize: 20
+                                }}
+                            >
+                            {' | '}
+                          </span>
+                          {popup.item[1].price}
+                          {' '}
+                          <span
+                                style={{
+                                  color: diffColor
+                                }}
+                            >
+                            {diff > 0 ? '+' + diff?.toString() + '$' : diff?.toString() + '$'}
+                          </span>
                         </p>
                         <p className='popup__info-description'>
                           {popup.item[0].description}
@@ -200,20 +243,20 @@ const Popup = () => {
                       </div>
                     </div>
                   </div>
-                  <div
-                    style={{
-                      display: 'flex',
-                      flexDirection: 'column',
-                      alignItems: 'flex-end',
-                      justifyContent: 'flex-start'
-                    }}>
-                    <p className='popup__info-title'>
-                      {popup.item[1].price}
-                    </p>
-                    <p className='popup__info-description'>
-                      {popup.item[0].name}
-                    </p>
-                  </div>
+                  {/*<div*/}
+                  {/*  style={{*/}
+                  {/*    display: 'flex',*/}
+                  {/*    flexDirection: 'column',*/}
+                  {/*    alignItems: 'flex-end',*/}
+                  {/*    justifyContent: 'flex-start'*/}
+                  {/*  }}>*/}
+                  {/*  <p className='popup__info-title'>*/}
+                  {/*    {popup.item[1].price}*/}
+                  {/*  </p>*/}
+                  {/*  <p className='popup__info-description'>*/}
+                  {/*    {popup.item[0].name}*/}
+                  {/*  </p>*/}
+                  {/*</div>*/}
                 </div>
                 <Flex
                   style={{ width: '100%', padding: '0 16px' }}
@@ -248,28 +291,28 @@ const Popup = () => {
                 </Flex>
                 <Flex style={{ paddingLeft: 16, paddingRight: 16, justifyContent: 'space-around', width: '100%' }}>
                   <div>
-                    <div
-                      style={{
-                        borderRadius: '50%',
-                        backgroundColor: '#ffffff1f',
-                        // transition: background-color .4s;
-                        margin: 0,
-                        padding: '8px 8px 6px',
-                        display: 'inline-flex',
-                        // alignItems: 'center',
-                        // gap: 5,
-                        whiteSpace: 'nowrap',
-                        marginRight: 10
-                      }}
-                    >
-                      <a
-                        target='_blank'
-                        href={`https://coinmarketcap.com/currencies/${popup.item[0].slug}`}
-                        rel='noreferrer'
-                      >
-                        <img src='/icons/coinmarketcap.svg' width={20} alt='coinmarketcap'/>
-                      </a>
-                    </div>
+                    {/*<div*/}
+                    {/*  style={{*/}
+                    {/*    borderRadius: '50%',*/}
+                    {/*    backgroundColor: '#ffffff1f',*/}
+                    {/*    // transition: background-color .4s;*/}
+                    {/*    margin: 0,*/}
+                    {/*    padding: '8px 8px 6px',*/}
+                    {/*    display: 'inline-flex',*/}
+                    {/*    // alignItems: 'center',*/}
+                    {/*    // gap: 5,*/}
+                    {/*    whiteSpace: 'nowrap',*/}
+                    {/*    marginRight: 10*/}
+                    {/*  }}*/}
+                    {/*>*/}
+                    {/*  <a*/}
+                    {/*    target='_blank'*/}
+                    {/*    href={`https://coinmarketcap.com/currencies/${popup.item[0].slug}`}*/}
+                    {/*    rel='noreferrer'*/}
+                    {/*  >*/}
+                    {/*    <img src='/icons/coinmarketcap.svg' width={20} alt='coinmarketcap'/>*/}
+                    {/*  </a>*/}
+                    {/*</div>*/}
                     <p
                       className='popup__info-traiding'
                       style={{
@@ -284,16 +327,45 @@ const Popup = () => {
                         whiteSpace: 'nowrap',
                       }}
                     >
-                      <span className='popup__info-value' style={{ marginTop: 0 }}>
-                        {'Торгуй: '}
-                        <a target='_blank' href='https://partner.bybit.com/b/Klinkov' rel='noreferrer'>
-                          {'Bybit'}
-                        </a>
-                          {' | '}
-                        <a target='_blank' href='https://bingx.com/partner/professorklinkov' rel='noreferrer'>
-                          {'Bingx'}
-                        </a>
-                      </span>
+                      <div
+                          style={{
+                            display: 'flex',
+                            alignItems: 'center'
+                          }}
+                      >
+                        <p className='popup__info-rating'>
+                          {'Торгуй'}
+                        </p>
+                        <div className='img-center'>
+                          <a
+                              target='_blank'
+                              href={`https://coinmarketcap.com/currencies/${popup.item[0].slug}`}
+                              rel='noreferrer'
+                          >
+                            <div className='img-center img-padding'>
+                              <img src='/icons/coinmarketcap.svg' width={32} alt='coinmarketcap'/>
+                            </div>
+                          </a>
+                          <a
+                              target='_blank'
+                              href='https://partner.bybit.com/b/Klinkov'
+                              rel='noreferrer'
+                          >
+                            <div className='img-center img-padding'>
+                              <img src='/icons/bybit-popup.svg' width={32} alt='bybit'/>
+                            </div>
+                          </a>
+                          <a
+                              target='_blank'
+                              href='https://bingx.com/partner/professorklinkov'
+                              rel='noreferrer'
+                          >
+                            <div className='img-center img-padding'>
+                              <img src='/icons/bingx-popup.svg' width={32} alt='bingx'/>
+                            </div>
+                          </a>
+                        </div>
+                      </div>
                       {/*<div*/}
                       {/*  // style={{padding: '3px'}}*/}
                       {/*>*/}
@@ -317,15 +389,15 @@ const Popup = () => {
                   </div>
                 </Flex>
                 <div
-                  style={{
-                    display: 'flex',
-                    flexDirection: 'row',
-                    alignItems: 'center',
-                    justifyContent: 'center',
-                    height: '100%',
-                    overflowX: 'auto'
-                  }}>
-                  <div style={{ minWidth: window.innerWidth - 20, height: '100%' }}>
+                    style={{
+                      display: 'flex',
+                      flexDirection: 'row',
+                      alignItems: 'center',
+                      justifyContent: 'center',
+                      height: '100%',
+                      overflowX: 'auto'
+                    }}>
+                  <div style={{minWidth: window.innerWidth - 20, height: '100%'}}>
                     <CoinChart isMobile={isMobile} timeUnit={currentValue} label={popup.item[0].name} data={data.data}/>
                   </div>
                 </div>
@@ -470,32 +542,50 @@ const Popup = () => {
                     flexDirection: 'row',
                     alignItems: 'center',
                     justifyContent: 'flex-start',
-                    backgroundColor: '#060604',
+                    // backgroundColor: '#060604',
                     padding: '12px 16px 10px 12px',
                     borderRadius: 8
                   }}
                 >
                   <Avatar size={40} alt={popup.item[0].name} src={popup.item[0].logo}/>
-                  <Flex vertical>
+                  <Flex vertical style={{ paddingLeft: 20 }}>
                     <p className='popup__info-title'>
                       {popup.item[0].name}
+                      <span
+                      style={{
+                        fontWeight: 100,
+                        color: 'rgba(227, 230, 233, .5)',
+                        fontSize: 20
+                      }}
+                      >
+                        {' | '}
+                      </span>
+                      {popup.item[1].price}
+                      {' '}
+                      <span
+                        style={{
+                          color: diffColor
+                        }}
+                      >
+                        { diff > 0 ? '+' + diff?.toString() + '$' : diff?.toString() + '$' }
+                      </span>
                     </p>
                     <p className='popup__info-description'>
                       {popup.item[0].description}
                     </p>
                   </Flex>
+                  {/*<Flex flex={1} vertical justify='start' align='stretch'>*/}
+                  {/*<p className='popup__info-title'>*/}
+                  {/*  {popup.item[1].price}*/}
+                  {/*</p>*/}
+                  {/*<p className='popup__info-description'>*/}
+                  {/*  {popup.item[0].name}*/}
+                  {/*</p>*/}
+                  {/*</Flex>*/}
                 </div>
               </Flex>
-              <Flex flex={1} vertical justify='center'>
-                <p className='popup__info-title'>
-                  {popup.item[1].price}
-                </p>
-                <p className='popup__info-description'>
-                  {popup.item[0].name}
-                </p>
-              </Flex>
             </Flex>
-            <Flex gap={32} style={{ paddingLeft: 16, paddingRight: 16, justifyContent: 'space-around' }}>
+            <Flex gap={32} style={{ paddingLeft: 16, paddingRight: 16, justifyContent: 'space-around', alignItems: 'center' }}>
               <p className='popup__info-rating'>
                 {'Рейтинг '}
                 <span className='popup__info-value'>
@@ -517,76 +607,125 @@ const Popup = () => {
                   {popup.item[3].volume}
                 </span>
               </p>
-            </Flex>
-            <Flex style={{ paddingLeft: 16, paddingRight: 16, justifyContent: 'space-around' }}>
-              <div>
-                <div
+              <p>
+                <div 
                   style={{
-                    borderRadius: '50%',
-                    backgroundColor: '#ffffff1f',
-                    // transition: background-color .4s;
-                    margin: 0,
-                    padding: '8px 8px 6px',
-                    display: 'inline-flex',
-                    // alignItems: 'center',
-                    // gap: 5,
-                    whiteSpace: 'nowrap',
-                    marginRight: 10
+                    display: 'flex',
+                    alignItems: 'center'
                   }}
                 >
-                  <a
-                    target='_blank'
-                    href={`https://coinmarketcap.com/currencies/${popup.item[0].slug}`}
-                    rel='noreferrer'
-                  >
-                    <img src='/icons/coinmarketcap.svg' width={20} alt='coinmarketcap'/>
-                  </a>
+                  <p className='popup__info-rating'>
+                    {'Торгуй'}
+                  </p>
+                  <div className='img-center'>
+                    <a
+                        target='_blank'
+                        href={`https://coinmarketcap.com/currencies/${popup.item[0].slug}`}
+                        rel='noreferrer'
+                    >
+                      <div className='img-center img-padding'>
+                        <img src='/icons/coinmarketcap.svg' width={32} alt='coinmarketcap'/>
+                      </div>
+                    </a>
+                    <a
+                        target='_blank'
+                        href='https://partner.bybit.com/b/Klinkov'
+                        rel='noreferrer'
+                    >
+                      <div className='img-center img-padding'>
+                        <img src='/icons/bybit-popup.svg' width={32} alt='bybit'/>
+                      </div>
+                    </a>
+                    <a
+                        target='_blank'
+                        href='https://bingx.com/partner/professorklinkov'
+                        rel='noreferrer'
+                    >
+                      <div className='img-center img-padding'>
+                        <img src='/icons/bingx-popup.svg' width={32} alt='bingx'/>
+                      </div>
+                    </a>
+                  </div>
                 </div>
-                <p
-                  className='popup__info-traiding'
-                  style={{
-                    borderRadius: 12,
-                    backgroundColor: '#ffffff1f',
-                    // transition: background-color .4s;
-                    margin: 0,
-                    padding: '10px 15px 9px 10px',
-                    display: 'inline-flex',
-                    alignItems: 'center',
-                    // gap: 5,
-                    whiteSpace: 'nowrap',
-                  }}
-                >
-                  <span className='popup__info-value'>
-                    {'Торгуй: '}
-                    <a target='_blank' href='https://partner.bybit.com/b/Klinkov' rel='noreferrer'>
-                      {'Bybit'}
-                    </a>
-                    {' | '}
-                    <a target='_blank' href='https://bingx.com/partner/professorklinkov' rel='noreferrer'>
-                      {'Bingx'}
-                    </a>
-                  </span>
-                  {/*<div*/}
-                  {/*  // style={{padding: '3px'}}*/}
-                  {/*>*/}
-                  {/*  <a target='_blank' href='https://www.okx.com/join/2325727K' rel='noreferrer'>*/}
-                  {/*    <span*/}
-                  {/*      className='popup__info-value'*/}
-                  {/*      // style={{ padding: '3px' }}*/}
-                  {/*    >*/}
-                  {/*      <img src='/icons/bingx-seeklogo.svg' height={16} alt='bingx'/>*/}
-                  {/*    </span>*/}
-                  {/*  </a>*/}
-                  {/*  <a target='_blank' href='https://partner.bybit.com/b/Klinkov' rel='noreferrer'>*/}
-                  {/*    <span className='popup__info-value'>*/}
-                  {/*      <img src='/icons/bybit-seeklogo.svg' height={19} alt='bybit'/>*/}
-                  {/*    </span>*/}
-                  {/*  </a>*/}
-                  {/*</div>*/}
-
-                </p>
-              </div>
+                {/*<a target='_blank' href='https://partner.bybit.com/b/Klinkov' rel='noreferrer'>*/}
+                {/*  <img src='/icons/coinmarketcap.svg' width={20} alt='coinmarketcap'/>*/}
+                {/*  /!*{'Bybit'}*!/*/}
+                {/*</a>*/}
+                {/*{' | '}*/}
+                {/*<a target='_blank' href='https://bingx.com/partner/professorklinkov' rel='noreferrer'>*/}
+                {/*  {'Bingx'}*/}
+                {/*</a>*/}
+              </p>
             </Flex>
+            {/*<Flex style={{ paddingLeft: 16, paddingRight: 16, justifyContent: 'space-around' }}>*/}
+            {/*  <div>*/}
+            {/*    <div*/}
+            {/*        style={{*/}
+            {/*          borderRadius: '50%',*/}
+            {/*          backgroundColor: '#ffffff1f',*/}
+            {/*          // transition: background-color .4s;*/}
+            {/*          margin: 0,*/}
+            {/*          padding: '8px 8px 6px',*/}
+            {/*          display: 'inline-flex',*/}
+            {/*        // alignItems: 'center',*/}
+            {/*        // gap: 5,*/}
+            {/*        whiteSpace: 'nowrap',*/}
+            {/*        marginRight: 10*/}
+            {/*      }}*/}
+            {/*    >*/}
+            {/*      <a*/}
+            {/*        target='_blank'*/}
+            {/*        href={`https://coinmarketcap.com/currencies/${popup.item[0].slug}`}*/}
+            {/*        rel='noreferrer'*/}
+            {/*      >*/}
+            {/*        <img src='/icons/coinmarketcap.svg' width={20} alt='coinmarketcap'/>*/}
+            {/*      </a>*/}
+            {/*    </div>*/}
+            {/*    <p*/}
+            {/*      className='popup__info-traiding'*/}
+            {/*      style={{*/}
+            {/*        borderRadius: 12,*/}
+            {/*        backgroundColor: '#ffffff1f',*/}
+            {/*        // transition: background-color .4s;*/}
+            {/*        margin: 0,*/}
+            {/*        padding: '10px 15px 9px 10px',*/}
+            {/*        display: 'inline-flex',*/}
+            {/*        alignItems: 'center',*/}
+            {/*        // gap: 5,*/}
+            {/*        whiteSpace: 'nowrap',*/}
+            {/*      }}*/}
+            {/*    >*/}
+            {/*      <span className='popup__info-value'>*/}
+            {/*        {'Торгуй: '}*/}
+            {/*        <a target='_blank' href='https://partner.bybit.com/b/Klinkov' rel='noreferrer'>*/}
+            {/*          {'Bybit'}*/}
+            {/*        </a>*/}
+            {/*        {' | '}*/}
+            {/*        <a target='_blank' href='https://bingx.com/partner/professorklinkov' rel='noreferrer'>*/}
+            {/*          {'Bingx'}*/}
+            {/*        </a>*/}
+            {/*      </span>*/}
+            {/*      /!*<div*!/*/}
+            {/*      /!*  // style={{padding: '3px'}}*!/*/}
+            {/*      /!*>*!/*/}
+            {/*      /!*  <a target='_blank' href='https://www.okx.com/join/2325727K' rel='noreferrer'>*!/*/}
+            {/*      /!*    <span*!/*/}
+            {/*      /!*      className='popup__info-value'*!/*/}
+            {/*      /!*      // style={{ padding: '3px' }}*!/*/}
+            {/*      /!*    >*!/*/}
+            {/*      /!*      <img src='/icons/bingx-seeklogo.svg' height={16} alt='bingx'/>*!/*/}
+            {/*      /!*    </span>*!/*/}
+            {/*      /!*  </a>*!/*/}
+            {/*      /!*  <a target='_blank' href='https://partner.bybit.com/b/Klinkov' rel='noreferrer'>*!/*/}
+            {/*      /!*    <span className='popup__info-value'>*!/*/}
+            {/*      /!*      <img src='/icons/bybit-seeklogo.svg' height={19} alt='bybit'/>*!/*/}
+            {/*      /!*    </span>*!/*/}
+            {/*      /!*  </a>*!/*/}
+            {/*      /!*</div>*!/*/}
+
+            {/*    </p>*/}
+            {/*  </div>*/}
+            {/*</Flex>*/}
             <Flex>
               <CoinChart isMobile={false} timeUnit={currentValue} label={popup.item[0].name} data={data.data}/>
               {/*<DominanceChart bitcoinDominanceData={data} range={currentValue} onlyChart />*/}

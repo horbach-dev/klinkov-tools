@@ -3,6 +3,7 @@
 .dominance-chart {
   display: flex;
   flex-direction: column;
+  justify-content: space-between;
   width: 100%;
   height: calc(100% - 24px);
 
@@ -18,15 +19,15 @@
     width: 100%;
     height: 100%;
 
-    @include max(580px) {
-      height: 115px !important;
-      width: 100% !important;
-
-      canvas {
-        height: 105px !important;
-        aspect-ratio: auto !important;
-      }
-    }
+    //@include max(580px) {
+    //  height: 115px !important;
+    //  width: 100% !important;
+    //
+    //  canvas {
+    //    height: 105px !important;
+    //    aspect-ratio: auto !important;
+    //  }
+    //}
   }
 
   &__label-value {
@@ -49,9 +50,9 @@
   }
 }
 
-#btc-dominance {
-  @include max(580px) {
-    aspect-ratio: auto;
-    min-height: 264px;
-  }
-}
+//#btc-dominance {
+//  @include max(580px) {
+//    aspect-ratio: auto;
+//    //min-height: 264px;
+//  }
+//}

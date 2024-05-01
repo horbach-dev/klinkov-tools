@@ -46,20 +46,23 @@ const Telegram = () => {
           </a>
         )
         ): (
-          <>
-            <div
-              className='telegram-block__list-item'>
-              {'Загрузка сообшения...'}
-            </div>
-            <div className='telegram-block__list-item'>
-              {'Загрузка сообшения...'}
-            </div>
-            <div className='telegram-block__list-item'>
-              {'Загрузка сообшения...'}
-            </div>
-            {/*<Loader/>*/}
-          </>
-      )}
+            <>
+                <div
+                    className='telegram-block__list-item'>
+                    {'Загрузка сообшения...'}
+                </div>
+                <div className='telegram-block__list-item'>
+                    {'Загрузка сообшения...'}
+                </div>
+                <div className='telegram-block__list-item'>
+                    {'Загрузка сообшения...'}
+                </div>
+                <div className='telegram-block__list-item'>
+                    {'Загрузка сообшения...'}
+                </div>
+                {/*<Loader/>*/}
+            </>
+        )}
       </div>
     </div>
   )

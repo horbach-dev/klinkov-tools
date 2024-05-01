@@ -7,19 +7,19 @@
   },
   "cryptoExchange": [
     {
-      "price": "30$",
+      "price": "",
       "text": "Бонус до 30 000$ к депозиту",
       "link": "https://partner.bybit.com/b/Klinkov",
       "img": "/icons/bybit-seeklogo.svg"
     },
     {
-      "price": "5000 руб",
-      "text": "Бесплатный урок: «Безопасный трейдинг | Разбор эффективных инструментов»",
+      "price": "",
+      "text": "Бесплатный урок",
       "link": "https://klinkovacademy.com/",
       "img": "/icons/klinkov academy.svg"
     },
     {
-      "price": "30$",
+      "price": "",
       "text": "Бонус до 5000$ к депозит",
       "link": "https://bingx.com/partner/professorklinkov",
       "img": "/icons/bingx-seeklogo.svg"

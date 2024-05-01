@@ -26,18 +26,23 @@ const TopSellers = () => {
                 />
                 {
                   <p className='top-sellers__list-item-title'>
-                    <span>
-                      {item.price}
-                    </span>
+                    {
+                      item.price &&
+                      (
+                        <span>
+                          {item.price}
+                        </span>
+                      )
+                    }
                     {item.text}
                   </p>
-                    }
+                }
                 <a
-                        className='top-sellers__list-item-link'
-                        href={item.link}
-                        target='_blank'
-                        rel='noreferrer'
-                    >
+                    className='top-sellers__list-item-link'
+                    href={item.link}
+                    target='_blank'
+                    rel='noreferrer'
+                >
                   {'Получить'}
                 </a>
               </div>

@@ -2247,7 +2247,7 @@ const getData = async (count = 100, qqqqqqqwwwwww=false) => {
       }
     };
     if (!qqqqqqqwwwwww) {
-      xhr.open(`GET`, `/get-listing?count=${count}&withLesson=true`)
+      xhr.open(`GET`, `http://localhost:3005/get-listing?count=${count}&withLesson=true`)
       xhr.send();
     } else {
       resolve()

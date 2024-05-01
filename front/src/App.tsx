@@ -55,12 +55,11 @@ const App = () => {
           </GridItemWrap>
 
           <GridItemWrap
-            title='Канал YouTube'
-            isAnimate={isInitialized}
+              id='top-sellers'
+              title='ТОП Криптобирж'
+              isAnimate={isInitialized}
           >
-            <Suspense fallback={<Loader />}>
-              <Youtube />
-            </Suspense>
+            <TopSellers />
           </GridItemWrap>
 
           <GridItemWrap
@@ -74,20 +73,21 @@ const App = () => {
           </GridItemWrap>
 
           <GridItemWrap
-            id='telegram'
-            title='Telegram'
-            withPadding={false}
-            isAnimate={isInitialized}
+              id='telegram'
+              title='Telegram'
+              withPadding={false}
+              isAnimate={isInitialized}
           >
             <Telegram />
           </GridItemWrap>
 
           <GridItemWrap
-            id='top-sellers'
-            title='ТОП Криптобирж'
-            isAnimate={isInitialized}
+              title='Канал YouTube'
+              isAnimate={isInitialized}
           >
-            <TopSellers />
+            <Suspense fallback={<Loader />}>
+              <Youtube />
+            </Suspense>
           </GridItemWrap>
 
           <GridItemWrap

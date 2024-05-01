@@ -59,17 +59,21 @@
   &__swiper {
     height: 100%;
   }
-
+  //img {
+  //  height: 250px;
+  //}
   &__swiper-image {
     position: absolute;
     top: 0;
     left: 0;
     width: 100%;
-    height: 100%;
+    height: 120%;
     object-fit: cover;
     object-position: bottom;
     opacity: 0;
     transition: 0.25s opacity ease-in-out;
+
+
 
     &_loaded {
       opacity: 1;

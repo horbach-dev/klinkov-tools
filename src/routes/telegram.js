@@ -16,6 +16,10 @@ const mockData = [
         title:'А нас и здесь неплохо кормят',
         link:'https://t.me/test-link'
     },
+    {
+        title:'А нас и здесь неплохо кормят',
+        link:'https://t.me/test-link'
+    },
 ]
 
 function truncateString(str, maxLength = 50) {
