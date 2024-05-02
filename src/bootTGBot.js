@@ -44,7 +44,7 @@ const getMessages = (limit = 3) => {
     filter: InputMessagesFilterVideo,
     limit: 20
   })
-    .then(q => q.filter(message => message.message).slice(0, 3))
+    .then(q => q.filter(message => message.message).slice(0, limit))
     .then(q => q.map(message => ({
       message: message.message,
       id: message.id
