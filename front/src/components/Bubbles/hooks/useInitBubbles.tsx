@@ -16,6 +16,7 @@ const getBubbleChart = async () => {
   })
 }
 
+
 const useInitBubbles = (innerWidth, innerHeight, bubblesWrapRef) => {
 
   const [loaded, setLoaded] = useState(false)
@@ -29,6 +30,22 @@ const useInitBubbles = (innerWidth, innerHeight, bubblesWrapRef) => {
 
     scriptTag.onload = () => {
       setLoaded(true)
+      console.log('bubbles loaded')
+
+      const interval = setInterval(() => {
+
+        // Если элемент найден
+        if (document.querySelector('.bubble-chart')) {
+          clearInterval(interval)
+        } else {
+          window.dispatchEvent(new Event('load'))
+        }
+      }, 1000)
+
+      // setTimeout(() => {
+      //   if (!document.querySelector('.bubble-chart'))
+      //     window.dispatchEvent(new Event('load'))
+      // }, 1000)
     }
     document.head.appendChild(scriptTag)
 

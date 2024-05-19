@@ -1,6 +1,6 @@
 {
   "links": {
-    "lesson": "https://www.google.com/search?q=%D0%BF%D1%80%D0%BE%D1%84%D0%B5%D1%81%D1%81%D0%BE%D1%80+%D0%BA%D0%BB%D0%B8%D0%BD%D0%BA%D0%BE%D0%B2",
+    "lesson": "https://klinkovacademy.com",
     "youtube": "https://www.youtube.com/@KlinkovProfessor",
     "telegram": "https://t.me/ProfessorKlinkov/",
     "klinkov_capital": "https://professorklinkov.com/"
@@ -8,19 +8,19 @@
   "cryptoExchange": [
     {
       "price": "",
-      "text": "Бонус до 30 000$ к депозиту",
+      "text": "Бонус до 30000$ к депозиту",
       "link": "https://partner.bybit.com/b/Klinkov",
       "img": "/icons/bybit-seeklogo.svg"
     },
     {
       "price": "",
       "text": "Бесплатный урок",
-      "link": "https://klinkovacademy.com/",
+      "link": "https://klinkovacademy.com",
       "img": "/icons/klinkov academy.svg"
     },
     {
       "price": "",
-      "text": "Бонус до 5000$ к депозит",
+      "text": "Бонус до 5000$ к депозиту",
       "link": "https://bingx.com/partner/professorklinkov",
       "img": "/icons/bingx-seeklogo.svg"
     }

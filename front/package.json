@@ -2,7 +2,7 @@
   "name": "client",
   "license": "UNLICENSED",
   "scripts": {
-    "build": "cross-env NODE_ENV=production webpack",
+    "build": "cross-env NODE_ENV=production MODE=prod webpack",
     "bundle-analizer": "cross-env NODE_ENV=production BUNDLE_ANALYZER=true webpack",
     "check-types": "tsc",
     "lint": "yarn lint:js && yarn lint:styles",

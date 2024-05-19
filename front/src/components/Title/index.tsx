@@ -7,7 +7,12 @@ interface IProps {
 }
 
 const Title = ({ children }: IProps) => (
-  <h3 className='title'>
+  <h3
+      className='title'
+      style={{
+          color: 'rgba(217, 217, 217, 0.4)'
+      }}
+  >
     {children}
   </h3>
 )

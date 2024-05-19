@@ -43,7 +43,7 @@ const TopSellers = () => {
                     target='_blank'
                     rel='noreferrer'
                 >
-                  {'Получить'}
+                  {'Забрать'}
                 </a>
               </div>
             </div>

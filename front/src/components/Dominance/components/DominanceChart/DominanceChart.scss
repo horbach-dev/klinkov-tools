@@ -5,12 +5,13 @@
   flex-direction: column;
   justify-content: space-between;
   width: 100%;
-  height: calc(100% - 24px);
+  height: calc(100% - 64px);
 
   &__label {
     display: flex;
     align-items: center;
-    margin: 20px 0 15px;
+    text-align: center;
+    margin: 0 5px;
   }
 
   &__container {

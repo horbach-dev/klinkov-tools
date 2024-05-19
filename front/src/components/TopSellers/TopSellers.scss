@@ -4,15 +4,15 @@
   height: 100%;
 
   &__list {
-    position: relative;
+    //position: relative;
     display: flex;
-    gap: 10px;
+    gap: 5px;
     height: calc(100% - 25px);
 
-    @include max(500px) {
-      flex-direction: column;
-      gap: 0;
-    }
+    //@include max(600px) {
+    //  flex-direction: column;
+    //  height: 351px;
+    //}
   }
 
   &__list-item {
@@ -28,9 +28,11 @@
     border-bottom: 1px solid rgba(255,255,255, 0.05);
     transition: background-color 0.25s ease-in-out;
 
-    @include max(500px) {
+    @include max(600px) {
       flex-direction: row;
       padding: 16px;
+      height: 100%;
+      font-size: 12px;
     }
 
     &:hover {
@@ -78,17 +80,15 @@
     //
     @include max(1250px) {
       font-size: 12px;
-      //line-height: 18px;
     }
 
     @include max(1100px) {
       font-size: 18px;
-      //line-height: 18px;
     }
 
-    //@include max(500px) {
-    //  margin-top: 0;
-    //}
+    @include max(700px) {
+      font-size: 14px;
+    }
 
     span {
       margin-right: 3px;

@@ -216,27 +216,52 @@ const Popup = () => {
                     >
                       <Avatar size={40} alt={popup.item[0].name} src={popup.item[0].logo}/>
                       <div style={{ marginLeft: '10px' }}>
-                        <p className='popup__info-title'>
-                          {popup.item[0].name}
-                          <span
-                                style={{
-                                  fontWeight: 100,
-                                  color: 'rgba(227, 230, 233, .5)',
-                                  fontSize: 20
-                                }}
+                        <div
+                            style={{
+                              display: 'flex',
+                              textAlign: 'center'
+                            }}
+                        >
+                          <div
+                              style={{
+                                display: 'flex',
+                                alignItems: 'center'
+                              }}
+                          >
+                            <p className='popup__info-title'>
+                              {popup.item[0].name}
+                              <span
+                                  style={{
+                                    fontWeight: 100,
+                                    color: 'rgba(227, 230, 233, .5)',
+                                    fontSize: 20
+                                  }}
+                              >
+                                {' | '}
+                              </span>
+                              {popup.item[1].price}
+                              {' '}
+                              <span
+                                  style={{
+                                    color: diffColor
+                                  }}
+                              >
+                                {diff > 0 ? '+' + diff?.toString() + '$' : diff?.toString() + '$'}
+                              </span>
+                            </p>
+                          </div>
+                          <div className='img-center'>
+                            <a
+                                target='_blank'
+                                href={`https://coinmarketcap.com/currencies/${popup.item[0].slug}`}
+                                rel='noreferrer'
                             >
-                            {' | '}
-                          </span>
-                          {popup.item[1].price}
-                          {' '}
-                          <span
-                                style={{
-                                  color: diffColor
-                                }}
-                            >
-                            {diff > 0 ? '+' + diff?.toString() + '$' : diff?.toString() + '$'}
-                          </span>
-                        </p>
+                              <div className='img-center img-padding'>
+                                <img src='/icons/coinmarketcap.svg' width={46} alt='coinmarketcap'/>
+                              </div>
+                            </a>
+                          </div>
+                        </div>
                         <p className='popup__info-description'>
                           {popup.item[0].description}
                         </p>
@@ -259,13 +284,13 @@ const Popup = () => {
                   {/*</div>*/}
                 </div>
                 <Flex
-                  style={{ width: '100%', padding: '0 16px' }}
-                  gap={8}
-                  justify='space-between'
+                    style={{ width: '100%', padding: '0 16px' }}
+                    gap={8}
+                    justify='space-between'
                 >
                   <p
-                    className='popup__info-rating'
-                    style={{ display: 'flex', flexDirection: 'column', margin: '10px 0' }}>
+                      className='popup__info-rating'
+                      style={{ display: 'flex', flexDirection: 'column', margin: '10px 0' }}>
                     {'Рейтинг '}
                     <div>
                       <span className='popup__info-value'>
@@ -337,15 +362,15 @@ const Popup = () => {
                           {'Торгуй'}
                         </p>
                         <div className='img-center'>
-                          <a
-                              target='_blank'
-                              href={`https://coinmarketcap.com/currencies/${popup.item[0].slug}`}
-                              rel='noreferrer'
-                          >
-                            <div className='img-center img-padding'>
-                              <img src='/icons/coinmarketcap.svg' width={32} alt='coinmarketcap'/>
-                            </div>
-                          </a>
+                          {/*<a*/}
+                          {/*    target='_blank'*/}
+                          {/*    href={`https://coinmarketcap.com/currencies/${popup.item[0].slug}`}*/}
+                          {/*    rel='noreferrer'*/}
+                          {/*>*/}
+                          {/*  <div className='img-center img-padding'>*/}
+                          {/*    <img src='/icons/coinmarketcap.svg' width={32} alt='coinmarketcap'/>*/}
+                          {/*  </div>*/}
+                          {/*</a>*/}
                           <a
                               target='_blank'
                               href='https://partner.bybit.com/b/Klinkov'
@@ -397,7 +422,7 @@ const Popup = () => {
                       height: '100%',
                       overflowX: 'auto'
                     }}>
-                  <div style={{minWidth: window.innerWidth - 20, height: '100%'}}>
+                  <div style={{ minWidth: window.innerWidth - 20, height: '100%' }}>
                     <CoinChart isMobile={isMobile} timeUnit={currentValue} label={popup.item[0].name} data={data.data}/>
                   </div>
                 </div>
@@ -549,27 +574,52 @@ const Popup = () => {
                 >
                   <Avatar size={40} alt={popup.item[0].name} src={popup.item[0].logo}/>
                   <Flex vertical style={{ paddingLeft: 20 }}>
-                    <p className='popup__info-title'>
-                      {popup.item[0].name}
-                      <span
-                      style={{
-                        fontWeight: 100,
-                        color: 'rgba(227, 230, 233, .5)',
-                        fontSize: 20
-                      }}
-                      >
-                        {' | '}
-                      </span>
-                      {popup.item[1].price}
-                      {' '}
-                      <span
+                    <div
                         style={{
-                          color: diffColor
+                          display: 'flex',
+                          textAlign: 'center'
                         }}
+                    >
+                      <div
+                          style={{
+                            display: 'flex',
+                            alignItems: 'center'
+                          }}
                       >
-                        { diff > 0 ? '+' + diff?.toString() + '$' : diff?.toString() + '$' }
-                      </span>
-                    </p>
+                        <p className='popup__info-title'>
+                          {popup.item[0].name}
+                          <span
+                              style={{
+                                fontWeight: 100,
+                                color: 'rgba(227, 230, 233, .5)',
+                                fontSize: 20
+                              }}
+                          >
+                            {' | '}
+                          </span>
+                          {popup.item[1].price}
+                          {' '}
+                          <span
+                              style={{
+                                color: diffColor
+                              }}
+                          >
+                            {diff > 0 ? '+' + diff?.toString() + '$' : diff?.toString() + '$'}
+                          </span>
+                        </p>
+                      </div>
+                      <div className='img-center'>
+                        <a
+                            target='_blank'
+                            href={`https://coinmarketcap.com/currencies/${popup.item[0].slug}`}
+                            rel='noreferrer'
+                        >
+                          <div className='img-center img-padding'>
+                            <img src='/icons/coinmarketcap.svg' width={46} alt='coinmarketcap'/>
+                          </div>
+                        </a>
+                      </div>
+                    </div>
                     <p className='popup__info-description'>
                       {popup.item[0].description}
                     </p>
@@ -618,15 +668,6 @@ const Popup = () => {
                     {'Торгуй'}
                   </p>
                   <div className='img-center'>
-                    <a
-                        target='_blank'
-                        href={`https://coinmarketcap.com/currencies/${popup.item[0].slug}`}
-                        rel='noreferrer'
-                    >
-                      <div className='img-center img-padding'>
-                        <img src='/icons/coinmarketcap.svg' width={32} alt='coinmarketcap'/>
-                      </div>
-                    </a>
                     <a
                         target='_blank'
                         href='https://partner.bybit.com/b/Klinkov'

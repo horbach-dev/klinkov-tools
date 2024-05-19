@@ -39,7 +39,7 @@
 
     @include max(1100px) {
       aspect-ratio: auto;
-      max-height: 1000px;
+      max-height: 450px;
       height: fit-content;
     }
 
@@ -79,7 +79,7 @@
 
     &::before {
       content: '';
-      position: absolute;
+      //position: absolute;
       display: block;
       bottom: 0;
       right: 0;
@@ -88,11 +88,10 @@
       box-shadow: 0 0 150px 150px rgba(219, 180, 102, 0.1);
     }
 
-    @include max(500px) {
-      flex-direction: row;
-      padding: 16px;
-      max-height: 1000px;
-      height: fit-content;
+    @include max(600px) {
+    //  padding: 16px;
+    //  min-height: 440px;
+    //  max-height: 440px;
     }
   }
 

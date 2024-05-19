@@ -23,8 +23,6 @@ const Bubbles = () => {
   const { innerWidth, innerHeight } = useWindowSizeListener()
   const [_,setUserState] = useStore(UserStore, store => store.popup)
   const [links] = useStore(ContentStore, store => store.links || {})
-  const [q, setq] = useState(true)
-  const list = []
 
   const getItems = (index: number) => {
     console.log(listing)

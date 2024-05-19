@@ -16,9 +16,11 @@ interface IProps {
   range?: string
   onlyChart?: boolean
   symbol?:string
+  setCurrentValue: any
+  setLastValue: any
 }
 
-const BitcoinDominanceChart = ({ bitcoinDominanceData, range, onlyChart,symbol= 'BTC' }: IProps) => {
+const BitcoinDominanceChart = ({ bitcoinDominanceData, range, onlyChart,symbol= 'BTC', setLastValue, setCurrentValue }: IProps) => {
   const chartRef = useRef<HTMLCanvasElement | null>(null)
   const chartInstance = useRef<Chart | null>(null)
   const [data, setData] = useState([])
@@ -56,6 +58,8 @@ const BitcoinDominanceChart = ({ bitcoinDominanceData, range, onlyChart,symbol= 
         // eslint-disable-next-line @typescript-eslint/ban-ts-comment
         // @ts-expect-error
         setData([points[points.length - 1], points[0]])
+        setCurrentValue(points[points.length - 1])
+        setLastValue(points[0])
       }
 
       const ctx = chartRef?.current?.getContext('2d')
@@ -64,10 +68,18 @@ const BitcoinDominanceChart = ({ bitcoinDominanceData, range, onlyChart,symbol= 
         chartInstance.current?.destroy()
       }
 
-      const gradient = ctx?.createLinearGradient?.(0, 0, 0, 500)
+      const element = document.querySelector('.dominance-chart__container')
 
-      gradient?.addColorStop?.(0, 'rgba(219, 180, 102, 1)')
-      gradient?.addColorStop?.(1, 'rgba(219, 180, 102, 0)')
+      const height = element ?
+          (Number({ ...window?.getComputedStyle(element) }
+          ?.width?.slice(0, -2)) / (isMobile ? 4 : 5)) || 350
+          : 350
+
+      const gradient = ctx?.createLinearGradient?.(0, 0, 0, height)
+
+      gradient?.addColorStop?.(0, 'rgba(219, 180, 102, .3)')
+      gradient?.addColorStop?.(1, 'rgba(34, 34, 34, 0)')
+
       if (ctx) {
         chartInstance.current = new Chart(ctx, {
           type: 'line',
@@ -85,7 +97,7 @@ const BitcoinDominanceChart = ({ bitcoinDominanceData, range, onlyChart,symbol= 
             ],
           },
           options: {
-            aspectRatio: isMobile ? 2 : 5,
+            aspectRatio: isMobile ? 5 : 4,
             backgroundColor: gradient,
             scales: {
               x: {
@@ -171,22 +183,9 @@ const BitcoinDominanceChart = ({ bitcoinDominanceData, range, onlyChart,symbol= 
   const isProfit = percent >= 0
 
   return onlyChart ? (
-    <canvas ref={chartRef} />
+    <canvas ref={chartRef}/>
   ) : (
     <div className='dominance-chart'>
-      <div className='dominance-chart__label'>
-        {currentValue && (
-          <p className='dominance-chart__label-value'>
-            {currentValue + '%'}
-          </p>
-        )}
-        {currentValue && lastValue && (
-          <p className={classnames('dominance-chart__label-diff', isProfit && 'dominance-chart__label-diff_profit')}>
-            {isProfit && '+'}
-            {percent.toFixed(2) + '%'}
-          </p>
-        )}
-      </div>
       <div className='dominance-chart__container'>
         <canvas ref={chartRef} />
       </div>
