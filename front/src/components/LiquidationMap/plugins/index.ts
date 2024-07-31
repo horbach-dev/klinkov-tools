@@ -1,6 +1,8 @@
 export const formatNumber = (num) => {
     if (!num) return num
-    if (num >= 1e6) {
+    if (num >= 1e9) {
+        return (num / 1e9).toFixed(1) + 'B';
+    } else if (num >= 1e6) {
         return (num / 1e6).toFixed(1) + 'M';
     } else if (num >= 1e3) {
         return (num / 1e3).toFixed(1) + 'K';
@@ -233,6 +235,7 @@ export const rangeZoomPlugin = {
                 left, top, right, bottom, width
             }
         } = chart;
+        chart.data.datasets[0].barPercentage = Math.max((chart.boxes[3].max - chart.boxes[3].min)/ 1500, 1)
 
         if (labels.length > 0 && !isDragging) {
             const valMin = (circlePositionLeft - left) / width * (labels.length - 1);
@@ -315,8 +318,8 @@ export const currentPricePlugin = {
         const { ctx, chartArea: area, scales } = chart;
         const x = scales.x.getPixelForValue(options.currentPriceIndex);
 
-        console.log(options.currentPrice);
-        console.log(x);
+        // console.log(options.currentPrice);
+        // console.log(x);
 
         ctx.save();
         ctx.strokeStyle = 'rgba(255, 103, 86, 1)';

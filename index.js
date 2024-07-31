@@ -18,6 +18,14 @@ app.use(express.static(path.join(__dirname, "./front/dist"), {
   }
 }))
 
+app.use('/liquidation', express.static(path.join(__dirname, "./python/result"), {
+  setHeaders: (res, path, stat) => {
+    res.setHeader('Cache-Control', 'no-cache, no-store, must-revalidate');
+    res.setHeader('Pragma', 'no-cache');
+    res.setHeader('Expires', '0');
+  }
+}))
+
 async function start() {
   try {
     server.listen(PORT, function () {

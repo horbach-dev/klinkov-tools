@@ -31,7 +31,6 @@ const bootTGBot = async () => {
 
     await client.connect()
     // await client.start(clientConfigure)
-
     client.session.save()
     // console.log(client.session.save())
   } catch (e) {

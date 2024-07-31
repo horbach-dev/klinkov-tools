@@ -10,6 +10,7 @@ import {
     sumForSellLine
 } from "$components/LiquidationMap/utils";
 import {Checkbox} from "antd";
+import {client} from "$api/index";
 
 const LiquidationMap = ({ isMobile = false }) => {
     const chartRef = useRef<HTMLCanvasElement>()
@@ -28,33 +29,39 @@ const LiquidationMap = ({ isMobile = false }) => {
     const [lineData, setLineData] = useState([])
     const [lineBuyData, setLineBuyData] = useState([])
     const [lineSellData, setLineSellData] = useState([])
+    const [currentPrice, setCurrentPrice] = useState(0)
+    const [currentPriceIndex, setCurrentPriceIndex] = useState(0)
     const [tenActive, setTenActive] = useState(true)
     const [twentyFiveActive, setTwentyFiveActive] = useState(true)
     const [fiftyActive, setFiftyActive] = useState(true)
     const [hundredActive, setHundredActive] = useState(true)
     const [lineBuyActive, setLineBuyActive] = useState(true)
     const [lineSellActive, setLineSellActive] = useState(true)
+    const [period, setPeriod] = useState('week')
 
     useEffect(() => {
         Promise.all([
-            axios('/liquidation/BTCUSDT_2024-06-28_00-00-00-2024-06-28_23-00-00_portion_0.0001_depth_10x_Leveraged_sell.csv')
+            client.get(`/liquidation/${period}/binance/BTCUSDT_top_n_100_depth_10x_Leveraged_sell.csv`)
                 .then(setParsedData),
-            axios('/liquidation/BTCUSDT_2024-06-28_00-00-00-2024-06-28_23-00-00_portion_0.0001_depth_10x_Leveraged_buy.csv')
+            client.get(`/liquidation/${period}/binance/BTCUSDT_top_n_100_depth_10x_Leveraged_buy.csv`)
                 .then(setParsedData),
-            axios('/liquidation/BTCUSDT_2024-06-28_00-00-00-2024-06-28_23-00-00_portion_0.0001_depth_25x_Leveraged_sell.csv')
+            client.get(`/liquidation/${period}/binance/BTCUSDT_top_n_100_depth_25x_Leveraged_sell.csv`)
                 .then(setParsedData),
-            axios('/liquidation/BTCUSDT_2024-06-28_00-00-00-2024-06-28_23-00-00_portion_0.0001_depth_25x_Leveraged_buy.csv')
+            client.get(`/liquidation/${period}/binance/BTCUSDT_top_n_100_depth_25x_Leveraged_buy.csv`)
                 .then(setParsedData),
-            axios('/liquidation/BTCUSDT_2024-06-28_00-00-00-2024-06-28_23-00-00_portion_0.0001_depth_50x_Leveraged_sell.csv')
+            client.get(`/liquidation/${period}/binance/BTCUSDT_top_n_100_depth_50x_Leveraged_sell.csv`)
                 .then(setParsedData),
-            axios('/liquidation/BTCUSDT_2024-06-28_00-00-00-2024-06-28_23-00-00_portion_0.0001_depth_50x_Leveraged_buy.csv')
+            client.get(`/liquidation/${period}/binance/BTCUSDT_top_n_100_depth_50x_Leveraged_buy.csv`)
                 .then(setParsedData),
-            axios('/liquidation/BTCUSDT_2024-06-28_00-00-00-2024-06-28_23-00-00_portion_0.0001_depth_100x_Leveraged_sell.csv')
+            client.get(`/liquidation/${period}/binance/BTCUSDT_top_n_100_depth_100x_Leveraged_sell.csv`)
                 .then(setParsedData),
-            axios('/liquidation/BTCUSDT_2024-06-28_00-00-00-2024-06-28_23-00-00_portion_0.0001_depth_100x_Leveraged_buy.csv')
-                .then(setParsedData)
-        ]).then(([tenSell, tenBuy, twentyFiveSell, twentyFiveBuy, fiftySell, fiftyBuy, hundredSell, hundredBuy]) => {
+            client.get(`/liquidation/${period}/binance/BTCUSDT_top_n_100_depth_100x_Leveraged_buy.csv`)
+                .then(setParsedData),
+            client.get(`/liquidation/${period}/binance/BTCUSDT_top_n_100_depth_current_price.txt`)
+                .then(res => res.data)
+        ]).then(([tenSell, tenBuy, twentyFiveSell, twentyFiveBuy, fiftySell, fiftyBuy, hundredSell, hundredBuy, currentPrice]) => {
             console.log('data installed')
+            setCurrentPrice(parseInt(currentPrice))
             const tenData = [...tenBuy, ...tenSell].map(item => [...item, '10']).filter(item => item[0])
             const twentyFiveData = [...twentyFiveBuy, ...twentyFiveSell].map(item => [...item, '25']).filter(item => item[0])
             const fiftyData = [...fiftyBuy, ...fiftySell].map(item => [...item, '50']).filter(item => item[0])
@@ -75,6 +82,8 @@ const LiquidationMap = ({ isMobile = false }) => {
                 Number(Math.max(...labelsData.filter(item => item))),
             )
 
+            setCurrentPriceIndex(labels.findIndex(item => item === parseInt(currentPrice)))
+
             const tenValuesWithLeverage = compareArraysForBar(labels, [...tenData, ...twentyFiveData, ...fiftyData, ...hundredData])
             const dataColors = tenValuesWithLeverage.map(item => {
                 if (item[3] === '10') {
@@ -87,7 +96,7 @@ const LiquidationMap = ({ isMobile = false }) => {
                     return "rgba(219, 180, 102, 1)"
                 }
                 if (item[3] === '100') {
-                    return "rgba(184, 190, 201, 1)"
+                    return "rgba(219, 126, 41, 1)"
                 }
             })
             const barValues = tenValuesWithLeverage.map(item => item[2])
@@ -139,7 +148,7 @@ const LiquidationMap = ({ isMobile = false }) => {
             chartInstance.current?.destroy()
         }
 
-        const barPercentage = Math.max(labelsData.length / 750, 1)
+        const barPercentage = Math.max(labelsData.length / 1500, 1)
 
         if (chartRef.current) {
             const ctx = chartRef.current?.getContext('2d')
@@ -170,6 +179,7 @@ const LiquidationMap = ({ isMobile = false }) => {
                             yAxisID: 'y',
                         },
                         {
+                            hidden: (!lineSellActive && !lineBuyActive),
                             type: 'line',
                             label: 'line',
                             data: lineData,
@@ -180,12 +190,12 @@ const LiquidationMap = ({ isMobile = false }) => {
                             yAxisID: 'y1',
                             segment: {
                                 borderColor: (ctx) => {
-                                    if (ctx.p0DataIndex <= 7000) return 'rgba(255, 103, 86, 1)'
-                                    if (ctx.p0DataIndex > 7000) return 'rgba(128, 255, 212, 1)'
+                                    if (ctx.p0DataIndex <= currentPriceIndex) return 'rgba(255, 103, 86, 1)'
+                                    if (ctx.p0DataIndex > currentPriceIndex) return 'rgba(128, 255, 212, 1)'
                                 },
                                 backgroundColor: (ctx) => {
-                                    if (ctx.p0DataIndex <= 7000) return gradient2
-                                    if (ctx.p0DataIndex > 7000) return gradient1
+                                    if (ctx.p0DataIndex <= currentPriceIndex) return gradient2
+                                    if (ctx.p0DataIndex > currentPriceIndex) return gradient1
                                 }
                             },
                         },
@@ -255,8 +265,8 @@ const LiquidationMap = ({ isMobile = false }) => {
                     },
                     plugins: {
                         currentPricePlugin: {
-                            currentPriceIndex: 7000,
-                            currentPrice: labelsData[7000],
+                            currentPriceIndex: currentPriceIndex,
+                            currentPrice: currentPrice,
                         },
                         legend: {
                             display: false,
@@ -321,21 +331,29 @@ const LiquidationMap = ({ isMobile = false }) => {
                                             if (dataColor === 'rgba(219, 180, 102, 1)') {
                                                 leverage = '50'
                                             }
-                                            if (dataColor === 'rgba(184, 190, 201, 1)') {
+                                            if (dataColor === 'rgba(219, 126, 41, 1)') {
                                                 leverage = '100'
                                             }
 
                                             let style = 'background:' + dataColor;
 
                                             const span = '<span style="' + style + '; display:inline-block; width:16px; height:16px; border-radius:50%; margin-right:10px;"></span>';
-                                            if (dataValue) innerHtml += `<div>${span}${leverage}X Leverage ${dataValue}</div>`
+                                            if (dataValue) innerHtml += `<div>${span}${leverage}X Leverage ${formatNumber(Number(dataValue))}</div>`
                                         }
                                         if (body.includes('line')) {
                                             const data = body.substring(5, body.length).split(' ').join('')
-                                            console.log(data)
-                                            let style = 'background:' + 'rgba(128, 255, 212, 1)';
+
+                                            let style = ''
+                                            let text = ''
+                                            if (label > currentPrice) {
+                                                text = ' Cumulative Short Liquidation Leverage '
+                                                style = 'background:' + 'rgba(128, 255, 212, 1)';
+                                            } else {
+                                                text = ' Cumulative Long Liquidation Leverage '
+                                                style = 'background:' + 'rgba(255, 103, 86, 1)';
+                                            }
                                             const span = '<span style="' + style + '; display:inline-block; width:16px; height:16px; border-radius:50%; margin-right:10px;"></span>';
-                                            innerHtml += '<div>' + span + ' Cumulative Short Liquidation Leverage ' + formatNumber(Number(data)) + '</div>';
+                                            innerHtml += '<div>' + span + text + formatNumber(Number(data)) + '</div>';
                                         }
                                     });
                                     innerHtml += '</div>';
@@ -360,7 +378,7 @@ const LiquidationMap = ({ isMobile = false }) => {
                             zoom: {
                                 animation: true,
                                 onZoom: ({ chart }) => {
-                                    chart.data.datasets[0].barPercentage = Math.max((chart.boxes[3].max - chart.boxes[3].min)/ 1000, 1)
+                                    chart.data.datasets[0].barPercentage = Math.max((chart.boxes[3].max - chart.boxes[3].min)/ 1500, 1)
                                 },
                                 wheel: {
                                     animation: true,
