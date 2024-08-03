@@ -11,6 +11,7 @@ import {
 } from "$components/LiquidationMap/utils";
 import {Checkbox} from "antd";
 import {client} from "$api/index";
+import InputChecker from "$components/LiquidationMap/components/inputCheker";
 
 const LiquidationMap = ({ isMobile = false }) => {
     const chartRef = useRef<HTMLCanvasElement>()
@@ -37,28 +38,28 @@ const LiquidationMap = ({ isMobile = false }) => {
     const [hundredActive, setHundredActive] = useState(true)
     const [lineBuyActive, setLineBuyActive] = useState(true)
     const [lineSellActive, setLineSellActive] = useState(true)
-    const [period, setPeriod] = useState('week')
+    const [period, setPeriod] = useState('day')
 
     useEffect(() => {
         Promise.all([
             client.get(`/liquidation/${period}/binance/BTCUSDT_top_n_100_depth_10x_Leveraged_sell.csv`)
-                .then(setParsedData),
+                .then(setParsedData).catch(e => []),
             client.get(`/liquidation/${period}/binance/BTCUSDT_top_n_100_depth_10x_Leveraged_buy.csv`)
-                .then(setParsedData),
+                .then(setParsedData).catch(e => []),
             client.get(`/liquidation/${period}/binance/BTCUSDT_top_n_100_depth_25x_Leveraged_sell.csv`)
-                .then(setParsedData),
+                .then(setParsedData).catch(e => []),
             client.get(`/liquidation/${period}/binance/BTCUSDT_top_n_100_depth_25x_Leveraged_buy.csv`)
-                .then(setParsedData),
+                .then(setParsedData).catch(e => []),
             client.get(`/liquidation/${period}/binance/BTCUSDT_top_n_100_depth_50x_Leveraged_sell.csv`)
-                .then(setParsedData),
+                .then(setParsedData).catch(e => []),
             client.get(`/liquidation/${period}/binance/BTCUSDT_top_n_100_depth_50x_Leveraged_buy.csv`)
-                .then(setParsedData),
+                .then(setParsedData).catch(e => []),
             client.get(`/liquidation/${period}/binance/BTCUSDT_top_n_100_depth_100x_Leveraged_sell.csv`)
-                .then(setParsedData),
+                .then(setParsedData).catch(e => []),
             client.get(`/liquidation/${period}/binance/BTCUSDT_top_n_100_depth_100x_Leveraged_buy.csv`)
-                .then(setParsedData),
+                .then(setParsedData).catch(e => []),
             client.get(`/liquidation/${period}/binance/BTCUSDT_top_n_100_depth_current_price.txt`)
-                .then(res => res.data)
+                .then(res => res.data).catch(e => 0),
         ]).then(([tenSell, tenBuy, twentyFiveSell, twentyFiveBuy, fiftySell, fiftyBuy, hundredSell, hundredBuy, currentPrice]) => {
             console.log('data installed')
             setCurrentPrice(parseInt(currentPrice))
@@ -218,8 +219,8 @@ const LiquidationMap = ({ isMobile = false }) => {
                         }
                     },
                     animation: false,
-                    // aspectRatio: aspectRatio,
-                    // maintainAspectRatio: !isMobile,
+                    aspectRatio: 1,
+                    maintainAspectRatio: true,
                     scales: {
                         x: {
                             grid: {
@@ -227,7 +228,7 @@ const LiquidationMap = ({ isMobile = false }) => {
                             },
                             ticks: {
                                 color: 'rgba(54, 162, 235, 0)',
-                                maxTicksLimit: 25,
+                                maxTicksLimit: 10,
                             },
                         },
                         y: {
@@ -376,12 +377,12 @@ const LiquidationMap = ({ isMobile = false }) => {
                                 enabled: false,
                             },
                             zoom: {
-                                animation: true,
+                                animation: false,
                                 onZoom: ({ chart }) => {
                                     chart.data.datasets[0].barPercentage = Math.max((chart.boxes[3].max - chart.boxes[3].min)/ 1500, 1)
                                 },
                                 wheel: {
-                                    animation: true,
+                                    animation: false,
                                     enabled: true,
                                     speed: 0.2,
                                 },
@@ -402,80 +403,94 @@ const LiquidationMap = ({ isMobile = false }) => {
 
     if (isMobile) {
         return (
-            <div>
-                <div>
-                    <button onClick={() => {
-                        setTenActive(!tenActive)
-                    }}>
-                        ten
-                    </button>
-                    <button onClick={() => {
-                        setTwentyFiveActive(!twentyFiveActive)
-                    }}>
-                        twentyFive
-                    </button>
-                    <button onClick={() => {
-                        setFiftyActive(!fiftyActive)
-                    }}>
-                        fifty
-                    </button>
-                    <button onClick={() => {
-                        setHundredActive(!hundredActive)
-                    }}>
-                        hundred
-                    </button>
-                    <button onClick={() => {
-                        setLineBuyActive(!lineBuyActive)
-                    }}>
-                        buy
-                    </button>
-                    <button onClick={() => {
-                        setLineSellActive(!lineSellActive)
-                    }}>
-                        sell
-                    </button>
-                </div>
-                <canvas ref={chartRef} style={{width: '100%', height: '100%'}}></canvas>
-            </div>
+          <div>
+              <div style={{display: 'flex', flexWrap: 'wrap'}}>
+                  <InputChecker
+                    label={'Cumulative Short Liquidation Leverage'}
+                    bgColor={'#80FFD4'}
+                    isChecked={lineSellActive}
+                    setIsChecked={setLineSellActive}
+                  />
+                  <InputChecker
+                    label={'Cumulative Long Liquidation Leverage'}
+                    bgColor={'#FF6756'}
+                    isChecked={lineBuyActive}
+                    setIsChecked={setLineBuyActive}
+                  />
+                  <InputChecker
+                    label={'100x Leverage'}
+                    bgColor={'#DB7E29'}
+                    isChecked={hundredActive}
+                    setIsChecked={setHundredActive}
+                  />
+                  <InputChecker
+                    label={'50x Leverage'}
+                    bgColor={'#DBB466'}
+                    isChecked={fiftyActive}
+                    setIsChecked={setFiftyActive}
+                  />
+                  <InputChecker
+                    label={'25x Leverage'}
+                    bgColor={'#66A3DB'}
+                    isChecked={twentyFiveActive}
+                    setIsChecked={setTwentyFiveActive}
+                  />
+                  <InputChecker
+                    label={'10x Leverage'}
+                    bgColor={'#C466DB'}
+                    isChecked={tenActive}
+                    setIsChecked={setTenActive}
+                  />
+              </div>
+              <canvas ref={chartRef} style={{width: '100%', height: '100%'}}></canvas>
+          </div>
         )
     } else {
         return (
-            <div>
-                <div style={{
-                    color: 'white'
-                }}>
-                    <button onClick={() => {
-                        setTenActive(!tenActive)
-                    }}>
-                        ten
-                    </button>
-                    <button onClick={() => {
-                        setTwentyFiveActive(!twentyFiveActive)
-                    }}>
-                        twentyFive
-                    </button>
-                    <button onClick={() => {
-                        setFiftyActive(!fiftyActive)
-                    }}>
-                        fifty
-                    </button>
-                    <button onClick={() => {
-                        setHundredActive(!hundredActive)
-                    }}>
-                        hundred
-                    </button>
-                    <button onClick={() => {
-                        setLineBuyActive(!lineBuyActive)
-                    }}>
-                        buy
-                    </button>
-                    <button onClick={() => {
-                        setLineSellActive(!lineSellActive)
-                    }}>
-                        sell
-                    </button>
+          <div>
+              <div style={{
+                  color: 'white'
+              }}>
+                  <div style={{display: 'flex', flexWrap: 'wrap'}}>
+                      <InputChecker
+                        label={'Cumulative Short Liquidation Leverage'}
+                        bgColor={'#80FFD4'}
+                        isChecked={lineSellActive}
+                        setIsChecked={setLineSellActive}
+                      />
+                      <InputChecker
+                        label={'Cumulative Long Liquidation Leverage'}
+                        bgColor={'#FF6756'}
+                        isChecked={lineBuyActive}
+                        setIsChecked={setLineBuyActive}
+                      />
+                      <InputChecker
+                        label={'100x Leverage'}
+                        bgColor={'#DB7E29'}
+                        isChecked={hundredActive}
+                        setIsChecked={setHundredActive}
+                      />
+                      <InputChecker
+                        label={'50x Leverage'}
+                        bgColor={'#DBB466'}
+                        isChecked={fiftyActive}
+                        setIsChecked={setFiftyActive}
+                      />
+                      <InputChecker
+                        label={'25x Leverage'}
+                        bgColor={'#66A3DB'}
+                        isChecked={twentyFiveActive}
+                        setIsChecked={setTwentyFiveActive}
+                      />
+                      <InputChecker
+                        label={'10x Leverage'}
+                        bgColor={'#C466DB'}
+                          isChecked={tenActive}
+                          setIsChecked={setTenActive}
+                        />
+                    </div>
+                    <canvas ref={chartRef}></canvas>
                 </div>
-                <canvas ref={chartRef}></canvas>
             </div>
         )
     }
