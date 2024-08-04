@@ -1,5 +1,5 @@
 import React from 'react'
-import { Route, Routes } from 'react-router-dom'
+import {Navigate, Route, Routes} from 'react-router-dom'
 import AppLayout from "$components/AppLayout"
 import LiquidationMap from '$components/LiquidationMap'
 
@@ -26,6 +26,7 @@ const App = () => {
           path='liquidation-map'
           element={<LiquidationMap />}
         />
+        <Route path=':rest/*' element={<Navigate to='/' />} />
       </Route>
     </Routes>
     </div>

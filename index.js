@@ -10,13 +10,16 @@ const PORT = process.env.PORT || 3005
 
 server.on("request", app)
 
-app.use(express.static(path.join(__dirname, "./front/dist"), {
-  setHeaders: (res, path, stat) => {
-    res.setHeader('Cache-Control', 'no-cache, no-store, must-revalidate');
-    res.setHeader('Pragma', 'no-cache');
-    res.setHeader('Expires', '0');
-  }
-}))
+// app.use(express.static(path.join(__dirname, "./front/dist"), {
+//   setHeaders: (res, path, stat) => {
+//     res.setHeader('Cache-Control', 'no-cache, no-store, must-revalidate');
+//     res.setHeader('Pragma', 'no-cache');
+//     res.setHeader('Expires', '0');
+//   }
+// }))
+
+const buildPath = path.join(__dirname, './front/dist');
+app.use(express.static(buildPath));
 
 app.use('/liquidation', express.static(path.join(__dirname, "./python/result"), {
   setHeaders: (res, path, stat) => {
@@ -25,6 +28,10 @@ app.use('/liquidation', express.static(path.join(__dirname, "./python/result"), 
     res.setHeader('Expires', '0');
   }
 }))
+
+app.get('/*', (req, res) => {
+  res.sendFile(path.join(buildPath, 'index.html'));
+});
 
 async function start() {
   try {
