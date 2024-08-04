@@ -36,7 +36,7 @@ const App = () => {
         id='app-wrapper'
         className={classnames('app', isInitialized && 'app_inited')}
       >
-        {/*<Header />*/}
+        <Header />
         {/*<div className='app__top'>*/}
         {/*  <GridItemWrap*/}
         {/*    id='btc-dominance'*/}
@@ -104,16 +104,7 @@ const App = () => {
         {/*      </p>*/}
         {/*    </footer>*/}
         {/*  </GridItemWrap>*/}
-        <div
-            style={{
-                maxWidth: 1360,
-                backgroundColor: 'rgba(217, 217, 217, 0.04)',
-                padding: 20,
-                borderRadius: 20
-            }}
-        >
-          <LiquidationMap/>
-        </div>
+        <LiquidationMap />
         {/*</div>*/}
       </div>
       <Popup />

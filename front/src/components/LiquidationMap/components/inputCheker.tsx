@@ -1,11 +1,13 @@
-import React, { useState } from 'react';
+import React, { useState } from 'react'
+import classnames from "classnames"
 import './InputChecker.css';
 
 const InputChecker = ({
-                        label = '',
-                        bgColor = '#80FFD4',
-                        isChecked = true,
-                        setIsChecked,
+  label = '',
+  bgColor = '#80FFD4',
+  isChecked = true,
+  setIsChecked,
+  className = '',
 }) => {
 
   const handleToggle = () => {
@@ -13,15 +15,17 @@ const InputChecker = ({
   };
 
   return (
-    <div className="input-checker">
-      <label className="switch">
-        <input type="checkbox" checked={isChecked} onChange={handleToggle}/>
-        <span
-          className="slider"
-          style={{backgroundColor: bgColor}}
-        ></span>
+    <div className={classnames('input-checker', className)}>
+      <label className='input-checker__label'>
+        <div className="switch">
+          <input type="checkbox" checked={isChecked} onChange={handleToggle}/>
+          <span
+            className="slider"
+            style={{backgroundColor: bgColor}}
+          ></span>
+        </div>
+        <span className="checker-label">{label}</span>
       </label>
-      <span className="checker-label">{label}</span>
     </div>
   );
 };

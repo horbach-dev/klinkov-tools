@@ -1,7 +1,11 @@
 .input-checker {
     display: flex;
     align-items: center;
-    margin: 6px 15px;
+}
+
+.input-checker__label {
+    display: flex;
+    align-items: center;
 }
 
 /* Стили для подписи */

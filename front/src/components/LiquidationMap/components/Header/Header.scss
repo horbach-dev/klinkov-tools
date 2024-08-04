@@ -1,0 +1,72 @@
+.liquidation-map-header {
+  width: 100%;
+  margin-bottom: 24px;
+
+  &__top {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 8px;
+    padding: 20px;
+  }
+
+  &__top-actions {
+    display: flex;
+    align-items: center;
+
+    .ant-select {
+      margin-left: 8px;
+      min-width: 240px;
+
+      &:nth-child(2) {
+        min-width: 78px;
+      }
+    }
+
+    .ant-select-selector {
+      width: 100% !important;
+    }
+  }
+
+  &__reload {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 26px;
+    height: 26px;
+    border-radius: 4px;
+    padding: 4px;
+    margin-left: 8px;
+    outline: none;
+    border: none;
+    background-color: rgba(219, 180, 102, 1);
+    background-image: url('../../images/reload.svg');
+    background-repeat: no-repeat;
+    background-position: center;
+  }
+
+  &__checkboxies {
+    position: relative;
+    width: 100%;
+    overflow-y: hidden;
+    overflow-x: auto;
+    scrollbar-width: none;
+    padding-bottom: 12px;
+    padding-left: 20px;
+  }
+
+  &__checkboxies-wrap {
+    display: grid;
+    gap: 20px;
+    grid-auto-flow: column;
+    justify-content: start;
+    white-space: nowrap;
+  }
+
+  &__checkbox {
+
+    &:last-child {
+      padding-right: 20px;
+    }
+  }
+}

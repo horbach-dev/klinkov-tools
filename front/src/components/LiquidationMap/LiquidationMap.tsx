@@ -1,19 +1,32 @@
 import React, { useEffect, useRef, useState } from 'react'
-import axios from 'axios'
 import Chart from 'chart.js/auto'
 import zoomPlugin from 'chartjs-plugin-zoom'
-import {customTicksPlugin, crosshairPlugin, rangeZoomPlugin, formatNumber, currentPricePlugin} from './plugins'
+import {client} from "$api/index"
 import {
-    compareArraysForBar, compareForLine,
-    createArrayBetweenNumbers, setParsedData,
+    compareArraysForBar,
+    compareForLine,
+    createArrayBetweenNumbers,
+    setParsedData,
     sumForBuyLine,
-    sumForSellLine
-} from "$components/LiquidationMap/utils";
-import {Checkbox} from "antd";
-import {client} from "$api/index";
-import InputChecker from "$components/LiquidationMap/components/inputCheker";
+    sumForSellLine,
+} from "$components/LiquidationMap/utils"
+import {
+    customTicksPlugin,
+    crosshairPlugin,
+    rangeZoomPlugin,
+    formatNumber,
+    currentPricePlugin,
+} from './plugins'
+import LiquidationMapLoader from "./components/LiquidationMapLoader"
+import Header from "./components/Header"
 
-const LiquidationMap = ({ isMobile = false }) => {
+import './LiquidationMap.scss'
+import useWindowSizeListener from "$hooks/useWindowSize";
+
+const LiquidationMap = () => {
+    const { innerWidth } = useWindowSizeListener()
+    const isMobile = innerWidth <= 768
+
     const chartRef = useRef<HTMLCanvasElement>()
     const chartInstance = useRef<Chart>()
     const [tenData, setTenData] = useState([])
@@ -39,27 +52,31 @@ const LiquidationMap = ({ isMobile = false }) => {
     const [lineBuyActive, setLineBuyActive] = useState(true)
     const [lineSellActive, setLineSellActive] = useState(true)
     const [period, setPeriod] = useState('day')
+    const [platform, setPlatform] = useState('binance')
+    const [isLoader, setLoader] = useState(true)
 
-    useEffect(() => {
+    const loadData = async () => {
+        setLoader(true)
+
         Promise.all([
-            client.get(`/liquidation/${period}/binance/BTCUSDT_top_n_100_depth_10x_Leveraged_sell.csv`)
-                .then(setParsedData).catch(e => []),
-            client.get(`/liquidation/${period}/binance/BTCUSDT_top_n_100_depth_10x_Leveraged_buy.csv`)
-                .then(setParsedData).catch(e => []),
-            client.get(`/liquidation/${period}/binance/BTCUSDT_top_n_100_depth_25x_Leveraged_sell.csv`)
-                .then(setParsedData).catch(e => []),
-            client.get(`/liquidation/${period}/binance/BTCUSDT_top_n_100_depth_25x_Leveraged_buy.csv`)
-                .then(setParsedData).catch(e => []),
-            client.get(`/liquidation/${period}/binance/BTCUSDT_top_n_100_depth_50x_Leveraged_sell.csv`)
-                .then(setParsedData).catch(e => []),
-            client.get(`/liquidation/${period}/binance/BTCUSDT_top_n_100_depth_50x_Leveraged_buy.csv`)
-                .then(setParsedData).catch(e => []),
-            client.get(`/liquidation/${period}/binance/BTCUSDT_top_n_100_depth_100x_Leveraged_sell.csv`)
-                .then(setParsedData).catch(e => []),
-            client.get(`/liquidation/${period}/binance/BTCUSDT_top_n_100_depth_100x_Leveraged_buy.csv`)
-                .then(setParsedData).catch(e => []),
-            client.get(`/liquidation/${period}/binance/BTCUSDT_top_n_100_depth_current_price.txt`)
-                .then(res => res.data).catch(e => 0),
+            client.get(`/liquidation/${period}/${platform}/BTCUSDT_top_n_100_depth_10x_Leveraged_sell.csv`)
+              .then(setParsedData).catch(e => []),
+            client.get(`/liquidation/${period}/${platform}/BTCUSDT_top_n_100_depth_10x_Leveraged_buy.csv`)
+              .then(setParsedData).catch(e => []),
+            client.get(`/liquidation/${period}/${platform}/BTCUSDT_top_n_100_depth_25x_Leveraged_sell.csv`)
+              .then(setParsedData).catch(e => []),
+            client.get(`/liquidation/${period}/${platform}/BTCUSDT_top_n_100_depth_25x_Leveraged_buy.csv`)
+              .then(setParsedData).catch(e => []),
+            client.get(`/liquidation/${period}/${platform}/BTCUSDT_top_n_100_depth_50x_Leveraged_sell.csv`)
+              .then(setParsedData).catch(e => []),
+            client.get(`/liquidation/${period}/${platform}/BTCUSDT_top_n_100_depth_50x_Leveraged_buy.csv`)
+              .then(setParsedData).catch(e => []),
+            client.get(`/liquidation/${period}/${platform}/BTCUSDT_top_n_100_depth_100x_Leveraged_sell.csv`)
+              .then(setParsedData).catch(e => []),
+            client.get(`/liquidation/${period}/${platform}/BTCUSDT_top_n_100_depth_100x_Leveraged_buy.csv`)
+              .then(setParsedData).catch(e => []),
+            client.get(`/liquidation/${period}/${platform}/BTCUSDT_top_n_100_depth_current_price.txt`)
+              .then(res => res.data).catch(e => 0),
         ]).then(([tenSell, tenBuy, twentyFiveSell, twentyFiveBuy, fiftySell, fiftyBuy, hundredSell, hundredBuy, currentPrice]) => {
             console.log('data installed')
             setCurrentPrice(parseInt(currentPrice))
@@ -79,8 +96,8 @@ const LiquidationMap = ({ isMobile = false }) => {
             const labelsData: number[] = [...tenData, ...twentyFiveData, ...fiftyData, ...hundredData].map(item => item[1])
 
             const labels = createArrayBetweenNumbers(
-                Number(Math.min(...labelsData.filter(item => item))),
-                Number(Math.max(...labelsData.filter(item => item))),
+              Number(Math.min(...labelsData.filter(item => item))),
+              Number(Math.max(...labelsData.filter(item => item))),
             )
 
             setCurrentPriceIndex(labels.findIndex(item => item === parseInt(currentPrice)))
@@ -118,7 +135,13 @@ const LiquidationMap = ({ isMobile = false }) => {
             setBarColors(dataColors)
             setBarData(barValues)
             setLineData(lineValues)
+
+            setLoader(false)
         })
+    }
+
+    useEffect(() => {
+        loadData()
     }, [])
 
     useEffect(() => {
@@ -213,13 +236,13 @@ const LiquidationMap = ({ isMobile = false }) => {
                     layout: {
                         padding: {
                             top: 80,
-                            right: 40,
-                            left: 40,
+                            right: 50,
+                            left: 50,
                             bottom: 100,
                         }
                     },
                     animation: false,
-                    aspectRatio: 1,
+                    // aspectRatio: 1,
                     maintainAspectRatio: true,
                     scales: {
                         x: {
@@ -401,99 +424,43 @@ const LiquidationMap = ({ isMobile = false }) => {
         }
     }, [barData, barColors, labelsData, lineData, isMobile])
 
-    if (isMobile) {
-        return (
-          <div>
-              <div style={{display: 'flex', flexWrap: 'wrap'}}>
-                  <InputChecker
-                    label={'Cumulative Short Liquidation Leverage'}
-                    bgColor={'#80FFD4'}
-                    isChecked={lineSellActive}
-                    setIsChecked={setLineSellActive}
+    return (
+      <div className='liquidation-map'>
+          <span className="liquidation-map__decor liquidation-map__decor-left"/>
+          <span className="liquidation-map__decor liquidation-map__decor-right"/>
+          <div className="container">
+              <div className="liquidation-map__content">
+                  {isLoader && <LiquidationMapLoader />}
+                  <Header
+                    isMobile={isMobile}
+                    isLoading={isLoader}
+                    period={period}
+                    setPeriod={setPeriod}
+                    platform={platform}
+                    loadData={loadData}
+                    setPlatform={setPlatform}
+                    checkboxActions={{
+                        lineSellActive,
+                        setLineSellActive,
+                        lineBuyActive,
+                        setLineBuyActive,
+                        hundredActive,
+                        setHundredActive,
+                        fiftyActive,
+                        setFiftyActive,
+                        twentyFiveActive,
+                        setTwentyFiveActive,
+                        tenActive,
+                        setTenActive,
+                    }}
                   />
-                  <InputChecker
-                    label={'Cumulative Long Liquidation Leverage'}
-                    bgColor={'#FF6756'}
-                    isChecked={lineBuyActive}
-                    setIsChecked={setLineBuyActive}
-                  />
-                  <InputChecker
-                    label={'100x Leverage'}
-                    bgColor={'#DB7E29'}
-                    isChecked={hundredActive}
-                    setIsChecked={setHundredActive}
-                  />
-                  <InputChecker
-                    label={'50x Leverage'}
-                    bgColor={'#DBB466'}
-                    isChecked={fiftyActive}
-                    setIsChecked={setFiftyActive}
-                  />
-                  <InputChecker
-                    label={'25x Leverage'}
-                    bgColor={'#66A3DB'}
-                    isChecked={twentyFiveActive}
-                    setIsChecked={setTwentyFiveActive}
-                  />
-                  <InputChecker
-                    label={'10x Leverage'}
-                    bgColor={'#C466DB'}
-                    isChecked={tenActive}
-                    setIsChecked={setTenActive}
-                  />
+                  <div className="liquidation-map__canvas-wrap">
+                      <canvas ref={chartRef} />
+                  </div>
               </div>
-              <canvas ref={chartRef} style={{width: '100%', height: '100%'}}></canvas>
           </div>
-        )
-    } else {
-        return (
-          <div>
-              <div style={{
-                  color: 'white'
-              }}>
-                  <div style={{display: 'flex', flexWrap: 'wrap'}}>
-                      <InputChecker
-                        label={'Cumulative Short Liquidation Leverage'}
-                        bgColor={'#80FFD4'}
-                        isChecked={lineSellActive}
-                        setIsChecked={setLineSellActive}
-                      />
-                      <InputChecker
-                        label={'Cumulative Long Liquidation Leverage'}
-                        bgColor={'#FF6756'}
-                        isChecked={lineBuyActive}
-                        setIsChecked={setLineBuyActive}
-                      />
-                      <InputChecker
-                        label={'100x Leverage'}
-                        bgColor={'#DB7E29'}
-                        isChecked={hundredActive}
-                        setIsChecked={setHundredActive}
-                      />
-                      <InputChecker
-                        label={'50x Leverage'}
-                        bgColor={'#DBB466'}
-                        isChecked={fiftyActive}
-                        setIsChecked={setFiftyActive}
-                      />
-                      <InputChecker
-                        label={'25x Leverage'}
-                        bgColor={'#66A3DB'}
-                        isChecked={twentyFiveActive}
-                        setIsChecked={setTwentyFiveActive}
-                      />
-                      <InputChecker
-                        label={'10x Leverage'}
-                        bgColor={'#C466DB'}
-                          isChecked={tenActive}
-                          setIsChecked={setTenActive}
-                        />
-                    </div>
-                    <canvas ref={chartRef}></canvas>
-                </div>
-            </div>
-        )
-    }
+      </div>
+    )
 }
 
 export default LiquidationMap

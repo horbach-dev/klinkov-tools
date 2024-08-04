@@ -94,7 +94,7 @@ const Dominance = () => {
                 { value: '1y', label: '1 год' },
                 { value: 'ALL', label: 'Все время' },
             ]}
-            />
+          />
         </div>
         {!data.length || isLoading ? (
           <Loader/>
