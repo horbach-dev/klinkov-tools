@@ -1,1 +1,3 @@
-export { default } from './LiquidationMap'
+import { lazy } from 'react'
+
+export default lazy(() => import('./LiquidationMap'))

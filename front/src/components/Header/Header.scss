@@ -1,8 +1,10 @@
 .header {
+  position: relative;
   margin-bottom: 16px !important;
   border-radius: 8px;
   position: relative !important;
   background-color: transparent !important;
+  z-index: 650;
 
   .logo {
     width: 119px !important;
@@ -52,8 +54,10 @@
   }
 }
 
-
-
+.header-links {
+  display: flex;
+  align-items: center;
+}
 
 .header__menu {
   display: flex;

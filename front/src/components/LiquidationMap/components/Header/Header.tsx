@@ -1,12 +1,15 @@
-import React, { useCallback } from 'react'
+import React, {memo, useState} from 'react'
 import InputChecker from "../inputCheker"
 import Title from "$components/Title"
 
+import ArrowDropdown from "$components/Bubbles/components/ArrowDropdown"
+import {Select} from "antd"
+
 import './Header.scss'
-import ArrowDropdown from "$components/Bubbles/components/ArrowDropdown";
-import {Select} from "antd";
 
 const Header = ({ loadData, checkboxActions, setPeriod, period, platform, setPlatform }) => {
+  const [localPeriod, setLocalPeriod] = useState(period)
+  const [localPlatform, setLocalPlatform] = useState(platform)
 
   const {
     lineSellActive,
@@ -23,15 +26,21 @@ const Header = ({ loadData, checkboxActions, setPeriod, period, platform, setPla
     setTenActive,
   } = checkboxActions
 
-  const handleSetPlatform = useCallback((v) => {
-    setPlatform(v)
-    loadData()
-  }, [setPlatform, loadData])
+  const handleChangePlatform = (v) => {
+    setLocalPlatform(v)
 
-  const handleSetPeriod = useCallback((v) => {
-    setPeriod(v)
-    loadData()
-  }, [setPeriod, loadData])
+    setTimeout(() => {
+      setPlatform(v)
+    }, 400)
+  }
+
+  const handleChangePeriod = (v) => {
+    setLocalPeriod(v)
+
+    setTimeout(() => {
+      setPeriod(v)
+    }, 400)
+  }
 
   return (
     <div className='liquidation-map-header'>
@@ -41,24 +50,23 @@ const Header = ({ loadData, checkboxActions, setPeriod, period, platform, setPla
         </Title>
         <div className="liquidation-map-header__top-actions">
           <Select
-            // disabled={!data.length || isLoading}
             defaultValue={'binance'}
-            value={platform}
+            value={localPlatform}
             className='bubbles__select'
             suffixIcon={<ArrowDropdown/>}
-            onChange={handleSetPlatform}
+            onChange={handleChangePlatform}
+            on
             options={[
               { value: 'binance', label: 'Binance BTC/USDT Perpetual' },
               { value: 'bybit', label: 'Bybit BTC/USDT Perpetual' },
             ]}
           />
           <Select
-            // disabled={isLoading}
             defaultValue={'1d'}
-            value={period}
+            value={localPeriod}
             className='bubbles__select'
             suffixIcon={<ArrowDropdown/>}
-            onChange={handleSetPeriod}
+            onChange={handleChangePeriod}
             options={[
               { value: 'day', label: '24 ч.' },
               { value: 'week', label: '7 д.' },
@@ -121,4 +129,4 @@ const Header = ({ loadData, checkboxActions, setPeriod, period, platform, setPla
   )
 }
 
-export default Header
+export default memo(Header)

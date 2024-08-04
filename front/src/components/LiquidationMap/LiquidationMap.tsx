@@ -21,11 +21,12 @@ import LiquidationMapLoader from "./components/LiquidationMapLoader"
 import Header from "./components/Header"
 
 import './LiquidationMap.scss'
-import useWindowSizeListener from "$hooks/useWindowSize";
+import useWindowSizeListener from "$hooks/useWindowSize"
 
 const LiquidationMap = () => {
     const { innerWidth } = useWindowSizeListener()
     const isMobile = innerWidth <= 768
+    const isTablet = innerWidth <= 1080 && innerWidth > 768
 
     const chartRef = useRef<HTMLCanvasElement>()
     const chartInstance = useRef<Chart>()
@@ -142,7 +143,7 @@ const LiquidationMap = () => {
 
     useEffect(() => {
         loadData()
-    }, [])
+    }, [period, platform])
 
     useEffect(() => {
         if (!(tenData.length && twentyFiveData.length && fiftyData.length && hundredData.length)) return
@@ -242,7 +243,8 @@ const LiquidationMap = () => {
                         }
                     },
                     animation: false,
-                    // aspectRatio: 1,
+                    ...(isMobile ? { aspectRatio: 0.6 } : {}),
+                    ...(isTablet ? { aspectRatio: 1.4 } : {}),
                     maintainAspectRatio: true,
                     scales: {
                         x: {
@@ -422,7 +424,7 @@ const LiquidationMap = () => {
                 },
             })
         }
-    }, [barData, barColors, labelsData, lineData, isMobile])
+    }, [barData, barColors, labelsData, lineData, isMobile, isTablet])
 
     return (
       <div className='liquidation-map'>
