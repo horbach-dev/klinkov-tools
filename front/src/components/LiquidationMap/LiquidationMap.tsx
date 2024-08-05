@@ -173,7 +173,9 @@ const LiquidationMap = () => {
             chartInstance.current?.destroy()
         }
 
-        const barPercentage = Math.max(labelsData.length / 1500, 1)
+        const barPercentage = !isMobile ?
+          Math.max((labelsData.length)/ 1500, 1):
+          Math.max((labelsData.length)/ 700, 5)
 
         if (chartRef.current) {
             const ctx = chartRef.current?.getContext('2d')
@@ -245,7 +247,7 @@ const LiquidationMap = () => {
                     animation: false,
                     ...(isMobile ? { aspectRatio: 0.6 } : {}),
                     ...(isTablet ? { aspectRatio: 1.4 } : {}),
-                    maintainAspectRatio: true,
+                    // maintainAspectRatio: true,
                     scales: {
                         x: {
                             grid: {
@@ -404,7 +406,9 @@ const LiquidationMap = () => {
                             zoom: {
                                 animation: false,
                                 onZoom: ({ chart }) => {
-                                    chart.data.datasets[0].barPercentage = Math.max((chart.boxes[3].max - chart.boxes[3].min)/ 1500, 1)
+                                    chart.data.datasets[0].barPercentage = !isMobile ?
+                                      Math.max((chart.boxes[3].max - chart.boxes[3].min)/ 1500, 1):
+                                      Math.max((chart.boxes[3].max - chart.boxes[3].min)/ 700, 5)
                                 },
                                 wheel: {
                                     animation: false,

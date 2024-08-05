@@ -184,7 +184,7 @@ export const crosshairPlugin = {
 };
 
 export const rangeZoomPlugin = {
-    id: 'customCanvasBackgroundColor',
+    id: 'customRangeZoomPlugin',
     afterInit(chart) {
         chart.rangeZoom = {
             isDragging: false,
@@ -212,14 +212,45 @@ export const rangeZoomPlugin = {
         // Left circle
         ctx.beginPath();
         ctx.fillStyle = 'rgba(219, 180, 102, 1)';
-        ctx.arc(circlePositionLeft, bottom + 75, 10, 0, 360 * angle, false);
+        ctx.roundRect(circlePositionLeft - 12, bottom + 75 - 12, 24, 24, 4)
         ctx.fill();
+        (() => {
+            const dotRadius = 1; // Radius of each dot
+            const gap = 7; // Gap between dots
+            const dotsX = circlePositionLeft - gap / 2;
+            const dotsY = bottom + 75 - gap;
+
+            for (let row = 0; row < 3; row++) {
+                for (let col = 0; col < 2; col++) {
+                    ctx.beginPath();
+                    ctx.arc(dotsX + col * gap, dotsY + row * gap, dotRadius, 0, Math.PI * 2);
+                    ctx.fillStyle = 'black';
+                    ctx.fill();
+                }
+            }
+        })()
 
         // Right circle
         ctx.beginPath();
         ctx.fillStyle = 'rgba(219, 180, 102, 1)';
-        ctx.arc(circlePositionRight , bottom + 75, 10, 0, 360 * angle, false);
+        ctx.roundRect(circlePositionRight - 12, bottom + 75 - 12, 24, 24, 4)
         ctx.fill();
+
+        (() => {
+            const dotRadius = 1; // Radius of each dot
+            const gap = 7; // Gap between dots
+            const dotsX = circlePositionRight - gap / 2;
+            const dotsY = bottom + 75 - gap;
+
+            for (let row = 0; row < 3; row++) {
+                for (let col = 0; col < 2; col++) {
+                    ctx.beginPath();
+                    ctx.arc(dotsX + col * gap, dotsY + row * gap, dotRadius, 0, Math.PI * 2);
+                    ctx.fillStyle = 'black';
+                    ctx.fill();
+                }
+            }
+        })()
     },
     afterUpdate(chart, args, plugins) {
         const { isDragging, draggingRight, draggingLeft, circlePositionRight, circlePositionLeft, rangeMin, rangeMax} = chart.rangeZoom

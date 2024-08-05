@@ -98,6 +98,10 @@
   .header_links {
     display: none !important;
   }
+
+  .header__menu-item {
+    display: none !important;
+  }
 }
 
 .header__drawer-item {
@@ -108,7 +112,7 @@
   transition: color 0.25s;
 
   @media (max-width: 770px) {
-    margin-bottom: 20px;
+    margin-bottom: 20px !important;
   }
 
   &:hover {

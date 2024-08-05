@@ -31,8 +31,15 @@ const Header = () => {
         <div className='header-links'>
           <Link
             style={{ marginRight: 20, marginBottom: 0, marginTop: 0, padding: 0 }}
+            to='/'
+            className='header__menu-item'
+          >
+            {'Главная'}
+          </Link>
+          <Link
+            style={{ marginRight: 20, marginBottom: 0, marginTop: 0, padding: 0 }}
             to='/liquidation-map'
-            className='header__drawer-item'
+            className='header__menu-item'
           >
             {'Карта ликвидаций'}
           </Link>
@@ -41,7 +48,7 @@ const Header = () => {
             href={links.klinkov_capital}
             target='_blank'
             rel='noreferrer'
-            className='header__drawer-item'
+            className='header__menu-item'
           >
             {'Закрытый клуб'}
           </a>
@@ -49,7 +56,7 @@ const Header = () => {
             href={links.lesson}
             rel='noreferrer'
             target='_blank'
-            className='header__drawer-item'
+            className='header__menu-item'
             style={{ marginRight: 20, marginBottom: 0, marginTop: 0, padding: 0 }}
           >
             {'Обучение для новичков'}
@@ -59,7 +66,6 @@ const Header = () => {
             href={links.youtube}
             rel='noreferrer'
             target='_blank'
-            className='header__menu-item'
           >
             <span className='header__menu-item-icon header__menu-item-icon_youtube'/>
           </a>
@@ -67,7 +73,6 @@ const Header = () => {
             href={links.telegram}
             rel='noreferrer'
             target='_blank'
-            className='header__menu-item'
           >
             <span className='header__menu-item-icon header__menu-item-icon_telegram'/>
           </a>
@@ -102,6 +107,20 @@ const Header = () => {
           }}
           onClick={() => setDrawerVisible(false)}
         />
+        <Link
+          style={{ marginRight: 20, marginBottom: 0, marginTop: 0, padding: 0 }}
+          to='/'
+          className='header__drawer-item'
+        >
+          {'Главная'}
+        </Link>
+        <Link
+          style={{ marginRight: 20, marginBottom: 0, marginTop: 0, padding: 0 }}
+          to='/liquidation-map'
+          className='header__drawer-item'
+        >
+          {'Карта ликвидаций'}
+        </Link>
         <a href={links.klinkov_capital} target='_blank' rel='noreferrer' className='header__drawer-item'>
           {'Закрытый клуб'}
         </a>
