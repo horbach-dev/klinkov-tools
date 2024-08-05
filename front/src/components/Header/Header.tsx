@@ -6,6 +6,7 @@ import ContentStore from '$stores/ContentStore'
 import Logo from '../../images/logo.svg'
 
 import './Header.scss'
+import {Link} from "react-router-dom";
 
 const Header = () => {
   const [drawerVisible, setDrawerVisible] = useState(false)
@@ -18,31 +19,53 @@ const Header = () => {
   return (
     <header className='header'>
       <div className='header__content'>
-        <div className='logo'>
-          <img src={Logo} alt='Klinkov tools logo'/>
-        </div>
-        <div style={{ display: 'flex', width: '100%', justifyContent: 'flex-end' }}>
-          <div className='header_links' style={{ display: 'flex', alignItems: 'center' }}>
-            <a
-              style={{ marginRight: 20, marginBottom: 0, marginTop: 0, padding: 0 }}
-              href={links.klinkov_capital}
-              target='_blank'
-              rel='noreferrer'
-              className='header__drawer-item'>
-              {'Закрытый клуб'}
-            </a>
-          </div>
-          <div className='header_links' style={{ marginRight: 20, display: 'flex', alignItems: 'center' }}>
-            <a href={links.lesson} rel='noreferrer' target='_blank' className='header__drawer-item'>
-              {'Обучение для новичков'}
-            </a>
-          </div>
+        <Link
+          to='/'
+          className='logo'
+        >
+          <img
+            src={Logo}
+            alt='Klinkov tools logo'
+          />
+        </Link>
+        <div className='header-links'>
+          <Link
+            style={{ marginRight: 20, marginBottom: 0, marginTop: 0, padding: 0 }}
+            to='/'
+            className='header__menu-item'
+          >
+            {'Главная'}
+          </Link>
+          <Link
+            style={{ marginRight: 20, marginBottom: 0, marginTop: 0, padding: 0 }}
+            to='/liquidation-map'
+            className='header__menu-item'
+          >
+            {'Карта ликвидаций'}
+          </Link>
+          <a
+            style={{ marginRight: 20, marginBottom: 0, marginTop: 0, padding: 0 }}
+            href={links.klinkov_capital}
+            target='_blank'
+            rel='noreferrer'
+            className='header__menu-item'
+          >
+            {'Закрытый клуб'}
+          </a>
+          <a
+            href={links.lesson}
+            rel='noreferrer'
+            target='_blank'
+            className='header__menu-item'
+            style={{ marginRight: 20, marginBottom: 0, marginTop: 0, padding: 0 }}
+          >
+            {'Обучение для новичков'}
+          </a>
           <a
             style={{ marginRight: 10, marginBottom: 0, marginTop: 0, padding: 0 }}
             href={links.youtube}
             rel='noreferrer'
             target='_blank'
-            className='header__menu-item'
           >
             <span className='header__menu-item-icon header__menu-item-icon_youtube'/>
           </a>
@@ -50,7 +73,6 @@ const Header = () => {
             href={links.telegram}
             rel='noreferrer'
             target='_blank'
-            className='header__menu-item'
           >
             <span className='header__menu-item-icon header__menu-item-icon_telegram'/>
           </a>
@@ -85,6 +107,20 @@ const Header = () => {
           }}
           onClick={() => setDrawerVisible(false)}
         />
+        <Link
+          style={{ marginRight: 20, marginBottom: 0, marginTop: 0, padding: 0 }}
+          to='/'
+          className='header__drawer-item'
+        >
+          {'Главная'}
+        </Link>
+        <Link
+          style={{ marginRight: 20, marginBottom: 0, marginTop: 0, padding: 0 }}
+          to='/liquidation-map'
+          className='header__drawer-item'
+        >
+          {'Карта ликвидаций'}
+        </Link>
         <a href={links.klinkov_capital} target='_blank' rel='noreferrer' className='header__drawer-item'>
           {'Закрытый клуб'}
         </a>

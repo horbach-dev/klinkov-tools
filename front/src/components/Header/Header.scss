@@ -1,8 +1,10 @@
 .header {
+  position: relative;
   margin-bottom: 16px !important;
   border-radius: 8px;
   position: relative !important;
   background-color: transparent !important;
+  z-index: 650;
 
   .logo {
     width: 119px !important;
@@ -20,6 +22,8 @@
     align-items: center;
     justify-content: space-between;
     width: 100%;
+    max-width: 1345px;
+    margin: 0 auto;
   }
 
   &__menu {
@@ -50,8 +54,10 @@
   }
 }
 
-
-
+.header-links {
+  display: flex;
+  align-items: center;
+}
 
 .header__menu {
   display: flex;
@@ -92,6 +98,10 @@
   .header_links {
     display: none !important;
   }
+
+  .header__menu-item {
+    display: none !important;
+  }
 }
 
 .header__drawer-item {
@@ -102,7 +112,7 @@
   transition: color 0.25s;
 
   @media (max-width: 770px) {
-    margin-bottom: 20px;
+    margin-bottom: 20px !important;
   }
 
   &:hover {

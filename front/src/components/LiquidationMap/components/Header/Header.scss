@@ -1,0 +1,114 @@
+@import "src/styles/Mixins";
+
+.liquidation-map-header {
+  width: 100%;
+  margin-bottom: 24px;
+
+  &__top {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 8px;
+    padding: 20px;
+
+    @include max(585px) {
+      flex-wrap: wrap;
+      padding: 12px;
+
+      .title {
+        width: 100%;
+        margin-bottom: 14px;
+      }
+    }
+  }
+
+  &__top-actions {
+    display: flex;
+    align-items: center;
+
+    @include max(585px) {
+      width: 100%;
+    }
+
+    .ant-select {
+      margin-left: 8px;
+      min-width: 240px;
+
+      @include max(585px) {
+        min-width: 200px;
+
+        &:first-child {
+          width: 100%;
+          margin-left: 0;
+
+          .ant-select-selection-item {
+            font-size: 12px !important;
+          }
+        }
+      }
+
+      &:nth-child(2) {
+        min-width: 78px;
+
+        @include max(585px) {
+          min-width: 70px;
+
+          .ant-select-selection-item {
+            font-size: 12px !important;
+          }
+
+          .ant-select-item {
+            //font-size: 12px !important;
+          }
+        }
+      }
+    }
+
+    .ant-select-selector {
+      width: 100% !important;
+    }
+  }
+
+  &__reload {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 26px;
+    height: 26px;
+    min-width: 26px;
+    border-radius: 4px;
+    padding: 4px;
+    margin-left: 8px;
+    outline: none;
+    border: none;
+    background-color: rgba(219, 180, 102, 1);
+    background-image: url('../../images/reload.svg');
+    background-repeat: no-repeat;
+    background-position: center;
+  }
+
+  &__checkboxies {
+    position: relative;
+    width: 100%;
+    overflow-y: hidden;
+    overflow-x: auto;
+    scrollbar-width: none;
+    padding-bottom: 12px;
+    padding-left: 20px;
+  }
+
+  &__checkboxies-wrap {
+    display: grid;
+    gap: 20px;
+    grid-auto-flow: column;
+    justify-content: start;
+    white-space: nowrap;
+  }
+
+  &__checkbox {
+
+    &:last-child {
+      padding-right: 20px;
+    }
+  }
+}
