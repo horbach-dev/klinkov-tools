@@ -21,7 +21,7 @@ const InputChecker = ({
           <input type="checkbox" checked={isChecked} onChange={handleToggle}/>
           <span
             className="slider"
-            style={{backgroundColor: bgColor}}
+            style={{backgroundColor: isChecked ? bgColor : 'rgba(184, 190, 201, 1)'}}
           ></span>
         </div>
         <span className="checker-label">{label}</span>

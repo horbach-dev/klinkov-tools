@@ -13,7 +13,6 @@ import {
 import {
     customTicksPlugin,
     crosshairPlugin,
-    rangeZoomPlugin,
     formatNumber,
     currentPricePlugin,
 } from './plugins'
@@ -22,6 +21,11 @@ import Header from "./components/Header"
 
 import './LiquidationMap.scss'
 import useWindowSizeListener from "$hooks/useWindowSize"
+import RangeSlider from "$components/LiquidationMap/components/RangeSlider/RangeSlider";
+
+export const getBarPercentage = (isMobile, labelsLength) =>  isMobile ?
+    Math.max(labelsLength / 200, 5):
+    Math.max(labelsLength / 1000, 1)
 
 const LiquidationMap = () => {
     const { innerWidth } = useWindowSizeListener()
@@ -53,30 +57,32 @@ const LiquidationMap = () => {
     const [lineBuyActive, setLineBuyActive] = useState(true)
     const [lineSellActive, setLineSellActive] = useState(true)
     const [period, setPeriod] = useState('day')
+    const [status, setStatus] = useState('top_n_25')
     const [platform, setPlatform] = useState('binance')
     const [isLoader, setLoader] = useState(true)
+    const [range, setRange] = useState([0, 0])
 
     const loadData = async () => {
         setLoader(true)
 
         Promise.all([
-            client.get(`/liquidation/${period}/${platform}/BTCUSDT_top_n_100_depth_10x_Leveraged_sell.csv`)
+            client.get(`/liquidation/${period}/${platform}/BTCUSDT_${status}_depth_10x_Leveraged_sell.csv`)
               .then(setParsedData).catch(e => []),
-            client.get(`/liquidation/${period}/${platform}/BTCUSDT_top_n_100_depth_10x_Leveraged_buy.csv`)
+            client.get(`/liquidation/${period}/${platform}/BTCUSDT_${status}_depth_10x_Leveraged_buy.csv`)
               .then(setParsedData).catch(e => []),
-            client.get(`/liquidation/${period}/${platform}/BTCUSDT_top_n_100_depth_25x_Leveraged_sell.csv`)
+            client.get(`/liquidation/${period}/${platform}/BTCUSDT_${status}_depth_25x_Leveraged_sell.csv`)
               .then(setParsedData).catch(e => []),
-            client.get(`/liquidation/${period}/${platform}/BTCUSDT_top_n_100_depth_25x_Leveraged_buy.csv`)
+            client.get(`/liquidation/${period}/${platform}/BTCUSDT_${status}_depth_25x_Leveraged_buy.csv`)
               .then(setParsedData).catch(e => []),
-            client.get(`/liquidation/${period}/${platform}/BTCUSDT_top_n_100_depth_50x_Leveraged_sell.csv`)
+            client.get(`/liquidation/${period}/${platform}/BTCUSDT_${status}_depth_50x_Leveraged_sell.csv`)
               .then(setParsedData).catch(e => []),
-            client.get(`/liquidation/${period}/${platform}/BTCUSDT_top_n_100_depth_50x_Leveraged_buy.csv`)
+            client.get(`/liquidation/${period}/${platform}/BTCUSDT_${status}_depth_50x_Leveraged_buy.csv`)
               .then(setParsedData).catch(e => []),
-            client.get(`/liquidation/${period}/${platform}/BTCUSDT_top_n_100_depth_100x_Leveraged_sell.csv`)
+            client.get(`/liquidation/${period}/${platform}/BTCUSDT_${status}_depth_100x_Leveraged_sell.csv`)
               .then(setParsedData).catch(e => []),
-            client.get(`/liquidation/${period}/${platform}/BTCUSDT_top_n_100_depth_100x_Leveraged_buy.csv`)
+            client.get(`/liquidation/${period}/${platform}/BTCUSDT_${status}_depth_100x_Leveraged_buy.csv`)
               .then(setParsedData).catch(e => []),
-            client.get(`/liquidation/${period}/${platform}/BTCUSDT_top_n_100_depth_current_price.txt`)
+            client.get(`/liquidation/${period}/${platform}/BTCUSDT_${status}_depth_current_price.txt`)
               .then(res => res.data).catch(e => 0),
         ]).then(([tenSell, tenBuy, twentyFiveSell, twentyFiveBuy, fiftySell, fiftyBuy, hundredSell, hundredBuy, currentPrice]) => {
             console.log('data installed')
@@ -132,6 +138,7 @@ const LiquidationMap = () => {
 
             const lineValues = compareForLine(lineBuyValues, lineSellValues)
 
+            setRange([0, labels.length])
             setLabelsData(labels)
             setBarColors(dataColors)
             setBarData(barValues)
@@ -173,9 +180,11 @@ const LiquidationMap = () => {
             chartInstance.current?.destroy()
         }
 
-        const barPercentage = !isMobile ?
-          Math.max((labelsData.length)/ 1500, 1):
-          Math.max((labelsData.length)/ 700, 5)
+        // const barPercentage = !isMobile ?
+        //   Math.max((labelsData.length)/ 1000, 1):
+        //   Math.max((labelsData.length)/ 1500, 5)
+        const barPercentage = getBarPercentage(isMobile, range[1] - range[0])
+        console.log(barPercentage)
 
         if (chartRef.current) {
             const ctx = chartRef.current?.getContext('2d')
@@ -232,7 +241,7 @@ const LiquidationMap = () => {
                     zoomPlugin,
                     customTicksPlugin,
                     crosshairPlugin,
-                    rangeZoomPlugin,
+                    // rangeZoomPlugin,
                     currentPricePlugin,
                 ],
                 options: {
@@ -241,12 +250,12 @@ const LiquidationMap = () => {
                             top: 80,
                             right: 50,
                             left: 50,
-                            bottom: 100,
+                            bottom: 20,
                         }
                     },
                     animation: false,
-                    ...(isMobile ? { aspectRatio: 0.6 } : {}),
-                    ...(isTablet ? { aspectRatio: 1.4 } : {}),
+                    ...(isMobile ? { aspectRatio: 1 } : {}),
+                    ...(isTablet ? { aspectRatio: 1 } : {}),
                     // maintainAspectRatio: true,
                     scales: {
                         x: {
@@ -257,6 +266,8 @@ const LiquidationMap = () => {
                                 color: 'rgba(54, 162, 235, 0)',
                                 maxTicksLimit: 10,
                             },
+                            min: range[0],
+                            max: range[1],
                         },
                         y: {
                             ticks: {
@@ -406,9 +417,11 @@ const LiquidationMap = () => {
                             zoom: {
                                 animation: false,
                                 onZoom: ({ chart }) => {
-                                    chart.data.datasets[0].barPercentage = !isMobile ?
-                                      Math.max((chart.boxes[3].max - chart.boxes[3].min)/ 1500, 1):
-                                      Math.max((chart.boxes[3].max - chart.boxes[3].min)/ 700, 5)
+                                    chart.data.datasets[0].barPercentage =
+                                        getBarPercentage(isMobile, (chart.boxes[3].max - chart.boxes[3].min))
+                                      //   !isMobile ?
+                                      // Math.max((chart.boxes[3].max - chart.boxes[3].min)/ 500, 1):
+                                      // Math.max((chart.boxes[3].max - chart.boxes[3].min)/ 1500, 5)
                                 },
                                 wheel: {
                                     animation: false,
@@ -428,7 +441,7 @@ const LiquidationMap = () => {
                 },
             })
         }
-    }, [barData, barColors, labelsData, lineData, isMobile, isTablet])
+    }, [barData, barColors, labelsData, lineData, isMobile, isTablet, range])
 
     return (
       <div className='liquidation-map'>
@@ -463,6 +476,16 @@ const LiquidationMap = () => {
                   <div className="liquidation-map__canvas-wrap">
                       <canvas ref={chartRef} />
                   </div>
+                  {
+                      !isLoader && <div>
+                          <RangeSlider
+                              min={0}
+                              max={labelsData.length}
+                              step={1}
+                              onChange={(item) => setRange(item)}
+                          />
+                      </div>
+                  }
               </div>
           </div>
       </div>

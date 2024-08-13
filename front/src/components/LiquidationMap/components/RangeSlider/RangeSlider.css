@@ -1,0 +1,51 @@
+.range-slider {
+    position: relative;
+    width: calc(100% - 100px);
+    height: 40px;
+    margin: 0 50px;
+}
+
+.range-slider input[type="range"] {
+    position: absolute;
+    pointer-events: none;
+    -webkit-appearance: none;
+    background-color: rgba(0, 186, 220, 0) !important;
+    z-index: 2;
+    height: 0;
+    width: 100%;
+    outline: none;
+    padding: 0 !important;
+}
+
+.range-slider input[type="range"]::-webkit-slider-thumb {
+    pointer-events: all;
+    width: 24px;
+    height: 24px;
+    background-color: rgba(219, 180, 102, 1);
+    border-radius: 4px;
+    cursor: ew-resize;
+    -webkit-appearance: none;
+    background-image: url('data:image/svg+xml,%3Csvg width="9" height="14" viewBox="0 0 9 14" fill="none" xmlns="http://www.w3.org/2000/svg"%3E%3Cpath fill-rule="evenodd" clip-rule="evenodd" d="M1.65393 11.8224C2.1896 11.8224 2.62427 12.2567 2.62427 12.7927C2.62427 13.3283 2.19017 13.7632 1.65393 13.7632C1.11769 13.7632 0.683594 13.3283 0.683594 12.7927C0.683594 12.2567 1.11826 11.8224 1.65393 11.8224Z" fill="%23060604"/%3E%3Cpath fill-rule="evenodd" clip-rule="evenodd" d="M1.65393 6.03998C2.1896 6.03998 2.62427 6.47409 2.62427 7.01025C2.62427 7.54584 2.19017 7.98071 1.65393 7.98071C1.11769 7.98071 0.683594 7.54584 0.683594 7.01025C0.683594 6.47409 1.11826 6.03998 1.65393 6.03998Z" fill="%23060604"/%3E%3Cpath fill-rule="evenodd" clip-rule="evenodd" d="M1.65393 0.26123C2.1896 0.26123 2.62427 0.695371 2.62427 1.2315C2.62427 1.76706 2.19017 2.20193 1.65393 2.20193C1.11769 2.20193 0.683594 1.76706 0.683594 1.2315C0.683594 0.695371 1.11826 0.26123 1.65393 0.26123Z" fill="%23060604"/%3E%3Cpath fill-rule="evenodd" clip-rule="evenodd" d="M7.86578 11.8224C8.40145 11.8224 8.83614 12.2567 8.83614 12.7927C8.83614 13.3283 8.40203 13.7632 7.86578 13.7632C7.32952 13.7632 6.8955 13.3283 6.8955 12.7927C6.8955 12.2567 7.3301 11.8224 7.86578 11.8224Z" fill="%23060604"/%3E%3Cpath fill-rule="evenodd" clip-rule="evenodd" d="M7.86578 6.03998C8.40145 6.03998 8.83614 6.47409 8.83614 7.01025C8.83614 7.54584 8.40203 7.98071 7.86578 7.98071C7.32952 7.98071 6.8955 7.54584 6.8955 7.01025C6.8955 6.47409 7.3301 6.03998 7.86578 6.03998Z" fill="%23060604"/%3E%3Cpath fill-rule="evenodd" clip-rule="evenodd" d="M7.86578 0.26123C8.40145 0.26123 8.83614 0.695371 8.83614 1.2315C8.83614 1.76706 8.40203 2.20193 7.86578 2.20193C7.32952 2.20193 6.8955 1.76706 6.8955 1.2315C6.8955 0.695371 7.3301 0.26123 7.86578 0.26123Z" fill="%23060604"/%3E%3C/svg%3E');
+    background-position: center;
+    background-repeat: no-repeat;
+}
+
+.range-slider .slider-track {
+    position: absolute;
+    z-index: 1;
+    height: 8px;
+    background: rgba(219, 180, 102, .3);
+    top: 50%;
+    left: 0;
+    right: 0;
+    width: calc(100% - 10px);
+    transform: translateY(calc(-50% - 2px)) translateX(10px);
+    border-radius: 3px;
+}
+
+.range-slider .track {
+    position: absolute;
+    height: 100%;
+    /*background: rgba(219, 180, 102, .3);*/
+    border-radius: 3px;
+}
