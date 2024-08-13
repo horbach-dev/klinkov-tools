@@ -1,3 +1,4 @@
+
 .liquidation-map {
   position: relative;
   width: 100%;
@@ -55,5 +56,71 @@
 
   &__canvas-wrap {
     padding: 0 10px;
+  }
+
+  //.custom-slider .ant-slider-handle-1 {
+  //  width: 24px; /* Задаем ширину handle */
+  //  height: 24px; /* Задаем высоту handle */
+  //  border-radius: 4px; /* Скругленные углы */
+  //  background-color: rgba(219, 180, 102, 1); /* Цвет фона */
+  //  border: none; /* Убираем рамку */
+  //  box-shadow: none; /* Убираем тени */
+  //  position: absolute; /* Для последующего позиционирования точек */
+  //  transform: translateY(-50%);
+  //}
+  //.custom-slider .ant-slider-handle-1::before {
+  //  content: '';
+  //  width: 24px; /* Задаем ширину handle */
+  //  height: 24px; /* Задаем высоту handle */
+  //  border-radius: 4px; /* Скругленные углы */
+  //  background-color: rgba(219, 180, 102, 1); /* Цвет фона */
+  //  border: none; /* Убираем рамку */
+  //  box-shadow: none; /* Убираем тени */
+  //  position: relative; /* Для последующего позиционирования точек */
+  //  transform: translateY(-50%);
+  //}
+  //
+  ///* Добавляем точки непосредственно на handle */
+  //.custom-slider .ant-slider-handle-1::after {
+  //  content: '';
+  //  position: absolute;
+  //  top: 5px;
+  //  left: 5px;
+  //  width: 4px;
+  //  height: 4px;
+  //  background-color: black;
+  //  border-radius: 50%;
+  //  transform: translateY(-50%);
+  //  box-shadow:
+  //          7px 0 black,        /* Вторая точка в первом ряду */
+  //          0 7px black,        /* Первая точка во втором ряду */
+  //          7px 7px black,      /* Вторая точка во втором ряду */
+  //          0 14px black,       /* Первая точка в третьем ряду */
+  //          7px 14px black;     /* Вторая точка в третьем ряду */
+  //}
+
+  .custom-slider-handle .ant-slider-handle-1 {
+    width: 24px;
+    height: 24px;
+    background-color: rgba(219, 180, 102, 1);
+    border-radius: 4px;
+    border: none;
+    position: relative;
+    top: 0;
+  }
+
+  .custom-slider-handle .ant-slider-handle-1::after {
+    content: "";
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    background: radial-gradient(black 10%, transparent 10%) 0 0,
+    radial-gradient(black 10%, transparent 10%) 50% 0,
+    radial-gradient(black 10%, transparent 10%) 100% 0,
+    radial-gradient(black 10%, transparent 10%) 25% 50%,
+    radial-gradient(black 10%, transparent 10%) 75% 50%;
+    background-size: 14px 14px;
+    background-repeat: no-repeat;
+    background-position: 4px 4px, 16px 4px, 4px 16px, 16px 16px;
   }
 }

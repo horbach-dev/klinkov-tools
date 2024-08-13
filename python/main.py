@@ -3,9 +3,9 @@ from datetime import datetime, timedelta
 
 def generate_liquidation_maps(current_date, exchange):
     periods = [
-        # {"days": 1, "path": "day"},
+        {"days": 1, "path": "day"},
         {"days": 7, "path": "week"},
-        # {"days": 30, "path": "month"}
+        {"days": 30, "path": "month"}
     ]
 
     for period in periods:
@@ -25,7 +25,7 @@ def generate_liquidation_maps(current_date, exchange):
         mapping.liquidation_map_depth_from_historical(
             mode="top_n",
             path=f"result/{period['path']}/{exchange}",
-            threshold_top_n=100,
+            threshold_top_n=25,
             threshold_portion=0.0001,
         )
 

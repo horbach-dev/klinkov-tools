@@ -1,3 +1,5 @@
+import {getBarPercentage} from "$components/LiquidationMap/LiquidationMap";
+
 export const formatNumber = (num) => {
     if (!num) return num
     if (num >= 1e9) {
@@ -195,6 +197,28 @@ export const rangeZoomPlugin = {
             rangeMin: 0,
             rangeMax: 0,
         };
+        const { canvas } = chart;
+
+        canvas.addEventListener('mousedown', (e) => {
+            const { circlePositionRight, circlePositionLeft} = chart.rangeZoom
+            const xPos = e.clientX - canvas.getBoundingClientRect()?.left || 0;
+            if (Math.abs(xPos - circlePositionLeft) < 10) {
+                chart.rangeZoom.isDragging = true;
+                chart.rangeZoom.draggingLeft = true;
+            } else if (Math.abs(xPos - circlePositionRight) < 10) {
+                chart.rangeZoom.isDragging = true;
+                chart.rangeZoom.draggingRight = true;
+            }
+        });
+
+        canvas.addEventListener('mouseup', (e) => {
+            const {min, max} = chart.scales.x;
+            chart.rangeZoom.isDragging = false;
+            chart.rangeZoom.draggingLeft = false;
+            chart.rangeZoom.draggingRight = false;
+            chart.options.scales.x.min = chart.rangeZoom.rangeMin !== undefined ? chart.rangeZoom.rangeMin : min;
+            chart.options.scales.x.max = chart.rangeZoom.rangeMax !== undefined ? chart.rangeZoom.rangeMax : max;
+        });
     },
     afterDatasetsDraw(chart, args, plugins) {
         const {ctx, chartArea: {left, top, bottom, right, width}} = chart;
@@ -266,7 +290,8 @@ export const rangeZoomPlugin = {
                 left, top, right, bottom, width
             }
         } = chart;
-        chart.data.datasets[0].barPercentage = Math.max((chart.boxes[3].max - chart.boxes[3].min)/ 1500, 1)
+        chart.data.datasets[0].barPercentage = getBarPercentage(false, (chart.boxes[3].max - chart.boxes[3].min))
+            // Math.max((chart.boxes[3].max - chart.boxes[3].min)/ 500, 1)
 
         if (labels.length > 0 && !isDragging) {
             const valMin = (circlePositionLeft - left) / width * (labels.length - 1);
@@ -277,9 +302,10 @@ export const rangeZoomPlugin = {
             chart.rangeZoom.circlePositionLeft = chart.rangeZoom.rangeMin / (labels.length - 1) * width + left;
             chart.rangeZoom.circlePositionRight = chart.rangeZoom.rangeMax / (labels.length - 1) * width + left;
         }
-
-        chart.options.scales.x.min = chart.rangeZoom.rangeMin !== undefined ? chart.rangeZoom.rangeMin : min;
-        chart.options.scales.x.max = chart.rangeZoom.rangeMax !== undefined ? chart.rangeZoom.rangeMax : max;
+        if (!isDragging) {
+            chart.options.scales.x.min = chart.rangeZoom.rangeMin !== undefined ? chart.rangeZoom.rangeMin : min;
+            chart.options.scales.x.max = chart.rangeZoom.rangeMax !== undefined ? chart.rangeZoom.rangeMax : max;
+        }
     },
     afterEvent(chart, args, plugins) {
         const { isDragging, draggingRight, draggingLeft, circlePositionRight, circlePositionLeft} = chart.rangeZoom
@@ -290,30 +316,22 @@ export const rangeZoomPlugin = {
             }
         } = chart;
 
-        canvas.addEventListener('mousedown', (e) => {
-            const xPos = e.clientX - canvas.getBoundingClientRect().left;
-            if (Math.abs(xPos - circlePositionLeft) < 10) {
-                chart.rangeZoom.isDragging = true;
-                chart.rangeZoom.draggingLeft = true;
-            } else if (Math.abs(xPos - circlePositionRight) < 10) {
-                chart.rangeZoom.isDragging = true;
-                chart.rangeZoom.draggingRight = true;
-            }
-        });
-
-        canvas.addEventListener('mouseup', (e) => {
+        if (args.event.type === 'click') {
             chart.rangeZoom.isDragging = false;
             chart.rangeZoom.draggingLeft = false;
             chart.rangeZoom.draggingRight = false;
-        });
+            chart.update();
+        }
 
         if (args.event.type === 'mouseout') {
             chart.rangeZoom.isDragging = false;
             chart.rangeZoom.draggingLeft = false;
             chart.rangeZoom.draggingRight = false;
+            chart.update();
         }
 
         if (args.event.type === 'mousemove' && isDragging) {
+            console.log('mousemove')
             const xPos = args.event.x;
             const yPos = args.event.y;
 
@@ -333,7 +351,6 @@ export const rangeZoomPlugin = {
             const valMax = (chart.rangeZoom.circlePositionRight - left) / width * (labels.length - 1);
             chart.rangeZoom.rangeMin = Math.max(0, Math.min(valMin, valMax));
             chart.rangeZoom.rangeMax = Math.min(labels.length - 1, Math.max(valMin, valMax));
-
             args.changed = true;
             chart.update();
         }
