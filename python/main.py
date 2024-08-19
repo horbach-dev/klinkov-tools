@@ -25,7 +25,7 @@ def generate_liquidation_maps(current_date, exchange):
         mapping.liquidation_map_depth_from_historical(
             mode="top_n",
             path=f"result/{period['path']}/{exchange}",
-            threshold_top_n=25,
+            threshold_top_n=33,
             threshold_portion=0.0001,
         )
 

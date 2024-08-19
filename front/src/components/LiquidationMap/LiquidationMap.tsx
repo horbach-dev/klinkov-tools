@@ -35,13 +35,9 @@ const LiquidationMap = () => {
     const chartRef = useRef<HTMLCanvasElement>()
     const chartInstance = useRef<Chart>()
     const [tenData, setTenData] = useState([])
-    // const [tenBuy, setTenBuy] = useState([])
     const [twentyFiveData, setTwentyFiveData] = useState([])
-    // const [twentyFiveBuy, setTwentyFiveBuy] = useState([])
     const [fiftyData, setFiftyData] = useState([])
-    // const [fiftyBuy, setFiftyBuy] = useState([])
     const [hundredData, setHundredData] = useState([])
-    // const [hundredBuy, setHundredBuy] = useState([])
     const [labelsData, setLabelsData] = useState([])
     const [barData, setBarData] = useState([])
     const [barColors, setBarColors] = useState([])
@@ -57,7 +53,7 @@ const LiquidationMap = () => {
     const [lineBuyActive, setLineBuyActive] = useState(true)
     const [lineSellActive, setLineSellActive] = useState(true)
     const [period, setPeriod] = useState('day')
-    const [status, setStatus] = useState('top_n_25')
+    const [status, setStatus] = useState('top_n_33')
     const [platform, setPlatform] = useState('binance')
     const [isLoader, setLoader] = useState(true)
     const [range, setRange] = useState([0, 0])
@@ -82,11 +78,13 @@ const LiquidationMap = () => {
               .then(setParsedData).catch(e => []),
             client.get(`/liquidation/${period}/${platform}/BTCUSDT_${status}_depth_100x_Leveraged_buy.csv`)
               .then(setParsedData).catch(e => []),
-            client.get(`/liquidation/${period}/${platform}/BTCUSDT_${status}_depth_current_price.txt`)
-              .then(res => res.data).catch(e => 0),
+            client.get(`/get-coin?range=1H&id=1`),
         ]).then(([tenSell, tenBuy, twentyFiveSell, twentyFiveBuy, fiftySell, fiftyBuy, hundredSell, hundredBuy, currentPrice]) => {
             console.log('data installed')
-            setCurrentPrice(parseInt(currentPrice))
+            const keys = Object.keys(currentPrice.data.data);
+            const price = currentPrice.data.data[keys[keys.length - 1]].v[0]
+            console.log(price)
+            setCurrentPrice(parseInt(price))
             const tenData = [...tenBuy, ...tenSell].map(item => [...item, '10']).filter(item => item[0])
             const twentyFiveData = [...twentyFiveBuy, ...twentyFiveSell].map(item => [...item, '25']).filter(item => item[0])
             const fiftyData = [...fiftyBuy, ...fiftySell].map(item => [...item, '50']).filter(item => item[0])
@@ -103,11 +101,11 @@ const LiquidationMap = () => {
             const labelsData: number[] = [...tenData, ...twentyFiveData, ...fiftyData, ...hundredData].map(item => item[1])
 
             const labels = createArrayBetweenNumbers(
-              Number(Math.min(...labelsData.filter(item => item))),
-              Number(Math.max(...labelsData.filter(item => item))),
+              Math.min(Number(Math.min(...labelsData.filter(item => item))), price),
+              Math.max(Number(Math.max(...labelsData.filter(item => item))), price),
             )
 
-            setCurrentPriceIndex(labels.findIndex(item => item === parseInt(currentPrice)))
+            setCurrentPriceIndex(labels.findIndex(item => item === parseInt(price)))
 
             const tenValuesWithLeverage = compareArraysForBar(labels, [...tenData, ...twentyFiveData, ...fiftyData, ...hundredData])
             const dataColors = tenValuesWithLeverage.map(item => {
@@ -419,6 +417,7 @@ const LiquidationMap = () => {
                                 onZoom: ({ chart }) => {
                                     chart.data.datasets[0].barPercentage =
                                         getBarPercentage(isMobile, (chart.boxes[3].max - chart.boxes[3].min))
+                                    setRange([chart.boxes[3].min, chart.boxes[3].max])
                                       //   !isMobile ?
                                       // Math.max((chart.boxes[3].max - chart.boxes[3].min)/ 500, 1):
                                       // Math.max((chart.boxes[3].max - chart.boxes[3].min)/ 1500, 5)
@@ -477,11 +476,14 @@ const LiquidationMap = () => {
                       <canvas ref={chartRef} />
                   </div>
                   {
-                      !isLoader && <div>
+                      !isLoader && <div style={{
+                          paddingBottom: 10
+                      }}>
                           <RangeSlider
                               min={0}
                               max={labelsData.length}
                               step={1}
+                              range={range}
                               onChange={(item) => setRange(item)}
                           />
                       </div>
