@@ -2,14 +2,14 @@ import React, {useEffect, useState} from 'react';
 import './RangeSlider.css';
 import {useDebounceValue} from "$hooks/useDebounce";
 
-const RangeSlider = ({ min, max, step, onChange }) => {
+const RangeSlider = ({ min, max, step, onChange, range }) => {
     if (max === 0) return <></>
-    const [range, setRange] = useState([min, max]);
-    const value = useDebounceValue(range, 500);
+    const [rangeLocal, setRange] = useState(range);
+    const value = useDebounceValue(rangeLocal, 500);
 
     const handleMinChange = (index, event) => {
         const min = parseInt(event.target.value)
-        const max = range[1]
+        const max = rangeLocal[1]
         if ((max - min) < 100) {
             return
         }
@@ -17,7 +17,7 @@ const RangeSlider = ({ min, max, step, onChange }) => {
     };
 
     const handleMaxChange = (index, event) => {
-        const min = range[0]
+        const min = rangeLocal[0]
         const max = parseInt(event.target.value)
         if ((max - min) < 100) {
             return
@@ -29,6 +29,10 @@ const RangeSlider = ({ min, max, step, onChange }) => {
         onChange(value)
     }, [value]);
 
+    useEffect(() => {
+        setRange(range)
+    }, [range]);
+
     return (
         <div className="range-slider">
             <input
@@ -36,7 +40,7 @@ const RangeSlider = ({ min, max, step, onChange }) => {
                 min={min}
                 max={max}
                 step={step}
-                value={range[0]}
+                value={rangeLocal[0]}
                 onChange={(e) => handleMinChange(0, e)}
                 className="thumb thumb-left"
             />
@@ -45,7 +49,7 @@ const RangeSlider = ({ min, max, step, onChange }) => {
                 min={min}
                 max={max}
                 step={step}
-                value={range[1]}
+                value={rangeLocal[1]}
                 onChange={(e) => handleMaxChange(1, e)}
                 className="thumb thumb-right"
             />

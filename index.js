@@ -5,9 +5,10 @@ let app = require("./src/server")
 const path = require('path')
 const express = require("express");
 const {getChannelMessages} = require("./src/bootTGBot");
+const initCron = require("./src/cron/python-cron");
 
 const PORT = process.env.PORT || 3005
-
+initCron()
 server.on("request", app)
 
 // app.use(express.static(path.join(__dirname, "./front/dist"), {
