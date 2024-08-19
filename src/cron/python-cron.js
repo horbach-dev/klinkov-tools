@@ -16,9 +16,9 @@ const execLogger = (error, stdout, stderr) => {
 
 const initCron = () => {
     cron.schedule('0 3 * * *', () => {
-        exec('bash ./python/start.sh', execLogger);
+        exec('bash ./startPythonScript.sh', execLogger);
     });
-    exec('bash ./python/start.sh', execLogger);
+    exec('bash ./startPythonScript.sh', execLogger);
     console.log('Cron job установлен, выполнение каждый день в 3:00.');
 }
 
