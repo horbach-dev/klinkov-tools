@@ -1,3 +1,4 @@
-source ./python/myenv/bin/activate
-python3 ./python/main.py
+cd ./python
+source myenv/bin/activate
+python3 main.py
 deactivate
