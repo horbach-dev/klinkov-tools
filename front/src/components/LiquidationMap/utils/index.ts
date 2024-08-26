@@ -1,6 +1,8 @@
 import {parse} from "papaparse";
 
-export const createArrayBetweenNumbers = (start, end) => Array.from({ length: (end - start)/1 }, (_, i) => start + i*1)
+export const createArrayBetweenNumbers = (start, end) => {
+    return Array.from({ length: (parseInt(end) - parseInt(start))/1 }, (_, i) => start + i)
+}
 
 export const compareArraysForBar = (arr1, arr2) =>
     arr1.map(num => {

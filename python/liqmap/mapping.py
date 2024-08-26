@@ -593,40 +593,40 @@ class HistoricalMapping:
             df_losscut_100x,
         ]
         labels = ["10x Leveraged", "25x Leveraged", "50x Leveraged", "100x Leveraged"]
-        colors = ["r", "g", "b", "y"]
-        tick_degits = 2 - math.ceil(
-            math.log10(df_merged["price"].max() - df_merged["price"].min())
-        )
+        # colors = ["r", "g", "b", "y"]
+        # tick_degits = 2 - math.ceil(
+        #     math.log10(df_merged["price"].max() - df_merged["price"].min())
+        # )
         max_amount = 0
-        for i, df_losscut in enumerate(df_losscut_list):
-            df_losscut = df_losscut[df_losscut["price"] <= current_price]
-            g_ids = int(
-                (
-                        round(df_losscut["price"].max(), tick_degits)
-                        - round(df_losscut["price"].min(), tick_degits)
-                )
-                * 10 ** tick_degits
-            )
-            bins = [
-                round(
-                    round(df_losscut["price"].min(), tick_degits)
-                    + i * 10 ** -tick_degits,
-                    tick_degits,
-                )
-                for i in range(g_ids)
-            ]
-            df_losscut["group_id"] = pd.cut(df_losscut["price"], bins=bins)
-            agg_df = df_losscut.groupby("group_id").sum()
-            ax2.bar(
-                x=[f.left for f in agg_df.index],
-                height=agg_df["amount"],
-                width=10 ** -tick_degits,
-                color=colors[i],
-                label=labels[i],
-                alpha=0.5,
-            )
-            if agg_df["amount"].max() > max_amount:
-                max_amount = agg_df["amount"].max()
+        # for i, df_losscut in enumerate(df_losscut_list):
+        #     df_losscut = df_losscut[df_losscut["price"] <= current_price]
+        #     g_ids = int(
+        #         (
+        #                 round(df_losscut["price"].max(), tick_degits)
+        #                 - round(df_losscut["price"].min(), tick_degits)
+        #         )
+        #         * 10 ** tick_degits
+        #     )
+        #     bins = [
+        #         round(
+        #             round(df_losscut["price"].min(), tick_degits)
+        #             + i * 10 ** -tick_degits,
+        #             tick_degits,
+        #         )
+        #         for i in range(g_ids)
+        #     ]
+        #     df_losscut["group_id"] = pd.cut(df_losscut["price"], bins=bins)
+        #     agg_df = df_losscut.groupby("group_id").sum()
+        #     ax2.bar(
+        #         x=[f.left for f in agg_df.index],
+        #         height=agg_df["amount"],
+        #         width=10 ** -tick_degits,
+        #         color=colors[i],
+        #         label=labels[i],
+        #         alpha=0.5,
+        #     )
+        #     if agg_df["amount"].max() > max_amount:
+        #         max_amount = agg_df["amount"].max()
 
         # Save liquidation map data as csv
         save_title = f"{self._symbol}"

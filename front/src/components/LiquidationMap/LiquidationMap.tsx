@@ -25,7 +25,10 @@ import RangeSlider from "$components/LiquidationMap/components/RangeSlider/Range
 
 export const getBarPercentage = (isMobile, labelsLength) =>  isMobile ?
     Math.max(labelsLength / 200, 5):
-    Math.max(labelsLength / 1000, 1)
+    Math.max(labelsLength / 700, 1)
+
+const filterSell = (data, price) => data.filter(item => item[1] > price + 650)
+const filterBuy = (data, price) => data.filter(item => item[1] < price - 340)
 
 const LiquidationMap = () => {
     const { innerWidth } = useWindowSizeListener()
@@ -53,7 +56,7 @@ const LiquidationMap = () => {
     const [lineBuyActive, setLineBuyActive] = useState(true)
     const [lineSellActive, setLineSellActive] = useState(true)
     const [period, setPeriod] = useState('day')
-    const [status, setStatus] = useState('top_n_33')
+    const [status, setStatus] = useState('top_n_100')
     const [platform, setPlatform] = useState('binance')
     const [isLoader, setLoader] = useState(true)
     const [range, setRange] = useState([0, 0])
@@ -79,16 +82,30 @@ const LiquidationMap = () => {
             client.get(`/liquidation/${period}/${platform}/BTCUSDT_${status}_depth_100x_Leveraged_buy.csv`)
               .then(setParsedData).catch(e => []),
             client.get(`/get-coin?range=1H&id=1`),
-        ]).then(([tenSell, tenBuy, twentyFiveSell, twentyFiveBuy, fiftySell, fiftyBuy, hundredSell, hundredBuy, currentPrice]) => {
+            client.get(`/liquidation/${period}/${platform}/BTCUSDT_${status}_depth_current_price.txt`)
+                .then(res => res.data).catch(e => 0),
+        ]).then(([tenSell, tenBuy, twentyFiveSell, twentyFiveBuy, fiftySell, fiftyBuy, hundredSell, hundredBuy, currentPrice, processPrice]) => {
             console.log('data installed')
             const keys = Object.keys(currentPrice.data.data);
-            const price = currentPrice.data.data[keys[keys.length - 1]].v[0]
-            console.log(price)
+            // const price = currentPrice.data.data[keys[keys.length - 1]].v[0]
+            const price = parseInt(Number(processPrice))
             setCurrentPrice(parseInt(price))
-            const tenData = [...tenBuy, ...tenSell].map(item => [...item, '10']).filter(item => item[0])
-            const twentyFiveData = [...twentyFiveBuy, ...twentyFiveSell].map(item => [...item, '25']).filter(item => item[0])
-            const fiftyData = [...fiftyBuy, ...fiftySell].map(item => [...item, '50']).filter(item => item[0])
-            const hundredData = [...hundredBuy, ...hundredSell].map(item => [...item, '100']).filter(item => item[0])
+
+            console.log(tenSell)
+
+            tenSell = filterSell(tenSell, price)
+            tenBuy = filterBuy(tenBuy, price)
+            twentyFiveSell = filterSell(twentyFiveSell, price)
+            twentyFiveBuy = filterBuy(twentyFiveBuy, price)
+            fiftySell = filterSell(fiftySell, price)
+            fiftyBuy = filterBuy(fiftyBuy, price)
+            hundredSell = filterSell(hundredSell, price)
+            hundredBuy = filterBuy(hundredBuy, price)
+
+            const tenData = [...tenBuy, ...tenSell].map(item => [...item, '10']).filter(item => item[1])
+            const twentyFiveData = [...twentyFiveBuy, ...twentyFiveSell].map(item => [...item, '25']).filter(item => item[1])
+            const fiftyData = [...fiftyBuy, ...fiftySell].map(item => [...item, '50']).filter(item => item[1])
+            const hundredData = [...hundredBuy, ...hundredSell].map(item => [...item, '100']).filter(item => item[1])
 
             setTenData(tenData)
             setTwentyFiveData(twentyFiveData)
@@ -104,6 +121,8 @@ const LiquidationMap = () => {
               Math.min(Number(Math.min(...labelsData.filter(item => item))), price),
               Math.max(Number(Math.max(...labelsData.filter(item => item))), price),
             )
+
+            console.log(labels)
 
             setCurrentPriceIndex(labels.findIndex(item => item === parseInt(price)))
 
@@ -204,15 +223,6 @@ const LiquidationMap = () => {
                     // labels: [1,2,3,4,5,6,7,8,9,0],
                     datasets: [
                         {
-                            type: 'bar',
-                            label: 'bar',
-                            data: barData,
-                            barPercentage,
-                            backgroundColor: barColors,
-                            pointRadius: 0,
-                            yAxisID: 'y',
-                        },
-                        {
                             hidden: (!lineSellActive && !lineBuyActive),
                             type: 'line',
                             label: 'line',
@@ -233,6 +243,16 @@ const LiquidationMap = () => {
                                 }
                             },
                         },
+                        {
+                            type: 'bar',
+                            label: 'bar',
+                            data: barData,
+                            barPercentage,
+                            backgroundColor: barColors,
+                            pointRadius: 0,
+                            yAxisID: 'y',
+                        },
+
                     ]
                 },
                 plugins: [
@@ -313,6 +333,8 @@ const LiquidationMap = () => {
                             enabled: false,
                             external: function(context) {
                                 const chart = context.chart
+                                const chartBarData = chart.data.datasets.find(item => item.type === 'bar').data
+
                                 const { scales, crosshair: {x, y, label} } = chart
                                 const xValue = scales.x.getValueForPixel(x);
                                 let tooltipEl = document.getElementById('chartjs-tooltip');
@@ -354,7 +376,7 @@ const LiquidationMap = () => {
 
                                     bodyLines.reverse().forEach(function(body, i) {
                                         if (body.includes('bar')) {
-                                            const dataValue = barData[xValue]?.toString()
+                                            const dataValue = chartBarData[xValue]?.toString()
                                             const dataColor = barColors[xValue]?.toString()
 
                                             let leverage = ''
@@ -378,7 +400,7 @@ const LiquidationMap = () => {
                                             if (dataValue) innerHtml += `<div>${span}${leverage}X Leverage ${formatNumber(Number(dataValue))}</div>`
                                         }
                                         if (body.includes('line')) {
-                                            const data = body.substring(5, body.length).split(' ').join('')
+                                            const data = body.replace(/\D/g, '')
 
                                             let style = ''
                                             let text = ''
@@ -390,6 +412,7 @@ const LiquidationMap = () => {
                                                 style = 'background:' + 'rgba(255, 103, 86, 1)';
                                             }
                                             const span = '<span style="' + style + '; display:inline-block; width:16px; height:16px; border-radius:50%; margin-right:10px;"></span>';
+                                            console.log(data)
                                             innerHtml += '<div>' + span + text + formatNumber(Number(data)) + '</div>';
                                         }
                                     });
@@ -440,7 +463,7 @@ const LiquidationMap = () => {
                 },
             })
         }
-    }, [barData, barColors, labelsData, lineData, isMobile, isTablet, range])
+    }, [isLoader, isMobile, isTablet, range])
 
     return (
       <div className='liquidation-map'>

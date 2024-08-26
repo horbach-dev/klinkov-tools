@@ -25,12 +25,14 @@ def generate_liquidation_maps(current_date, exchange):
         mapping.liquidation_map_depth_from_historical(
             mode="top_n",
             path=f"result/{period['path']}/{exchange}",
-            threshold_top_n=33,
+            threshold_top_n=100,
             threshold_portion=0.0001,
+            threshold_gross_value=1000000,
         )
 
 current_date = datetime.now()
 exchanges = ['binance', 'bybit']
+# exchanges = ['binance']
 
 for exchange in exchanges:
     generate_liquidation_maps(current_date, exchange)
